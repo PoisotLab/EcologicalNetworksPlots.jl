@@ -1,5 +1,13 @@
 module EcologicalNetworksPlots
 
-greet() = print("Hello World!")
+using EcologicalNetworks
+using Plots
+
+include(joinpath(".", "types.jl"))
+export NodePosition
+
+include(joinpath(".", "forcedirected.jl"))
+
+include(joinpath(".", "plot.jl"))
 
 end # module
