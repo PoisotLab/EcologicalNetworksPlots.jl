@@ -43,7 +43,7 @@ end
 """
 One iteration of the force-directed layout routine
 """
-function forcedirectedlayout!(N::T, pos::K; k::Float64=0.2) where {T <: EcologicalNetworks.AbstractEcologicalNetwork, K <:EcologicalNetworks.AllowedSpeciesTypes}
+function forcedirectedlayout!(N::T, pos::Dict{K,NodePosition}; k::Float64=0.2) where {T <: EcologicalNetworks.AbstractEcologicalNetwork, K <:EcologicalNetworks.AllowedSpeciesTypes}
   fa(x) = (x*x)/k # Default attraction function
   fr(x) = (k*k)/x # Default repulsion function
   for (i, s1) in enumerate(species(N))
