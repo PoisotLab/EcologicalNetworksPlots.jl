@@ -4,8 +4,6 @@ N = nz_stream_foodweb()[1]
 I0 = initial_forcedirectedlayout(N)
 forcedirectedlayout!(N, I0)
 
-scatter([v.x for (k,v) in I0])
-
 @recipe function f(N::T, L::Dict{K,NodePosition}) where {T <: AbstractEcologicalNetwork, K <: AllowedSpeciesTypes}
 
     # Node positions
@@ -18,6 +16,3 @@ scatter([v.x for (k,v) in I0])
     end
 
 end
-
-
-plot(N, I0)
