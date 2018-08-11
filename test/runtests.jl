@@ -1,5 +1,8 @@
 # Force directed layout -- attempt 1
 
+using EcologicalNetworks
+using EcologicalNetworksPlots
+
 N = nz_stream_foodweb()[1]
 I0 = initial_forcedirectedlayout(N)
 forcedirectedlayout!(N, I0)
