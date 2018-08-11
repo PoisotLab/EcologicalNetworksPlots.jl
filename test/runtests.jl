@@ -91,10 +91,10 @@ plot(N, I0, degree, msc=:teal, mc=:white, lc=:teal, msw=4, size=(2000,2000))
 N = nz_stream_foodweb()[1:3]
 U = simplify(reduce(union, N))
 I0 = EcologicalNetworksPlots.initial_forcedirectedlayout(U)
-[EcologicalNetworksPlots.forcedirectedlayout!(U, I0) for i in 1:2600]
+[EcologicalNetworksPlots.forcedirectedlayout!(U, I0; k=5.0) for i in 1:2600]
 
-xl = (-1,2.5)
-yl = (-1,2)
+xl = (-30,30)
+yl = (-30,30)
 pn0 = plot(U, I0, msc=:black, lc=:black)
 pn1 = plot(simplify(N[1]), I0, msc=:orange, lc=:orange)
 pn2 = plot(simplify(N[2]), I0, msc=:purple, lc=:purple)
