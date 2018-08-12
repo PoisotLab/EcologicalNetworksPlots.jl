@@ -37,4 +37,4 @@ plot(U, L; nodesize=degree(K), nodefill=Npart[2], markercolor=:isolum)
 
 #### Example output
 
-![fdfd](dfghjkl)
+![Example output](https://raw.githubusercontent.com/PoisotLab/EcologicalNetworksPlots.jl/master/network.png)
