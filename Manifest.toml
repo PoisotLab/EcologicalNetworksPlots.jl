@@ -136,10 +136,8 @@ version = "0.5.1"
 [[Plots]]
 deps = ["Base64", "Contour", "Dates", "FixedPointNumbers", "GR", "JSON", "LinearAlgebra", "Measures", "NaNMath", "Pkg", "PlotThemes", "PlotUtils", "Printf", "REPL", "RecipesBase", "Reexport", "Requires", "Showoff", "StaticArrays", "Statistics", "StatsBase", "Test", "UUIDs"]
 git-tree-sha1 = "42d945d26a67f671d78b73432802d7b9ca2ae454"
-repo-rev = "master"
-repo-url = "https://github.com/JuliaPlots/Plots.jl.git"
 uuid = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
-version = "0.18.0+"
+version = "0.19.0"
 
 [[Polynomials]]
 deps = ["LinearAlgebra", "SparseArrays", "Test"]
