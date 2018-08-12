@@ -2,106 +2,75 @@
 
 using EcologicalNetworks
 using EcologicalNetworksPlots
+using Plots
+using RecipesBase
 
-N = simplify(nz_stream_foodweb()[1])
-I0 = EcologicalNetworksPlots.initial_forcedirectedlayout(N)
-[EcologicalNetworksPlots.forcedirectedlayout!(N, I0) for i in 1:600]
-
-@recipe function f(N::T, L::Dict{K,NodePosition}) where {T <: AbstractEcologicalNetwork, K <: AllowedSpeciesTypes}
+@recipe function f(network::T, layout::Dict{K,NodePosition}; nodesize::Union{Dict{K,Any},Nothing}=nothing, nodefill::Union{Function,Nothing}=nothing) where {T <: AbstractEcologicalNetwork, K <: AllowedSpeciesTypes}
 
     # Node positions
-    X = [L[s].x for s in species(N)]
-    Y = [L[s].y for s in species(N)]
+    X = [layout[s].x for s in species(network)]
+    Y = [layout[s].y for s in species(network)]
 
-    @info X
-    @info Y
-
+    # Default values
     framestyle --> :none
     legend --> false
-    markersize --> 10
-
-    for int in N
-        y = [L[int.from].y, L[int.to].y]
-        x = [L[int.from].x, L[int.to].x]
-        @series begin
-            seriestype := :line
-            linecolor --> :darkgrey
-            x, y
-        end
-    end
-
-    @series begin
-        seriestype := :scatter
-        color --> :white
-        X, Y
-    end
-
-end
-
-@recipe function f(N::T, L::Dict{K,NodePosition}, f::Function) where {T <: AbstractEcologicalNetwork, K <: AllowedSpeciesTypes}
-
-    # Node positions
-    X = [L[s].x for s in species(N)]
-    Y = [L[s].y for s in species(N)]
-
-    @info X
-    @info Y
-
-    framestyle --> :none
-    legend --> false
-    markersize --> 10
     aspectratio --> 1
 
-    if typeof(N) <: QuantitativeNetwork
-        str_max = maximum(N.A)
-        str_min = minimum(filter(x -> x > 0.0, N.A))
+    if typeof(network) <: QuantitativeNetwork
+        int_range = (minimum(filter(x -> x > 0.0, network.A)), maximum(network.A))
     end
 
-    for int in N
-        y = [L[int.from].y, L[int.to].y]
-        x = [L[int.from].x, L[int.to].x]
+    for interaction in network
+        y = [layout[interaction.from].y, layout[interaction.to].y]
+        x = [layout[interaction.from].x, layout[interaction.to].x]
         @series begin
             seriestype := :line
             linecolor --> :darkgrey
-            if typeof(N) <: QuantitativeNetwork
-                linewidth --> 2.0+((int.strength / str_max)-(str_min/str_max))*3.0
+            if typeof(network) <: QuantitativeNetwork
+                linewidth --> EcologicalNetworksPlots.scale_value(interaction.strength, int_range, (0.5, 3.5))
             end
-            if typeof(N) <: ProbabilisticNetwork
-                alpha --> int.probability
+            if typeof(network) <: ProbabilisticNetwork
+                alpha --> interaction.probability
             end
-            linewidth --> 3
             x, y
         end
     end
 
-    ms = [f(N)[s] for s in species(N)]
 
     @series begin
+
+        if nodesize !== nothing
+            nsi_range = (minimum(values(nodesize)), maximum(values(nodesize)))
+            markersize := [EcologicalNetworksPlots.scale_value(nodesize[s], nsi_range, (2,8)) for s in species(network)]
+        end
+
+        if nodefill !== nothing
+            nfi_range = (minimum(values(nodefill)), maximum(values(nodefill)))
+            markerz := [EcologicalNetworksPlots.scale_value(nodefill[s], nfi_range, (0,1)) for s in species(network)]
+        end
+
         seriestype := :scatter
         color --> :white
-        markersize := ms
         X, Y
     end
 
 end
 
-plot(N, I0)
-plot(N, I0, degree, msc=:teal, mc=:white, lc=:teal, msw=4, size=(2000,2000))
-
-N = nz_stream_foodweb()[1:3]
-U = simplify(reduce(union, N))
+U = web_of_life("A_HP_010")
+K = convert(BinaryNetwork, U)
+P = null2(K)
 I0 = EcologicalNetworksPlots.initial_forcedirectedlayout(U)
-[EcologicalNetworksPlots.forcedirectedlayout!(U, I0; k=5.0) for i in 1:2600]
+[EcologicalNetworksPlots.forcedirectedlayout!(U, I0) for i in 1:600]
 
-xl = (-30,30)
-yl = (-30,30)
-pn0 = plot(U, I0, msc=:black, lc=:black)
-pn1 = plot(simplify(N[1]), I0, msc=:orange, lc=:orange)
-pn2 = plot(simplify(N[2]), I0, msc=:purple, lc=:purple)
-pn3 = plot(simplify(N[3]), I0, msc=:blue, lc=:blue)
-for p in [pn0, pn1, pn2, pn3]
-    xaxis!(p, xl)
-    yaxis!(p, yl)
-end
+Npart = N |> lp |> (x) -> brim(x...)
 
-plot(pn0, pn1, pn2, pn3, ms=3, frame=:none)
+plot(U, I0; nodesize=degree(K), nodefill=Npart[2], markercolor=:isolum, size=(500,500))
+savefig("network.png")
+plot(U, I0; nodesize=degree(K), markercolor=:isolum)
+plot(U, I0)
+
+
+
+plot(U, I0, degree, msc=:teal, mc=:white, lc=:teal)
+plot(N, I0, degree, msc=:teal, mc=:white, lc=:teal)
+plot(P, I0, degree, msc=:teal, mc=:white, lc=:teal)

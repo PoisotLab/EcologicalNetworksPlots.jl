@@ -4,6 +4,8 @@ using EcologicalNetworks
 using Plots
 using RecipesBase
 
+include(joinpath(".", "utilities.jl"))
+
 include(joinpath(".", "types.jl"))
 export NodePosition
 
