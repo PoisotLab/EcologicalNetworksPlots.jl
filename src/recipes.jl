@@ -1,4 +1,4 @@
-@recipe function f(network::T, layout::Dict{K,NodePosition}; nodesize::Union{Dict{K,Any},Nothing}=nothing, nodefill::Union{Function,Nothing}=nothing) where {T <: AbstractEcologicalNetwork, K <: AllowedSpeciesTypes}
+@recipe function f(network::T, layout::Dict{K,NodePosition}; nodesize::Union{Dict{K,Any},Nothing}=nothing, nodefill::Union{Function,Nothing}=nothing, bipartite::Bool=false) where {T <: AbstractEcologicalNetwork, K <: AllowedSpeciesTypes}
 
     # Node positions
     X = [layout[s].x for s in species(network)]
@@ -40,6 +40,15 @@
         if nodefill !== nothing
             nfi_range = (minimum(values(nodefill)), maximum(values(nodefill)))
             markerz := [EcologicalNetworksPlots.scale_value(nodefill[s], nfi_range, (0,1)) for s in species(network)]
+        end
+
+        if bipartite
+            m_shape = Symbol[]
+            for (i, s) in enumerate(species(network))
+                this_mshape = s ∈ species(network; dims=1) ? :circle : :square
+                push!(m_shape, this_mshape)
+            end
+            marker := m_shape
         end
 
         seriestype := :scatter

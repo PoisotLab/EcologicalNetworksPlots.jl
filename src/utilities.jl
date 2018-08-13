@@ -20,3 +20,9 @@ function finish_layout!(L; link=false)
         L[k].y = EcologicalNetworksPlots.scale_value(L[k].y, range_y, (-1,1))
     end
 end
+
+function spread_levels!(L; ratio::Float64=1.0)
+    for s in keys(L)
+        L[s].y *= ratio
+    end
+end
