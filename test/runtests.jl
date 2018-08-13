@@ -3,7 +3,6 @@
 using EcologicalNetworks
 using EcologicalNetworksPlots
 using Plots
-using RecipesBase
 
 
 U = web_of_life("A_HP_001")
