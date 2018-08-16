@@ -44,7 +44,7 @@ N = first(nz_stream_foodweb())
 I2 = initial_foodweb_layout(N)
 [foodweb_layout!(N, I2) for i in 1:2600]
 EcologicalNetworksPlots.finish_layout!(I2)
-EcologicalNetworksPlots.spread_levels!(I2; ratio=0.4)
+EcologicalNetworksPlots.spread_levels!(I2; ratio=0.75)
 p7 = plot(N, I2)
 savefig(p7, joinpath("..", "gallery", "foodweb.png"))
 

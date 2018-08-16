@@ -83,7 +83,7 @@ function general_forcedirected_layout!(N::T, pos::Dict{K,NodePosition}; k::Float
 
   if center
     for s in species(N)
-      attract(pos[s], NodePosition(0.0, 0.0, 0.0, 0.0), fa)
+      attract(pos[s], NodePosition(0.0, 0.0, 0.0, 0.0), (x) -> 0.8*fa(x))
     end
   end
 
