@@ -7,7 +7,6 @@
     # Default values
     framestyle --> :none
     legend --> false
-    aspectratio --> 1
 
     if typeof(network) <: QuantitativeNetwork
         int_range = (minimum(filter(x -> x > 0.0, network.A)), maximum(network.A))

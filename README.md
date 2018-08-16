@@ -60,6 +60,12 @@ EcologicalNetworksPlots.finish_layout!(I0)
 p1 = plot(U, I0)
 ```
 
-#### Example output
+#### Example outputs
 
 ![Example output](https://raw.githubusercontent.com/PoisotLab/EcologicalNetworksPlots.jl/master/gallery/overlays.png)
+
+![Example output](https://raw.githubusercontent.com/PoisotLab/EcologicalNetworksPlots.jl/master/gallery/annotate.png)
+
+![Example output](https://raw.githubusercontent.com/PoisotLab/EcologicalNetworksPlots.jl/master/gallery/foodweb_graph.png)
+
+![Example output](https://raw.githubusercontent.com/PoisotLab/EcologicalNetworksPlots.jl/master/gallery/graph_modular_bipartite.png)
