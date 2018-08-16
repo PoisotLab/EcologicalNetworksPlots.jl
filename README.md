@@ -22,4 +22,4 @@ p1 = plot(K, I0)
 
 #### Example output
 
-![Example output](https://raw.githubusercontent.com/PoisotLab/EcologicalNetworksPlots.jl/master/gallery/graph_modular_degree_bipartite.png)
+![Example output](https://raw.githubusercontent.com/PoisotLab/EcologicalNetworksPlots.jl/master/gallery/overlays.png)
