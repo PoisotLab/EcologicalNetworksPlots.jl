@@ -1,93 +1,105 @@
 """
 Stops the movement of a node position.
 """
-function stop!(p::NodePosition)
-  p.vx = 0.0
-  p.vy = 0.0
+function stop!(n::NodePosition)
+  n.vx = 0.0
+  n.vy = 0.0
 end
 
 """
 Repel two nodes
 """
-function repel_on_both!(pos::Dict{T,NodePosition}, s1::T, s2::T, fr) where {T <: EcologicalNetworks.AllowedSpeciesTypes}
-  δx = pos[s1].x - pos[s2].x
-  δy = pos[s1].y - pos[s2].y
+function repel_on_both!(n1::NodePosition, n2::NodePosition, fr)
+  δx = n1.x - n2.x
+  δy = n1.y - n2.y
   Δ = sqrt(δx^2.0+δy^2.0)
-  pos[s1].vx = pos[s1].vx + δx/Δ*fr(Δ)
-  pos[s1].vy = pos[s1].vy + δy/Δ*fr(Δ)
+  n1.vx = n1.vx + δx/Δ*fr(Δ)
+  n1.vy = n1.vy + δy/Δ*fr(Δ)
 end
 
-function repel_on_x!(pos::Dict{T,NodePosition}, s1::T, s2::T, fr) where {T <: EcologicalNetworks.AllowedSpeciesTypes}
-  δx = pos[s1].x - pos[s2].x
+function repel_on_x!(n1::NodePosition, n2::NodePosition, fr)
+  δx = n1.x - n2.x
   Δ = sqrt(δx^2.0)
-  if pos[s1].y == pos[s2].y
-    pos[s1].vx = pos[s1].vx + δx/Δ*fr(Δ)
+  if n1.y == n2.y
+    n1.vx = n1.vx + δx/Δ*fr(Δ)
   end
 end
 
 """
 Attract two connected nodes
 """
-function attract_on_both!(pos::Dict{T,NodePosition}, s1::T, s2::T, fa) where {T <: EcologicalNetworks.AllowedSpeciesTypes}
-  δx = pos[s1].x - pos[s2].x
-  δy = pos[s1].y - pos[s2].y
+function attract_on_both!(n1::NodePosition, n2::NodePosition, fa)
+  δx = n1.x - n2.x
+  δy = n1.y - n2.y
   Δ = sqrt(δx^2.0+δy^2.0)
-  pos[s1].vx = pos[s1].vx - δx/Δ*fa(Δ)
-  pos[s1].vy = pos[s1].vy - δy/Δ*fa(Δ)
-  pos[s2].vx = pos[s2].vx + δx/Δ*fa(Δ)
-  pos[s2].vy = pos[s2].vy + δy/Δ*fa(Δ)
+  n1.vx = n1.vx - δx/Δ*fa(Δ)
+  n1.vy = n1.vy - δy/Δ*fa(Δ)
+  n2.vx = n2.vx + δx/Δ*fa(Δ)
+  n2.vy = n2.vy + δy/Δ*fa(Δ)
 end
 
 """
 Attract two connected nodes
 """
-function attract_on_x!(pos::Dict{T,NodePosition}, s1::T, s2::T, fa) where {T <: EcologicalNetworks.AllowedSpeciesTypes}
-  δx = pos[s1].x - pos[s2].x
+function attract_on_x!(n1::NodePosition, n2::NodePosition, fa)
+  δx = n1.x - n2.x
   δy = 0.0
   Δ = sqrt(δx^2.0+δy^2.0)
-  pos[s1].vx = pos[s1].vx - δx/Δ*fa(Δ)
-  pos[s2].vx = pos[s2].vx + δx/Δ*fa(Δ)
+  n1.vx = n1.vx - δx/Δ*fa(Δ)
+  n2.vx = n2.vx + δx/Δ*fa(Δ)
 end
 
 """
 Update the position of a node
 """
-function update!(pos::Dict{T,NodePosition}, s::T) where {T <: EcologicalNetworks.AllowedSpeciesTypes}
-  Δ = sqrt(pos[s].vx^2.0+pos[s].vy^2.0)
-  pos[s].x += pos[s].vx/Δ*min(Δ, 0.01)
-  pos[s].y += pos[s].vy/Δ*min(Δ, 0.01)
-  stop!(pos[s])
+function update!(n::NodePosition)
+  Δ = sqrt(n.vx^2.0+n.vy^2.0)
+  n.x += n.vx/Δ*min(Δ, 0.01)
+  n.y += n.vy/Δ*min(Δ, 0.01)
+  stop!(n)
 end
 
 """
 One iteration of the force-directed layout routine
 """
-function general_forcedirected_layout!(N::T, pos::Dict{K,NodePosition}; k::Float64=0.2, repel::Function=repel_on_both!, attract::Function=attract_on_both!) where {T <: EcologicalNetworks.AbstractEcologicalNetwork, K <:EcologicalNetworks.AllowedSpeciesTypes}
+function general_forcedirected_layout!(N::T, pos::Dict{K,NodePosition}; k::Float64=0.2, repel::Function=repel_on_both!, attract::Function=attract_on_both!, center::Bool=true) where {T <: EcologicalNetworks.AbstractEcologicalNetwork, K <:EcologicalNetworks.AllowedSpeciesTypes}
   fa(x) = (x*x)/k # Default attraction function
   fr(x) = (k*k)/x # Default repulsion function
   for (i, s1) in enumerate(species(N))
-    stop!(pos[s1])
+    n1 = pos[s1]
+    stop!(n1)
     for (j, s2) in enumerate(species(N))
+      n2 = pos[s2]
       if j != i
-        repel(pos, s1, s2, fr)
+        repel(n1, n2, fr)
       end
     end
   end
 
   for int in interactions(N)
-    s1, s2 = int.from, int.to
-    attract(pos, s1, s2, fa)
+    n1, n2 = pos[int.from], pos[int.to]
+    attract(n1, n2, fa)
+  end
+
+  if center
+    for s in species(N)
+      attract(pos[s], NodePosition(0.0, 0.0, 0.0, 0.0), fa)
+    end
   end
 
   for (i,s) in enumerate(species(N))
-    update!(pos, s)
+    update!(pos[s])
   end
 end
 
-function graph_layout!(N::T, pos::Dict{K,NodePosition}; k::Float64=0.2) where {T <: EcologicalNetworks.AbstractEcologicalNetwork, K <:EcologicalNetworks.AllowedSpeciesTypes}
-  general_forcedirected_layout!(N, pos; k=k, repel=repel_on_both!, attract=attract_on_both!)
+function graph_layout!(N::T, pos::Dict{K,NodePosition}; k::Float64=0.2, center::Bool=true) where {T <: EcologicalNetworks.AbstractEcologicalNetwork, K <:EcologicalNetworks.AllowedSpeciesTypes}
+  general_forcedirected_layout!(N, pos; k=k, repel=repel_on_both!, attract=attract_on_both!, center=center)
 end
 
-function bipartite_layout!(N::T, pos::Dict{K,NodePosition}; k::Float64=0.2) where {T <: EcologicalNetworks.AbstractBipartiteNetwork, K <:EcologicalNetworks.AllowedSpeciesTypes}
-  general_forcedirected_layout!(N, pos; k=k, repel=repel_on_x!, attract=attract_on_x!)
+function bipartite_layout!(N::T, pos::Dict{K,NodePosition}; k::Float64=0.2, center::Bool=true) where {T <: EcologicalNetworks.AbstractBipartiteNetwork, K <:EcologicalNetworks.AllowedSpeciesTypes}
+  general_forcedirected_layout!(N, pos; k=k, repel=repel_on_x!, attract=attract_on_x!, center=center)
+end
+
+function foodweb_layout!(N::T, pos::Dict{K,NodePosition}; k::Float64=0.2, center::Bool=true) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork, K <:EcologicalNetworks.AllowedSpeciesTypes}
+  general_forcedirected_layout!(N, pos; k=k, repel=repel_on_x!, attract=attract_on_x!, center=center)
 end

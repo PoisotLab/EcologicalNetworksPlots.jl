@@ -16,3 +16,15 @@ function initial_bipartite_layout(N::T) where {T <: EcologicalNetworks.AbstractB
   end
   return Dict(zip(species(N), level))
 end
+
+"""
+Random disposition of nodes on ttrophic levels for food webs
+"""
+function initial_foodweb_layout(N::T) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
+  level = NodePosition[]
+  tl = fractional_trophic_level(N)
+  for (i, s) in enumerate(species(N))
+    push!(level, NodePosition(rand(), tl[s], 0.0, 0.0))
+  end
+  return Dict(zip(species(N), level))
+end

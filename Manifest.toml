@@ -27,9 +27,9 @@ version = "1.0.1"
 
 [[Contour]]
 deps = ["LinearAlgebra", "StaticArrays", "Test"]
-git-tree-sha1 = "4e244ce551b993b721a6dbbd040b5f3d7cba0f48"
+git-tree-sha1 = "b974e164358fea753ef853ce7bad97afec15bb80"
 uuid = "d38c429a-6771-53c6-b99e-75d170b6e991"
-version = "0.5.0"
+version = "0.5.1"
 
 [[DataStructures]]
 deps = ["InteractiveUtils", "REPL", "Random", "Serialization", "Test"]
@@ -51,7 +51,7 @@ uuid = "8ba89e20-285c-5b6f-9357-94700520ee1b"
 
 [[EcologicalNetworks]]
 deps = ["Combinatorics", "DelimitedFiles", "LinearAlgebra", "Random", "StatsBase", "Test"]
-git-tree-sha1 = "d2d877065a6fce65572cc006fd085050cd0c4777"
+git-tree-sha1 = "0b301e2fe34bb598bfd96972cc722fe219357afd"
 repo-rev = "develop"
 repo-url = "https://github.com/PoisotLab/EcologicalNetworks.jl"
 uuid = "26cd3c7c-942f-11e8-1e85-357945f36438"
@@ -65,9 +65,9 @@ version = "0.5.2"
 
 [[GR]]
 deps = ["Base64", "DelimitedFiles", "Random", "Serialization", "Sockets", "Test"]
-git-tree-sha1 = "67fcefb82ea66d6488d2e3fa276d0b8a4602f634"
+git-tree-sha1 = "9a56e1f77aba288918200ec6d224b63bc456c8e1"
 uuid = "28b8d3ca-fb5f-59d9-8090-bfdbd6d07a71"
-version = "0.32.2"
+version = "0.32.3"
 
 [[InteractiveUtils]]
 deps = ["LinearAlgebra", "Markdown"]
@@ -129,15 +129,15 @@ version = "0.3.0"
 
 [[PlotUtils]]
 deps = ["Colors", "Dates", "Printf", "Random", "Reexport", "Test"]
-git-tree-sha1 = "3b32bd672faa513c7c288b61bd20ea1504930810"
+git-tree-sha1 = "6fd6fafca71798236eccdf5fb1f7e997884e1ad2"
 uuid = "995b91a9-d308-5afd-9ec6-746e21dbc043"
-version = "0.5.2"
+version = "0.5.3"
 
 [[Plots]]
-deps = ["Base64", "Contour", "Dates", "FixedPointNumbers", "GR", "JSON", "LinearAlgebra", "Measures", "NaNMath", "Pkg", "PlotThemes", "PlotUtils", "Printf", "REPL", "RecipesBase", "Reexport", "Requires", "Showoff", "StaticArrays", "Statistics", "StatsBase", "Test", "UUIDs"]
-git-tree-sha1 = "c8e727ba8170f431e7581065bf92c26014d20bd2"
+deps = ["Base64", "Contour", "Dates", "FixedPointNumbers", "GR", "JSON", "LinearAlgebra", "Measures", "NaNMath", "Pkg", "PlotThemes", "PlotUtils", "Printf", "REPL", "RecipesBase", "Reexport", "Requires", "Showoff", "SparseArrays", "StaticArrays", "Statistics", "StatsBase", "Test", "UUIDs"]
+git-tree-sha1 = "11d668ff24983dd998e264488f4a91a06e11760f"
 uuid = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
-version = "0.19.1"
+version = "0.19.2"
 
 [[Polynomials]]
 deps = ["LinearAlgebra", "SparseArrays", "Test"]

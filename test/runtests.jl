@@ -38,3 +38,19 @@ savefig(p5, joinpath("..", "gallery", "graph_modular_bipartite.png"))
 
 p6 = plot(U, I0; nodefill=Npart[2], nodesize=degree(K), markercolor=:isolum, bipartite=true, msw=0.0)
 savefig(p6, joinpath("..", "gallery", "graph_modular_degree_bipartite.png"))
+
+
+N = first(nz_stream_foodweb())
+I2 = initial_foodweb_layout(N)
+[foodweb_layout!(N, I2) for i in 1:2600]
+EcologicalNetworksPlots.finish_layout!(I2)
+EcologicalNetworksPlots.spread_levels!(I2; ratio=0.4)
+p7 = plot(N, I2)
+savefig(p7, joinpath("..", "gallery", "foodweb.png"))
+
+
+I3 = initial_random_layout(N)
+[graph_layout!(N, I3) for i in 1:2600]
+EcologicalNetworksPlots.finish_layout!(I3)
+p8 = plot(N, I3, nodefill=trophic_level(N), nodesize=degree(N), markercolor=:YlGnBu)
+savefig(p8, joinpath("..", "gallery", "foodweb_graph.png"))
