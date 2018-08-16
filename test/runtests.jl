@@ -55,6 +55,16 @@ EcologicalNetworksPlots.finish_layout!(I3)
 p8 = plot(N, I3, nodefill=trophic_level(N), nodesize=degree(N), markercolor=:YlGnBu)
 savefig(p8, joinpath("..", "gallery", "foodweb_graph.png"))
 
+Wong2011 = (
+    orange = "#e69f00",
+    sky_blue = "#56b4e9",
+    bluish_green = "#009e73",
+    yellow = "#f0e442",
+    blue = "#0072b2",
+    vermillion = "#d55e00",
+    reddish_purple = "#cc79a7"
+)
+
 Q1 = web_of_life("A_HP_001")
 Q2 = web_of_life("A_HP_002")
 N1 = convert(BinaryNetwork, Q1)
@@ -64,7 +74,7 @@ I4 = initial_random_layout(M)
 [graph_layout!(M, I4) for i in 1:1000]
 EcologicalNetworksPlots.finish_layout!(I4)
 p9 = plot(M, I4, lc=:grey, msw=0, mc=:grey, bipartite=true)
-plot!(p9, intersect(N1, N2), I4, lc=:orange, mc=:orange, msw=0, bipartite=true)
-plot!(p9, setdiff(N2, N1), I4, lc=:teal, mc=:teal, msw=0, bipartite=true)
-plot!(p9, setdiff(N1, N2), I4, lc=:purple, mc=:purple, msw=0, bipartite=true)
+plot!(p9, intersect(N1, N2), I4, lc=Wong2011.orange, mc=Wong2011.orange, msw=0, bipartite=true)
+plot!(p9, setdiff(N2, N1), I4, lc=Wong2011.bluish_green, mc=Wong2011.bluish_green, msw=0, bipartite=true)
+plot!(p9, setdiff(N1, N2), I4, lc=Wong2011.vermillion, mc=Wong2011.vermillion, msw=0, bipartite=true)
 savefig(p9, joinpath("..", "gallery", "overlays.png"))
