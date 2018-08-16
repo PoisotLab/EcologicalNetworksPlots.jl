@@ -29,7 +29,9 @@ to care about this).
 These function take a network and a layout as input, and modify the layout.
 
 Optional arguments: `k=0.2` (strength of node attraction), `center=true` (nodes
-are attracted to the *(0,0)* coordinate).
+are attracted to the *(0,0)* coordinate). Using `center=true` will make the
+network fit within a circle, and may therefore not be the best choice. It is
+useful if you have disconnected nodes or isolated modules.
 
 ##### Cleaning up
 
