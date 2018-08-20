@@ -13,6 +13,7 @@ function repel_on_both!(n1::NodePosition, n2::NodePosition, fr)
   δx = n1.x - n2.x
   δy = n1.y - n2.y
   Δ = sqrt(δx^2.0+δy^2.0)
+  Δ = Δ == 0.0 ? 0.0001 : Δ
   n1.vx = n1.vx + δx/Δ*fr(Δ)
   n1.vy = n1.vy + δy/Δ*fr(Δ)
 end
@@ -20,6 +21,7 @@ end
 function repel_on_x!(n1::NodePosition, n2::NodePosition, fr)
   δx = n1.x - n2.x
   Δ = sqrt(δx^2.0)
+  Δ = Δ == 0.0 ? 0.0001 : Δ
   if n1.y == n2.y
     n1.vx = n1.vx + δx/Δ*fr(Δ)
   end
@@ -32,6 +34,7 @@ function attract_on_both!(n1::NodePosition, n2::NodePosition, fa)
   δx = n1.x - n2.x
   δy = n1.y - n2.y
   Δ = sqrt(δx^2.0+δy^2.0)
+  Δ = Δ == 0.0 ? 0.0001 : Δ
   n1.vx = n1.vx - δx/Δ*fa(Δ)
   n1.vy = n1.vy - δy/Δ*fa(Δ)
   n2.vx = n2.vx + δx/Δ*fa(Δ)
@@ -45,6 +48,7 @@ function attract_on_x!(n1::NodePosition, n2::NodePosition, fa)
   δx = n1.x - n2.x
   δy = 0.0
   Δ = sqrt(δx^2.0+δy^2.0)
+  Δ = Δ == 0.0 ? 0.0001 : Δ
   n1.vx = n1.vx - δx/Δ*fa(Δ)
   n2.vx = n2.vx + δx/Δ*fa(Δ)
 end
@@ -54,6 +58,7 @@ Update the position of a node
 """
 function update!(n::NodePosition)
   Δ = sqrt(n.vx^2.0+n.vy^2.0)
+  Δ = Δ == 0.0 ? 0.0001 : Δ
   n.x += n.vx/Δ*min(Δ, 0.01)
   n.y += n.vy/Δ*min(Δ, 0.01)
   stop!(n)
