@@ -6,6 +6,8 @@ generates force-directed layouts, with planned support for circular layouts.
 
 It is currently not registered, and works with *Julia* `0.7` and `1.0` **only**.
 
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/PoisotLab/EcologicalNetworks.jl.svg?columns=all)](https://waffle.io/PoisotLab/EcologicalNetworks.jl) 
+
 #### Overview
 
 Plotting a network is done in four steps: creating a random initial layout,
