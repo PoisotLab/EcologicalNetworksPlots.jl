@@ -2,6 +2,8 @@ using EcologicalNetworks
 using EcologicalNetworksPlots
 using Plots
 
+using Random
+Random.seed!(42);
 
 U = web_of_life("A_HP_001")
 K = convert(BinaryNetwork, U)
@@ -9,7 +11,7 @@ P = null2(K)
 I0 = initial_random_layout(U)
 [graph_layout!(U, I0) for i in 1:600]
 EcologicalNetworksPlots.finish_layout!(I0)
-p1 = plot(K, I0)
+p1 = scatter(K, I0)
 savefig(p1, joinpath("..", "gallery", "bipartite_graph.png"))
 
 
@@ -88,17 +90,16 @@ EcologicalNetworksPlots.finish_layout!(I5)
 deg = sort(collect(values(degree(MW))))
 deg = deg./maximum(deg)
 x = range(0.0; stop=1.0, length=richness(MW))
-p10 = plot(x, deg, frame=:origin, c=:black, leg=false)
+p10 = plot(x, deg, frame=:origin, c=Wong2011.blue, leg=false, aspectratio=1.0, fill=(0, Wong2011.blue, 0.3))
 
 for s in species(MW)
-    I5[s].x += 0.5
-    I5[s].x *= 0.4
-    I5[s].x += 0.25
+    I5[s].x *= 0.3
     I5[s].y *= 0.3
-    I5[s].y += 0.6
+    I5[s].x += 0.35
+    I5[s].y += 0.65
 end
 
-plot!(p10, MW, I5, frame=:box, ms=3, msw=0, mc=:grey, alpha=0.5)
+plot!(p10, MW, I5, frame=:box, ms=3, msw=0, mc=Wong2011.sky_blue, lc=Wong2011.sky_blue, alpha=0.75)
 xaxis!(p10, "Node index", (0.0,1.0))
 yaxis!(p10, "Degree", (0.0, 1.0))
 savefig(p10, joinpath("..", "gallery", "annotate.png"))

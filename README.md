@@ -6,7 +6,7 @@ generates force-directed layouts, with planned support for circular layouts.
 
 It is currently not registered, and works with *Julia* `0.7` and `1.0` **only**.
 
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/PoisotLab/EcologicalNetworks.jl.svg?columns=all)](https://waffle.io/PoisotLab/EcologicalNetworks.jl) 
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/PoisotLab/EcologicalNetworks.jl.svg?columns=all)](https://waffle.io/PoisotLab/EcologicalNetworks.jl)
 
 #### Overview
 
@@ -40,6 +40,10 @@ useful if you have disconnected nodes or isolated modules.
 - `EcologicalNetworksPlots.finish_layout!` (normalizes the dimensions)
 - `EcologicalNetworksPlots.spread_levels!` (changes the aspect ratio of the plot)
 
+Using `finish_layout!` will make the network fit within a circle centered at
+`(0,0)`, and of *diameter* 2. This is useful if you need to overlay the network
+on top of another figure, as it lets you scale and move the points.
+
 ##### Plotting
 
 `plot(N, layout)`
@@ -49,6 +53,8 @@ There are a few additional arguments (everything accepted by `Plots.jl` can be u
 - `nodefill` is a node=>value dictionary for the color of nodes
 - `nodesize` is a node=>value dictionary for the size of nodes
 - `bipartite` is a Boolean to differentiate nodes in bipartite networks
+- `edges` is a Boolean to specify whether edges should be represented
+- `nodes` is a Boolean to specify whether nodes should be represented
 
 ##### Example
 
