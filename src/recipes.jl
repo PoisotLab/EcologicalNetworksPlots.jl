@@ -1,4 +1,4 @@
-@recipe function f(network::T, layout::Dict{K,NodePosition}; nodesize::Union{Dict{K,Any},Nothing}=nothing, nodefill::Union{Function,Nothing}=nothing, bipartite::Bool=false, nodes::Bool=true, edges::Bool=true) where {T <: AbstractEcologicalNetwork, K <: AllowedSpeciesTypes}
+@recipe function f(network::T, layout::Dict{K,NodePosition}; nodesize::Union{Dict{K,Any},Nothing}=nothing, nodefill::Union{Function,Nothing}=nothing, bipartite::Bool=false) where {T <: AbstractEcologicalNetwork, K <: AllowedSpeciesTypes}
 
     # Node positions
     X = [layout[s].x for s in species(network)]
@@ -12,7 +12,9 @@
         int_range = (minimum(filter(x -> x > 0.0, network.A)), maximum(network.A))
     end
 
-    if edges
+    @info plotattributes
+
+    if get(plotattributes, :seriestype, :plot) == :plot
         for interaction in network
             y = [layout[interaction.from].y, layout[interaction.to].y]
             x = [layout[interaction.from].x, layout[interaction.to].x]
@@ -30,7 +32,7 @@
         end
     end
 
-    if nodes
+    if get(plotattributes, :seriestype, :plot) == :scatter
         @series begin
 
             if nodesize !== nothing
