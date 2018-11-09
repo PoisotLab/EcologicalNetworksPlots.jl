@@ -12,8 +12,6 @@
         int_range = (minimum(filter(x -> x > 0.0, network.A)), maximum(network.A))
     end
 
-    @info plotattributes
-
     if get(plotattributes, :seriestype, :plot) == :plot
         for interaction in network
             y = [layout[interaction.from].y, layout[interaction.to].y]

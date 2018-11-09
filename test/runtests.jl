@@ -11,7 +11,9 @@ P = null2(K)
 I0 = initial_random_layout(U)
 [graph_layout!(U, I0) for i in 1:600]
 EcologicalNetworksPlots.finish_layout!(I0)
+# plot over scatter
 p1 = scatter(K, I0)
+plot!(p1, K, I0)
 savefig(p1, joinpath("..", "gallery", "bipartite_graph.png"))
 
 
@@ -20,6 +22,7 @@ I1 = initial_bipartite_layout(U)
 EcologicalNetworksPlots.finish_layout!(I1)
 EcologicalNetworksPlots.spread_levels!(I1; ratio=0.3)
 p2 = plot(U, I1)
+scatter!(p2, U, I1)
 savefig(p2, joinpath("..", "gallery", "bipartite_bipartite.png"))
 
 
