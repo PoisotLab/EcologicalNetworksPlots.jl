@@ -5,8 +5,8 @@
     Y = [layout[s].y for s in species(network)]
 
     # Default values
-    framestyle --> :none
-    legend --> false
+    framestyle := :none
+    legend := false
 
     if typeof(network) <: QuantitativeNetwork
         int_range = (minimum(filter(x -> x > 0.0, network.A)), maximum(network.A))
