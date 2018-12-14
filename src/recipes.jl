@@ -1,11 +1,14 @@
-@recipe function f(network::T, layout::Dict{K,NodePosition}; nodesize::Union{Dict{K,Any},Nothing}=nothing, nodefill::Union{Function,Nothing}=nothing, bipartite::Bool=false) where {T <: AbstractEcologicalNetwork, K <: AllowedSpeciesTypes}
+@recipe function f(network::T, layout::Dict{K,NodePosition};
+    nodesize=nothing,
+    nodefill=nothing,
+    bipartite=false) where {T <: AbstractEcologicalNetwork, K <: AllowedSpeciesTypes}
 
     # Node positions
     X = [layout[s].x for s in species(network)]
     Y = [layout[s].y for s in species(network)]
 
     # Default values
-    framestyle := :none
+    framestyle --> :none
     legend := false
 
     if typeof(network) <: QuantitativeNetwork

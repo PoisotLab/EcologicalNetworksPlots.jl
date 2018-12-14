@@ -18,7 +18,7 @@ function initial_bipartite_layout(N::T) where {T <: EcologicalNetworks.AbstractB
 end
 
 """
-Random disposition of nodes on ttrophic levels for food webs
+Random disposition of nodes on trophic levels for food webs
 """
 function initial_foodweb_layout(N::T) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
   level = NodePosition[]

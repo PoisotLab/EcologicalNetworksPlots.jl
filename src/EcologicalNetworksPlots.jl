@@ -6,6 +6,7 @@ using RecipesBase
 
 # Various layout manipulation functions
 include(joinpath(".", "utilities.jl"))
+export finish_layout!, distribute_layout!
 
 # Types for layout positioning
 include(joinpath(".", "types.jl"))

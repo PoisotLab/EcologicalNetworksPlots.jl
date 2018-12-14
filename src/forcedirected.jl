@@ -97,14 +97,23 @@ function general_forcedirected_layout!(N::T, pos::Dict{K,NodePosition}; k::Float
   end
 end
 
+"""
+Graph
+"""
 function graph_layout!(N::T, pos::Dict{K,NodePosition}; k::Float64=0.2, center::Bool=true) where {T <: EcologicalNetworks.AbstractEcologicalNetwork, K <:EcologicalNetworks.AllowedSpeciesTypes}
   general_forcedirected_layout!(N, pos; k=k, repel=repel_on_both!, attract=attract_on_both!, center=center)
 end
 
+"""
+Bipartite
+"""
 function bipartite_layout!(N::T, pos::Dict{K,NodePosition}; k::Float64=0.2, center::Bool=true) where {T <: EcologicalNetworks.AbstractBipartiteNetwork, K <:EcologicalNetworks.AllowedSpeciesTypes}
   general_forcedirected_layout!(N, pos; k=k, repel=repel_on_x!, attract=attract_on_x!, center=center)
 end
 
+"""
+Foodweb
+"""
 function foodweb_layout!(N::T, pos::Dict{K,NodePosition}; k::Float64=0.2, center::Bool=true) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork, K <:EcologicalNetworks.AllowedSpeciesTypes}
   general_forcedirected_layout!(N, pos; k=k, repel=repel_on_x!, attract=attract_on_x!, center=center)
 end

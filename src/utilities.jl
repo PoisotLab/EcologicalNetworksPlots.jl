@@ -15,9 +15,17 @@ function finish_layout!(L; link=false)
         range_x = range_total
         range_y = range_total
     end
+    distribute_layout!(L, range_x, range_y)
+end
+
+function distribute_layout!(L, X::NTuple{2,T}, Y::NTuple{2,T}) where {T <: Number}
+    x = getfield.(values(L), :x)
+    y = getfield.(values(L), :y)
+    range_x = (minimum(x), maximum(x))
+    range_y = (minimum(y), maximum(y))
     for k in keys(L)
-        L[k].x = EcologicalNetworksPlots.scale_value(L[k].x, range_x, (-1,1))
-        L[k].y = EcologicalNetworksPlots.scale_value(L[k].y, range_y, (-1,1))
+        L[k].x = EcologicalNetworksPlots.scale_value(L[k].x, range_x, X)
+        L[k].y = EcologicalNetworksPlots.scale_value(L[k].y, range_y, Y)
     end
 end
 
