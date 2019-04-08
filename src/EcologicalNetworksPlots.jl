@@ -1,7 +1,6 @@
 module EcologicalNetworksPlots
 
 using EcologicalNetworks
-using Plots
 using RecipesBase
 
 # Various layout manipulation functions
