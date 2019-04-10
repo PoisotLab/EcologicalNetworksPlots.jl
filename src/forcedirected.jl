@@ -88,7 +88,7 @@ function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where
     attract!(LA, n1, n2, fa)
   end
 
-  if center
+  if LA.center
     for s in species(N)
       attract!(LA, L[s], NodePosition(0.0, 0.0, 0.0, 0.0), (x) -> 0.8*fa(x))
     end
