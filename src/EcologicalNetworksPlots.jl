@@ -19,14 +19,16 @@ export initial
 
 # Force-directed layout
 include(joinpath(".", "forcedirected.jl"))
-export graph_layout!, bipartite_layout!, foodweb_layout!
+export ForceDirectedLayout
 
 # Static layouts
 include(joinpath(".", "static.jl"))
 export NestedBipartiteLayout
-export position!
 
 # Recipes
 include(joinpath(".", "recipes.jl"))
+
+# Position function
+export position!
 
 end # module
