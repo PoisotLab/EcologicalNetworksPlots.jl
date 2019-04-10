@@ -33,7 +33,7 @@ function repel!(LA::T, n1::NodePosition, n2::NodePosition, fr) where {T <: Force
   end
   if LA.move_y # Do we need to move y here?
     n1.vy = n1.vy + δy/Δ*fr(Δ)
-    n1.vy = n1.vy - δy/Δ*fr(Δ)
+    n2.vy = n2.vy - δy/Δ*fr(Δ)
   end
 end
 
