@@ -1,7 +1,25 @@
+"""
+    NestedBipartiteLayout
+
+Parameters are
+
+- `align` (whether the two levels should be centered together)
+- `relative` (whether the two levels should occupy a length equal to their relative richness)
+- `spread` (the distance between the two)
+"""
 struct NestedBipartiteLayout
     align::Bool
     relative::Bool
+    spread::Float64
 end
+
+"""
+    NestedBipartiteLayout()
+
+By default, a `NestedBipartiteLayout` is aligned, centered, and with a spread of
+`1.0`.
+"""
+NestedBipartiteLayout() = NestedBipartiteLayout(true, true, 1.0)
 
 function position!(LA::NestedBipartiteLayout, L::Dict{K,NodePosition}, N::T) where {T <: AbstractBipartiteNetwork} where {K}
     r_top = ordinalrank(collect(values(degree(N; dims=1)))).-1
@@ -30,5 +48,6 @@ function position!(LA::NestedBipartiteLayout, L::Dict{K,NodePosition}, N::T) whe
 
     for s in species(N)
         L[s].x = d_all[s]
+        L[s].y = LA.spread * L[s].y
     end
 end

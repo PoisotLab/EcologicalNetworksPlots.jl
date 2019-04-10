@@ -5,29 +5,13 @@ using Plots
 using Random
 Random.seed!(42);
 
-U = web_of_life("A_HP_001")
-I = initial(BipartiteInitialLayout, U)
+U = web_of_life("A_HP_010")
 
-plot(I, U)
-scatter!(I, U)
-savefig(joinpath("..", "gallery", "t1.png"))
-
-position!(NestedBipartiteLayout(false, true), I, U)
-plot(I, U)
-scatter!(I, U)
-savefig(joinpath("..", "gallery", "t2.png"))
-
-position!(NestedBipartiteLayout(false, false), I, U)
-plot(I, U)
-scatter!(I, U)
-savefig(joinpath("..", "gallery", "t3.png"))
-
-position!(NestedBipartiteLayout(true, true), I, U)
-plot(I, U)
-scatter!(I, U)
-savefig(joinpath("..", "gallery", "t4.png"))
-
-position!(NestedBipartiteLayout(true, false), I, U)
-plot(I, U)
-scatter!(I, U)
-savefig(joinpath("..", "gallery", "t5.png"))
+for al in [true, false], re in [true, false]
+    I = initial(BipartiteInitialLayout, U)
+    position!(NestedBipartiteLayout(al, re, 0.25), I, U)
+    plot(I, U, aspectratio=1)
+    scatter!(I, U)
+    savefig(joinpath("..", "gallery", "t-align-$(al)-relative-$(re).png"))
+    @info I
+end
