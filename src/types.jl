@@ -12,6 +12,27 @@ mutable struct NodePosition
     vy::Float64
 end
 
+"""
+    BipartiteInitialLayout
+
+This type is used to generate an initial bipartite layout, where the nodes are
+placed on two levels, but their horizontal position is random.
+"""
 struct BipartiteInitialLayout end
+
+"""
+    FoodwebInitialLayout
+
+This type is used to generate an initial layout, where the nodes are
+placed on their trophic levels, but their horizontal position is random.
+"""
 struct FoodwebInitialLayout end
+
+
+"""
+    RandomInitialLayout
+
+This type is used to generate an initial layout, where the nodes are
+placed at random.
+"""
 struct RandomInitialLayout end

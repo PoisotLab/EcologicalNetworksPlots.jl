@@ -10,6 +10,9 @@ struct ForceDirectedLayout
 end
 
 ForceDirectedLayout() = ForceDirectedLayout(true, true, 0.2, true, 1.0)
+ForceDirectedLayout(k::Float64) = ForceDirectedLayout(true, true, k, true, 1.0)
+ForceDirectedLayout(mx::Bool, my::Bool) = ForceDirectedLayout(mx, my, 0.2, true, 1.0)
+ForceDirectedLayout(mx::Bool, my::Bool, k::Float64) = ForceDirectedLayout(mx, my, k, true, 1.0)
 
 """
 Stops the movement of a node position.

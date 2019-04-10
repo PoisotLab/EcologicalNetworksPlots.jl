@@ -1,28 +1,32 @@
-## My first plot!
-
-~~~ julia
-using EcologicalNetworks
-using EcologicalNetworksPlots
-~~~
-
 ## Initial layouts
 
 ```@docs
-initial_random_layout
-initial_bipartite_layout
-initial_foodweb_layout
+initial
 ```
 
-## Force-directed layouts
-
 ```@docs
-graph_layout!
-bipartite_layout!
-foodweb_layout!
+RandomInitialLayout
+BipartiteInitialLayout
+FoodwebInitialLayout
+CircularInitialLayout
 ```
 
-## Types
+## Layouts
+
+### Force-directed layout
 
 ```@docs
-NodePosition
+ForceDirectedLayout
+```
+
+### Static layouts
+
+```@docs
+NestedBipartiteLayout
+```
+
+## Apply layout to network
+
+```@docs
+position!
 ```
