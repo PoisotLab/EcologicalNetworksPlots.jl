@@ -1,7 +1,7 @@
-@recipe function f(network::T, layout::Dict{Any,NodePosition};
+@recipe function f(layout::Dict{K,NodePosition}, network::T;
     nodesize=nothing,
     nodefill=nothing,
-    bipartite=false) where {T <: AbstractEcologicalNetwork}
+    bipartite=false) where {T <: AbstractEcologicalNetwork} where {K}
 
     # Node positions
     X = [layout[s].x for s in species(network)]

@@ -1,14 +1,14 @@
 """
 Random disposition of nodes
 """
-function initial_random_layout(N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork}
+function initial(::Type{RandomInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork}
   return Dict([s => NodePosition(rand(), rand(), 0.0, 0.0) for s in species(N)])
 end
 
 """
 Random disposition of nodes on two levels for bipartite networks
 """
-function initial_bipartite_layout(N::T) where {T <: EcologicalNetworks.AbstractBipartiteNetwork}
+function initial(::Type{BipartiteInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractBipartiteNetwork}
   level = NodePosition[]
   for (i, s) in enumerate(species(N))
     this_level = s ∈ species(N; dims=1) ? 1.0 : 0.0
@@ -20,7 +20,7 @@ end
 """
 Random disposition of nodes on trophic levels for food webs
 """
-function initial_foodweb_layout(N::T) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
+function initial(::Type{FoodwebInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
   level = NodePosition[]
   tl = fractional_trophic_level(N)
   for (i, s) in enumerate(species(N))

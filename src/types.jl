@@ -11,3 +11,7 @@ mutable struct NodePosition
     vx::Float64
     vy::Float64
 end
+
+struct BipartiteInitialLayout end
+struct FoodwebInitialLayout end
+struct RandomInitialLayout end
