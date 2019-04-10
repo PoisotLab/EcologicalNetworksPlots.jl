@@ -55,7 +55,8 @@ savefig(p7, joinpath("..", "gallery", "foodweb.png"))
 I3 = initial_random_layout(N)
 [graph_layout!(N, I3) for i in 1:2600]
 EcologicalNetworksPlots.finish_layout!(I3)
-p8 = plot(N, I3, nodefill=trophic_level(N), nodesize=degree(N), markercolor=:YlGnBu)
+p8 = plot(N, I3)
+scatter!(p8, N, I3, nodefill=trophic_level(N), nodesize=degree(N), markercolor=:YlGnBu)
 savefig(p8, joinpath("..", "gallery", "foodweb_graph.png"))
 
 

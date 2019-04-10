@@ -67,7 +67,7 @@ end
 """
 One iteration of the force-directed layout routine
 """
-function general_forcedirected_layout!(N::T, pos::Dict{K,NodePosition}; k::Float64=0.2, repel::Function=repel_on_both!, attract::Function=attract_on_both!, center::Bool=true) where {T <: EcologicalNetworks.AbstractEcologicalNetwork, K <:EcologicalNetworks.AllowedSpeciesTypes}
+function general_forcedirected_layout!(N::T, pos::Dict{Any,NodePosition}; k::Float64=0.2, repel::Function=repel_on_both!, attract::Function=attract_on_both!, center::Bool=true) where {T <: EcologicalNetworks.AbstractEcologicalNetwork}
   fa(x) = (x*x)/k # Default attraction function
   fr(x) = (k*k)/x # Default repulsion function
   for (i, s1) in enumerate(species(N))
@@ -100,20 +100,20 @@ end
 """
 Graph
 """
-function graph_layout!(N::T, pos::Dict{K,NodePosition}; k::Float64=0.2, center::Bool=true) where {T <: EcologicalNetworks.AbstractEcologicalNetwork, K <:EcologicalNetworks.AllowedSpeciesTypes}
+function graph_layout!(N::T, pos::Dict{Any,NodePosition}; k::Float64=0.2, center::Bool=true) where {T <: EcologicalNetworks.AbstractEcologicalNetwork}
   general_forcedirected_layout!(N, pos; k=k, repel=repel_on_both!, attract=attract_on_both!, center=center)
 end
 
 """
 Bipartite
 """
-function bipartite_layout!(N::T, pos::Dict{K,NodePosition}; k::Float64=0.2, center::Bool=true) where {T <: EcologicalNetworks.AbstractBipartiteNetwork, K <:EcologicalNetworks.AllowedSpeciesTypes}
+function bipartite_layout!(N::T, pos::Dict{Any,NodePosition}; k::Float64=0.2, center::Bool=true) where {T <: EcologicalNetworks.AbstractBipartiteNetwork}
   general_forcedirected_layout!(N, pos; k=k, repel=repel_on_x!, attract=attract_on_x!, center=center)
 end
 
 """
 Foodweb
 """
-function foodweb_layout!(N::T, pos::Dict{K,NodePosition}; k::Float64=0.2, center::Bool=true) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork, K <:EcologicalNetworks.AllowedSpeciesTypes}
+function foodweb_layout!(N::T, pos::Dict{Any,NodePosition}; k::Float64=0.2, center::Bool=true) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
   general_forcedirected_layout!(N, pos; k=k, repel=repel_on_x!, attract=attract_on_x!, center=center)
 end
