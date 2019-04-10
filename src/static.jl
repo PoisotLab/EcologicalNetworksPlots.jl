@@ -6,6 +6,10 @@ Parameters are
 - `align` (whether the two levels should be centered together)
 - `relative` (whether the two levels should occupy a length equal to their relative richness)
 - `spread` (the distance between the two)
+
+Note that to see the effect of `spread`, you may have to use `aspectratio=1`; if
+not, the spacing between levels will be determined by the dimensions of the
+plot.
 """
 struct NestedBipartiteLayout
     align::Bool
@@ -29,10 +33,10 @@ function position!(LA::NestedBipartiteLayout, L::Dict{K,NodePosition}, N::T) whe
     r_bot = r_bot./maximum(r_bot)
     if LA.relative
         if richness(N; dims=2)>richness(N; dims=1)
-            r_bot = r_bot .* richness(N; dims=2)./richness(N; dims=1)
+            r_bot = r_bot .* (richness(N; dims=2)./richness(N; dims=1))
         end
         if richness(N; dims=1)>richness(N; dims=2)
-            r_top = r_top .* richness(N; dims=1)./richness(N; dims=2)
+            r_top = r_top .* (richness(N; dims=1)./richness(N; dims=2))
         end
     end
 
@@ -41,8 +45,8 @@ function position!(LA::NestedBipartiteLayout, L::Dict{K,NodePosition}, N::T) whe
         r_top = r_top .+ (0.5 - (maximum(r_top)-minimum(r_top))/2.0)
     end
 
-    d_bot = Dict(zip(species(N, dims=2), r_bot))
-    d_top = Dict(zip(species(N, dims=1), r_top))
+    d_bot = Dict(zip(keys(degree(N; dims=2)), r_bot))
+    d_top = Dict(zip(keys(degree(N; dims=1)), r_top))
 
     d_all = merge(d_bot, d_top)
 
