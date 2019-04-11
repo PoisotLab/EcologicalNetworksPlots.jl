@@ -19,11 +19,11 @@ scatter!(I, Unes, bipartite=true)
 ### Circular
 
 ```@example default
-Umod = web_of_life("M_PA_003")
-I = initial(CircularInitialLayout, Umod)
-position!(CircularLayout(), I, Umod)
-plot(I, Umod, aspectratio=1)
-scatter!(I, Umod, bipartite=true)
+Unes = web_of_life("M_SD_033")
+I = initial(CircularInitialLayout, Unes)
+position!(CircularLayout(), I, Unes)
+plot(I, Unes, aspectratio=1)
+scatter!(I, Unes, bipartite=true)
 ```
 
 ## Dynamic layouts
