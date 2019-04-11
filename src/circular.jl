@@ -46,7 +46,13 @@ function position!(LA::CircularLayout, L::Dict{K,NodePosition}, N::T) where {T <
     M = maximum(collect(values(Θ)))
     for n in species(N)
         Θ[n] = (Θ[n]-m)/(M-m)*2π
-        x, y = LA.radius*cos(Θ[n]), LA.radius*sin(Θ[n])
+    end
+    v = collect(values(Θ))
+    r = ordinalrank(v)
+    R = Dict(zip(v, r))
+    for n in species(N)
+        i = 2*R[Θ[n]] * π/S
+        x, y = LA.radius*cos(i), LA.radius*sin(i)
         L[n] = NodePosition(x, y)
     end
 end
