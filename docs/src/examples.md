@@ -52,7 +52,9 @@ plot(I, Fweb, aspectratio=1)
 scatter!(I, Fweb)
 ```
 
-## Node coloring
+## Node properties
+
+### Color
 
 ```@example default
 Unes = web_of_life("M_SD_033")
@@ -61,3 +63,5 @@ position!(NestedBipartiteLayout(0.4), I, Unes)
 plot(I, Unes, aspectratio=1)
 scatter!(I, Unes, bipartite=true, nodefill=degree(Unes))
 ```
+
+### Size
