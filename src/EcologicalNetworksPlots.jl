@@ -27,6 +27,7 @@ export NestedBipartiteLayout
 
 # Circular layouts
 include(joinpath(".", "circular.jl"))
+export CircularLayout
 
 # Recipes
 include(joinpath(".", "recipes.jl"))
