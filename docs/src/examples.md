@@ -8,7 +8,7 @@ I = initial(BipartiteInitialLayout, Unes)
 position!(NestedBipartiteLayout(0.4), I, Unes)
 plot(I, Unes, aspectratio=1)
 scatter!(I, Unes, bipartite=true)
-savefig("bipartite-nested.png")
+savefig("bipartite-nested.png") #hide
 ```
 
 ## Dynamic layouts
