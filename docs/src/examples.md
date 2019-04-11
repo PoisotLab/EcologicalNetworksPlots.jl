@@ -39,3 +39,15 @@ end
 plot(I, Umod, aspectratio=1)
 scatter!(I, Umod, bipartite=true)
 ```
+
+### Food web layout
+
+```@example default
+Fweb = simplify(nz_stream_foodweb()[1])
+I = initial(FoodwebInitialLayout, Fweb)
+for step in 1:4000
+  position!(ForceDirectedLayout(true, false, 2.5), I, Fweb)
+end
+plot(I, Fweb, aspectratio=1)
+scatter!(I, Fweb)
+```
