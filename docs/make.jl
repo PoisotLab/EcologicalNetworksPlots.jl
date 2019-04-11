@@ -4,7 +4,9 @@ using Documenter
 push!(LOAD_PATH,"../src/")
 
 Pkg.activate(".")
+Pkg.add("Plots")
 using EcologicalNetworksPlots
+using EcologicalNetworks
 
 makedocs(
     sitename = "EcologicalNetworksPlots",
@@ -20,3 +22,5 @@ deploydocs(
     repo   = "github.com/PoisotLab/EcologicalNetworksPlots.jl.git",
     devbranch = "master"
 )
+
+Pkg.rm("Plots")

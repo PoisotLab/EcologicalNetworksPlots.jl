@@ -15,7 +15,4 @@ for al in [true, false], re in [true, false]
     position!(NestedBipartiteLayout(al, re, 0.4), I, Unes)
     plot(I, Unes, aspectratio=1)
     scatter!(I, Unes, bipartite=true)
-    isal = al ? "aligned" : "free"
-    isre = re ? "relative" : "spread"
-    savefig(joinpath("..", "gallery", "bipartite-nested-$(isal)-$(isre).png"))
 end
