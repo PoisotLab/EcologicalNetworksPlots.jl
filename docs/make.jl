@@ -13,7 +13,8 @@ makedocs(
     authors = "Timothée Poisot",
     modules = [EcologicalNetworksPlots],
     pages = [
-        "Index" => "index.md"
+        "Index" => "index.md",
+        "Examples" => "examples.md"
         ]
 )
 
