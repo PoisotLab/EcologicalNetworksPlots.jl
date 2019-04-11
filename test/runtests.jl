@@ -1,6 +1,6 @@
 using EcologicalNetworks
 using EcologicalNetworksPlots
-using Plots
+using Pkg; Pkg.add("Plots")
 
 using Random
 Random.seed!(42);
@@ -22,3 +22,5 @@ for al in [true, false], re in [true, false]
     scatter!(I, U)
     savefig(joinpath("..", "gallery", "t-align-$(al)-relative-$(re).png"))
 end
+
+Pkg.rm("Plots")
