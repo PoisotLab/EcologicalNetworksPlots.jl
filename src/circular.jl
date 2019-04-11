@@ -10,7 +10,7 @@ function angle(x, y)
     return θ
 end
 
-position!(LA::CircularLayout, L::Dict{K,NodePosition}, N::T) where {T <: AbstractEcologicalNetwork} where {K}
+function position!(LA::CircularLayout, L::Dict{K,NodePosition}, N::T) where {T <: AbstractEcologicalNetwork} where {K}
     S = richness(N)
     Θ = Dict([s => angle(L[s]) for s in species(N)])
     for (i, n1) in enumerate(species(N))
