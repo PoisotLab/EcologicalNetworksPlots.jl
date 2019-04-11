@@ -1,6 +1,5 @@
 using EcologicalNetworks
 using EcologicalNetworksPlots
-using Pkg; Pkg.add("Plots")
 
 using Random
 Random.seed!(42);
@@ -19,5 +18,3 @@ for al in [true, false], re in [true, false]
     isre = re ? "relative" : "spread"
     savefig(joinpath("..", "gallery", "bipartite-nested-$(isal)-$(isre).png"))
 end
-
-Pkg.rm("Plots")
