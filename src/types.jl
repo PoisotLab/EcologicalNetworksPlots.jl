@@ -16,8 +16,14 @@ end
 NodePosition() = NodePosition(rand(), rand(), 0.0, 0.0, 0.0)
 NodePosition(x::Float64, y::Float64) = NodePosition(x, y, 0.0, 0.0, 0.0)
 NodePosition(x::Float64, y::Float64, vx::Float64, vy::Float64) = NodePosition(x, y, vx, vy, 0.0)
-NodePosition(r::Float64) = NodePosition(0.0, 0.0, 0.0, 0.0, 0.0)
-NodePosition(x::Float64, y::Float64, r::Float64) = NodePosition(x, y, 0.0, 0.0, r)
+
+function NodePosition(r::T) where {T <: Number}
+    function NodePosition(0.0, 0.0, 0.0, 0.0, r)
+end
+
+function NodePosition(x::Float64, y::Float64, r::T) where {T <: Number}
+    return NodePosition(x, y, 0.0, 0.0, r)
+end
 
 """
     BipartiteInitialLayout
