@@ -32,7 +32,7 @@ end
 """
 Random disposition of nodes on a circle
 """
-function initial(::Type{CircularInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
+function initial(::Type{CircularInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork}
   level = NodePosition[]
   n = richness(N)
   for (i, s) in enumerate(species(N))
