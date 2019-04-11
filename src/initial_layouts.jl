@@ -24,7 +24,7 @@ function initial(::Type{FoodwebInitialLayout}, N::T) where {T <: EcologicalNetwo
   level = NodePosition[]
   tl = fractional_trophic_level(N)
   for (i, s) in enumerate(species(N))
-    push!(level, NodePosition(rand(), tl[s], 0.0, 0.0))
+    push!(level, NodePosition(rand(), float(tl[s]), 0.0, 0.0))
   end
   return Dict(zip(species(N), level))
 end
