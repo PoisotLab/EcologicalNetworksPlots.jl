@@ -1,5 +1,6 @@
 using EcologicalNetworks
 using EcologicalNetworksPlots
+using Plots
 
 using Random
 Random.seed!(42);
