@@ -48,7 +48,7 @@ I = initial(FoodwebInitialLayout, Fweb)
 for step in 1:4000
   position!(ForceDirectedLayout(true, false, 2.5), I, Fweb)
 end
-plot(I, Fweb, aspectratio=1)
+plot(I, Fweb)
 scatter!(I, Fweb)
 ```
 
