@@ -9,7 +9,14 @@ struct ForceDirectedLayout
     height::Float64
 end
 
+"""
+    ForceDirectedLayout()
+
+Creates a default force directed layout where nodes move in both directions, are
+attracted to the center, with a spring coefficient of 0.2.
+"""
 ForceDirectedLayout() = ForceDirectedLayout(true, true, 0.2, true, 1.0)
+
 ForceDirectedLayout(k::Float64) = ForceDirectedLayout(true, true, k, true, 1.0)
 ForceDirectedLayout(mx::Bool, my::Bool) = ForceDirectedLayout(mx, my, 0.2, true, 1.0)
 ForceDirectedLayout(mx::Bool, my::Bool, k::Float64) = ForceDirectedLayout(mx, my, k, true, 1.0)

@@ -1,7 +1,17 @@
+"""
+    CircularLayout
+
+A circular layout has a single field, `radius`.
+"""
 struct CircularLayout
     radius::Float64
 end
 
+"""
+    CircularLayout()
+
+Create a circular layout with a radius of 1.
+"""
 CircularLayout() = CircularLayout(1.0)
 
 function angle(x, y)
