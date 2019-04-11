@@ -45,7 +45,7 @@ function position!(LA::CircularLayout, L::Dict{K,NodePosition}, N::T) where {T <
     m = minimum(collect(values(Θ)))
     M = maximum(collect(values(Θ)))
     for n in species(N)
-        Θ[n] = (Θ[n]-m)/(M-m)*2π
+        Θ[n] = (Θ[n]-m)/(M-m)*2π+rand()*0.001
     end
     v = collect(values(Θ))
     r = ordinalrank(v)
