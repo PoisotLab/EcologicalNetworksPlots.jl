@@ -24,6 +24,7 @@ By default, a `NestedBipartiteLayout` is aligned, centered, and with a spread of
 `1.0`.
 """
 NestedBipartiteLayout() = NestedBipartiteLayout(true, true, 1.0)
+NestedBipartiteLayout(spread::Float64) = NestedBipartiteLayout(true, true, spread)
 
 function position!(LA::NestedBipartiteLayout, L::Dict{K,NodePosition}, N::T) where {T <: AbstractBipartiteNetwork} where {K}
     r_top = ordinalrank(collect(values(degree(N; dims=1))); rev=true).-1
