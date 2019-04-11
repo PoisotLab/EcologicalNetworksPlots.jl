@@ -12,7 +12,7 @@ Unes = web_of_life("M_SD_033")
 
 for al in [true, false], re in [true, false]
     I = initial(BipartiteInitialLayout, Unes)
-    position!(NestedBipartiteLayout(al, re, 0.6), I, Unes)
+    position!(NestedBipartiteLayout(al, re, 0.4), I, Unes)
     plot(I, Unes, aspectratio=1)
     scatter!(I, Unes, bipartite=true)
     isal = al ? "aligned" : "free"
