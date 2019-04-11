@@ -18,7 +18,7 @@ NodePosition(x::Float64, y::Float64) = NodePosition(x, y, 0.0, 0.0, 0.0)
 NodePosition(x::Float64, y::Float64, vx::Float64, vy::Float64) = NodePosition(x, y, vx, vy, 0.0)
 
 function NodePosition(r::T) where {T <: Number}
-    function NodePosition(0.0, 0.0, 0.0, 0.0, r)
+    return NodePosition(0.0, 0.0, 0.0, 0.0, r)
 end
 
 function NodePosition(x::Float64, y::Float64, r::T) where {T <: Number}
