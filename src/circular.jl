@@ -22,6 +22,17 @@ end
 
 nodeangle(n::NodePosition) = nodeangle(n.x, n.y)
 
+"""
+    position!(LA::CircularLayout, L::Dict{K,NodePosition}, N::T) where {T <: AbstractEcologicalNetwork} where {K}
+
+TODO
+
+#### References
+
+McGuffin, M.J., 2012. Simple algorithms for network visualization: A tutorial.
+Tsinghua Science and Technology 17, 383–398.
+https://doi.org/10.1109/TST.2012.6297585
+"""
 function position!(LA::CircularLayout, L::Dict{K,NodePosition}, N::T) where {T <: AbstractEcologicalNetwork} where {K}
     S = richness(N)
     Θ = Dict([s => nodeangle(L[s]) for s in species(N)])

@@ -33,7 +33,7 @@ scatter!(I, Umod, bipartite=true)
 ```@example default
 Umod = web_of_life("M_PA_003")
 I = initial(RandomInitialLayout, Umod)
-for step in 1:2000
+for step in 1:4000
   position!(ForceDirectedLayout(2.5), I, Umod)
 end
 plot(I, Umod, aspectratio=1)
