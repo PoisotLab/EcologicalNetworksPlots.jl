@@ -29,3 +29,13 @@ end
 plot(I, Umod, aspectratio=1)
 scatter!(I, Umod, bipartite=true)
 ```
+
+### Circular
+
+```@example default
+Umod = web_of_life("M_PA_003")
+I = initial(CircularInitialLayout, Umod)
+#position!(CircularLayout(), I, Umod)
+plot(I, Umod, aspectratio=1)
+scatter!(I, Umod, bipartite=true)
+```

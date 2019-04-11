@@ -19,6 +19,12 @@ CircularInitialLayout
 ForceDirectedLayout
 ```
 
+### Circular layout
+
+```@docs
+CircularLayout
+```
+
 ### Static layouts
 
 ```@docs

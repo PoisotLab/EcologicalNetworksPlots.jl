@@ -2,7 +2,7 @@
 Random disposition of nodes
 """
 function initial(::Type{RandomInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork}
-  return Dict([s => NodePosition(rand(), rand(), 0.0, 0.0) for s in species(N)])
+  return Dict([s => NodePosition() for s in species(N)])
 end
 
 """
@@ -25,6 +25,20 @@ function initial(::Type{FoodwebInitialLayout}, N::T) where {T <: EcologicalNetwo
   tl = fractional_trophic_level(N)
   for (i, s) in enumerate(species(N))
     push!(level, NodePosition(rand(), tl[s], 0.0, 0.0))
+  end
+  return Dict(zip(species(N), level))
+end
+
+"""
+Random disposition of nodes on a circle
+"""
+function initial(::Type{CircularInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
+  level = NodePosition[]
+  n = richness(N)
+  for (i, s) in enumerate(species(N))
+    θ = 2i * π/n
+    x, y = cos(θ), sin(θ)
+    push!(level, NodePosition(x, y, i))
   end
   return Dict(zip(species(N), level))
 end
