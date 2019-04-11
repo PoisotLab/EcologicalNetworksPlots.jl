@@ -3,6 +3,7 @@ module EcologicalNetworksPlots
 using EcologicalNetworks
 using RecipesBase
 using StatsBase
+using Statistics
 
 # Various layout manipulation functions
 include(joinpath(".", "utilities.jl"))

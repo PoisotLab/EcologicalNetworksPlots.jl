@@ -14,17 +14,17 @@ Create a circular layout with a radius of 1.
 """
 CircularLayout() = CircularLayout(1.0)
 
-function angle(x, y)
+function nodeangle(x, y)
     hyp = sqrt(x*x + y*y)
-    θ = x < 0.0 ? π - asin(hyp) : asin(hyp) + 2π
+    θ = x < 0.0 ? π - asin(y/hyp) : asin(y/hyp) + 2π
     return θ
 end
 
-angle(n::NodePosition) = angle(n.x, n.y)
+nodeangle(n::NodePosition) = nodeangle(n.x, n.y)
 
 function position!(LA::CircularLayout, L::Dict{K,NodePosition}, N::T) where {T <: AbstractEcologicalNetwork} where {K}
     S = richness(N)
-    Θ = Dict([s => angle(L[s]) for s in species(N)])
+    Θ = Dict([s => nodeangle(L[s]) for s in species(N)])
     for (i, n1) in enumerate(species(N))
         θ = L[n1].r*2π/S
         sx, sy = cos(θ), sin(θ)
@@ -35,12 +35,18 @@ function position!(LA::CircularLayout, L::Dict{K,NodePosition}, N::T) where {T <
         if n1 ∈ species(N; dims=1)
             nei = union(nei, N[n1,:])
         end
-        for (j, n2) in nei
+        for (j, n2) in enumerate(nei)
             θ2 = L[n2].r*2π/S
             sx = sx + cos(θ2)
             sy = sy + sin(θ2)
         end
-        Θ[n1] = mean(angle(sx, sy))
+        Θ[n1] = mean(nodeangle(sx, sy))
     end
-    @info Θ
+    m = minimum(collect(values(Θ)))
+    M = maximum(collect(values(Θ)))
+    for n in species(N)
+        Θ[n] = (Θ[n]-m)/(M-m)*2π
+        x, y = LA.radius*cos(Θ[n]), LA.radius*sin(Θ[n])
+        L[n] = NodePosition(x, y)
+    end
 end
