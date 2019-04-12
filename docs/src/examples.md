@@ -43,7 +43,7 @@ scatter!(I, Umod, bipartite=true)
 ### Food web layout
 
 ```@example default
-Fweb = simplify(nz_stream_foodweb()[1])
+Fweb = simplify(nz_stream_foodweb()[5])
 I = initial(FoodwebInitialLayout, Fweb)
 for step in 1:4000
   position!(ForceDirectedLayout(true, false, 2.5), I, Fweb)
