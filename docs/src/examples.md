@@ -100,5 +100,6 @@ plot(I, Umod, aspectratio=1)
 scatter!(I, Umod)
 N = convert(AbstractUnipartiteNetwork, convert(BinaryNetwork, Umod))
 core3 = collect(keys(filter(p -> p.second ≥ 3, degree(N))))
+plot!(I, N[core3], c=:red)
 scatter!(I, N[core3], mc=:red)
 ```

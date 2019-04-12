@@ -77,7 +77,11 @@ function update!(LA::T, n::NodePosition) where {T <: ForceDirectedLayout}
 end
 
 """
-One iteration of the force-directed layout routine
+    position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork} where {K}
+
+One iteration of the force-directed layout routine. Because these algorithms can
+take some time to converge, it may be useful to stop every 500 iterations to
+have a look at the results.
 """
 function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork} where {K}
   fa(x) = (x*x)/LA.k # Default attraction function
