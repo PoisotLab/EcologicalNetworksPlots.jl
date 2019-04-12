@@ -52,6 +52,24 @@ plot(I, Fweb)
 scatter!(I, Fweb)
 ```
 
+Note that we can replace some properties of the nodes in the layout *after* the
+positioning algorithm occurred -- so we can, for example, use the actual
+(instead of fractional) trophic level:
+
+```@example default
+Fweb = simplify(nz_stream_foodweb()[5])
+I = initial(FoodwebInitialLayout, Fweb)
+for step in 1:4000
+  position!(ForceDirectedLayout(true, false, 2.5), I, Fweb)
+end
+tl = trophic_level(Fweb)
+for s in species(Fweb)
+  I[s].y = tl[s]
+end
+plot(I, Fweb)
+scatter!(I, Fweb)
+```
+
 ## Node properties
 
 ### Color
