@@ -1,3 +1,9 @@
+@recipe function f(network::T) where {T <: AbstractEcologicalNetwork}
+   if plotattributes[:seriestype] == :heatmap
+      networks.A
+   end
+end
+
 @recipe function f(layout::Dict{K,NodePosition}, network::T;
     nodesize=nothing,
     nodefill=nothing,
