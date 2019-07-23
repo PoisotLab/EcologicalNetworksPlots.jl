@@ -25,7 +25,9 @@ nodeangle(n::NodePosition) = nodeangle(n.x, n.y)
 """
     position!(LA::CircularLayout, L::Dict{K,NodePosition}, N::T) where {T <: AbstractEcologicalNetwork} where {K}
 
-TODO
+Nodes will be positioned at equal distances along a circle, and nodes that
+are densely connected will be closer to one another. This is an efficient
+way to represent modular networks.
 
 #### References
 

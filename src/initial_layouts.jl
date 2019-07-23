@@ -1,12 +1,17 @@
 """
-Random disposition of nodes
+    initial(::Type{RandomInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork}
+
+Random disposition of nodes in the unit square. This is a good starting
+point for any force-directed layout.
 """
 function initial(::Type{RandomInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork}
   return Dict([s => NodePosition() for s in species(N)])
 end
 
 """
-Random disposition of nodes on two levels for bipartite networks
+    initial(::Type{BipartiteInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractBipartiteNetwork}
+
+Random disposition of nodes on two levels for bipartite networks.
 """
 function initial(::Type{BipartiteInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractBipartiteNetwork}
   level = NodePosition[]
@@ -18,7 +23,11 @@ function initial(::Type{BipartiteInitialLayout}, N::T) where {T <: EcologicalNet
 end
 
 """
-Random disposition of nodes on trophic levels for food webs
+    initial(::Type{FoodwebInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
+
+Random disposition of nodes on trophic levels for food webs. Note that the
+*fractional* trophic level is used, but the layout can be modified afterwards
+to use the continuous levels.
 """
 function initial(::Type{FoodwebInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
   level = NodePosition[]
@@ -30,7 +39,10 @@ function initial(::Type{FoodwebInitialLayout}, N::T) where {T <: EcologicalNetwo
 end
 
 """
-Random disposition of nodes on a circle
+    initial(::Type{CircularInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork}
+
+Random disposition of nodes on a circle. This is the starting point for
+circle-based layouts.
 """
 function initial(::Type{CircularInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork}
   level = NodePosition[]
