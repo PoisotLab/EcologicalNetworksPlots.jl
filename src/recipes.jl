@@ -1,6 +1,6 @@
 @recipe function f(network::T) where {T <: AbstractEcologicalNetwork}
    if plotattributes[:seriestype] == :heatmap
-      networks.A
+      network.A
    end
 end
 
