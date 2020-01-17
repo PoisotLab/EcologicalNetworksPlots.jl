@@ -54,3 +54,20 @@ function initial(::Type{CircularInitialLayout}, N::T) where {T <: EcologicalNetw
   end
   return Dict(zip(species(N), level))
 end
+
+"""
+    initial(::Type{UnravelledInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
+
+Unravelled disposition of nodes on trophic levels for food webs, where the x
+axis is the omnivory index. Note that the *fractional* trophic level is used,
+but the layout can be modified afterwards to use the continuous levels. See the
+documentation for `UnravelledLayout` to see how.
+"""
+function initial(::Type{FoodwebInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
+  level = NodePosition[]
+  tl = fractional_trophic_level(N)
+  for (i, s) in enumerate(species(N))
+    push!(level, NodePosition(rand(), float(tl[s]), 0.0, 0.0))
+  end
+  return Dict(zip(species(N), level))
+end
