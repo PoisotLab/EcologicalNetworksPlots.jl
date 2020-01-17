@@ -63,11 +63,12 @@ axis is the omnivory index. Note that the *fractional* trophic level is used,
 but the layout can be modified afterwards to use the continuous levels. See the
 documentation for `UnravelledLayout` to see how.
 """
-function initial(::Type{FoodwebInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
+function initial(::Type{UnravelledInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
   level = NodePosition[]
   tl = fractional_trophic_level(N)
+  oi = degree(N) # NOTE this is currently the degree, not the omnivory index
   for (i, s) in enumerate(species(N))
-    push!(level, NodePosition(rand(), float(tl[s]), 0.0, 0.0))
+    push!(level, NodePosition(float(oi[s]), float(tl[s]), 0.0, 0.0))
   end
   return Dict(zip(species(N), level))
 end

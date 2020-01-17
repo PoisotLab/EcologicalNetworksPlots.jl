@@ -1,4 +1,32 @@
 """
+    UnravelledLayout
+
+Parameters are
+
+- `x` (a function to get the value on x)
+- `y` (a function to get the value on y)
+
+Both of these functions *must* accept a unipartite network as input, and return
+a dictionary with species and a single numerical value as output. Note that `x`
+and/or `y` can be `λ`s.
+"""
+struct UnravelledLayout{TX,TY} where {TX <: Function, TY <: Function}
+    x::TX
+    y::TY
+end
+
+UnravelledLayout() = UnravelledLayout(fractional_trophic_level, degree)
+
+function position!(LA::UnravelledBipartiteLayout, L::Dict{K,NodePosition}, N::T) where {T <: AbstractBipartiteNetwork} where {K}
+  X = LA.x(N)
+  Y = LA.y(N)
+  for (i, s) in enumerate(species(N))
+    L[s].x = X[s]
+    L[s].y = Y[s]
+  end
+end
+
+"""
     NestedBipartiteLayout
 
 Parameters are
