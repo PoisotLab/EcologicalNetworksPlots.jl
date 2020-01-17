@@ -10,14 +10,14 @@ Both of these functions *must* accept a unipartite network as input, and return
 a dictionary with species and a single numerical value as output. Note that `x`
 and/or `y` can be `λ`s.
 """
-struct UnravelledLayout{TX,TY} where {TX <: Function, TY <: Function}
+struct UnravelledLayout{TX<:Function,TY<:Function}
     x::TX
     y::TY
 end
 
 UnravelledLayout() = UnravelledLayout(fractional_trophic_level, degree)
 
-function position!(LA::UnravelledBipartiteLayout, L::Dict{K,NodePosition}, N::T) where {T <: AbstractBipartiteNetwork} where {K}
+function position!(LA::UnravelledLayout, L::Dict{K,NodePosition}, N::T) where {T <: AbstractBipartiteNetwork} where {K}
   X = LA.x(N)
   Y = LA.y(N)
   for (i, s) in enumerate(species(N))
