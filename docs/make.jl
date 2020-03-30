@@ -5,6 +5,6 @@ using Documenter, EcologicalNetworksPlots
 makedocs(sitename="EcologicalNetworksPlots")
 
 deploydocs(
-    repo = "github.com/USER_NAME/PACKAGE_NAME.jl.git",
+    repo = "github.com/PoisotLab/EcologicalNetworksPlots.jl.git",
     push_preview = true
 )
