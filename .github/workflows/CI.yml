@@ -26,11 +26,14 @@ jobs:
           arch: ${{ matrix.arch }}
       - uses: julia-actions/julia-buildpkg@latest
       - uses: julia-actions/julia-runtest@latest
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v1
+      - uses: julia-actions/julia-processcoverage@v1
+      - uses: codecov/codecov-action@v1
         with:
-          name: gallery
-          path: test/gallery
+          file: ./lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV }}
   docs:
     name: Documentation
     runs-on: ubuntu-latest
@@ -46,5 +49,4 @@ jobs:
             Pkg.instantiate()'
       - run: julia --project=docs docs/make.jl
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
