@@ -15,7 +15,7 @@ struct UnravelledLayout{TX<:Function,TY<:Function}
     y::TY
 end
 
-UnravelledLayout() = UnravelledLayout(fractional_trophic_level, degree)
+UnravelledLayout() = UnravelledLayout(omnivory, fractional_trophic_level)
 
 function position!(LA::LT, L::Dict{K,NodePosition}, N::T) where {LT <: UnravelledLayout, T <: AbstractEcologicalNetwork} where {K}
   X = LA.x(N)

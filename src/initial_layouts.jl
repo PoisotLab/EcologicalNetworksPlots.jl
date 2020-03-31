@@ -64,11 +64,12 @@ but the layout can be modified afterwards to use the continuous levels. See the
 documentation for `UnravelledLayout` to see how.
 """
 function initial(::Type{UnravelledInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
-  level = NodePosition[]
+  layout = Dict([s => NodePosition() for s in species(N)])
   tl = fractional_trophic_level(N)
-  oi = degree(N) # NOTE this is currently the degree, not the omnivory index
-  for (i, s) in enumerate(species(N))
-    push!(level, NodePosition(float(oi[s]), float(tl[s]), 0.0, 0.0))
+  oi = omnivory(N)
+  for s in species(N)
+    layout[s].x = float(oi[s])
+    layout[s].y = float(tl[s])
   end
-  return Dict(zip(species(N), level))
+  return layout
 end

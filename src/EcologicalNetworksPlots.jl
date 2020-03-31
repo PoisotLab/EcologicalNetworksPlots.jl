@@ -12,7 +12,9 @@ export finish_layout!, distribute_layout!
 # Types for layout positioning
 include(joinpath(".", "types.jl"))
 export NodePosition
-export RandomInitialLayout, BipartiteInitialLayout, FoodwebInitialLayout, CircularInitialLayout, UnravelledInitialLayout
+export RandomInitialLayout, FoodwebInitialLayout
+export BipartiteInitialLayout, CircularInitialLayout
+export UnravelledInitialLayout
 
 # Starting points
 include(joinpath(".", "initial_layouts.jl"))
