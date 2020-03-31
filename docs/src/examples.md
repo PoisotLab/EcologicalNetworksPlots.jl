@@ -126,7 +126,6 @@ heatmap(convert(UnipartiteNetwork, Umod))
 ```@example default
 N = nz_stream_foodweb()[10]
 I = initial(UnravelledInitialLayout, N)
-position!(UnravelledLayout((n) -> degree(n, dims=1), (n) -> degree(n, dims=2)), I, N)
 plot(I, N, lab="", framestyle=:box)
-scatter!(I, N, nodefill=degree(N), legend=true, framestyle=:box)
+scatter!(I, N, nodefill=degree(N), colorbar=true, framestyle=:box)
 ```
