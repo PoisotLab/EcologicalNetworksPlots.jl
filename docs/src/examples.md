@@ -1,14 +1,10 @@
-## Examples
-
 ```@setup default
 using EcologicalNetworks
 using EcologicalNetworksPlots
 using Plots
 ```
 
-## Static layouts
-
-### Nested
+## Nested layout
 
 ```@example default
 Unes = web_of_life("M_SD_033")
@@ -18,7 +14,7 @@ plot(I, Unes, aspectratio=1)
 scatter!(I, Unes, bipartite=true)
 ```
 
-### Circular
+## Circular layout
 
 ```@example default
 Unes = web_of_life("M_SD_033")
@@ -28,9 +24,7 @@ plot(I, Unes, aspectratio=1)
 scatter!(I, Unes, bipartite=true)
 ```
 
-## Dynamic layouts
-
-### Force directed
+## Force directed layout
 
 ```@example default
 Umod = web_of_life("M_PA_003")
@@ -42,7 +36,7 @@ plot(I, Umod, aspectratio=1)
 scatter!(I, Umod, bipartite=true)
 ```
 
-### Food web layout
+## Food web layout
 
 ```@example default
 Fweb = simplify(nz_stream_foodweb()[5])
@@ -86,7 +80,16 @@ scatter!(I, Unes, bipartite=true, nodefill=degree(Unes))
 
 ### Size
 
-## Advanced examples
+```@example default
+Unes = web_of_life("M_SD_033")
+I = initial(BipartiteInitialLayout, Unes)
+position!(NestedBipartiteLayout(0.4), I, Unes)
+plot(I, Unes, aspectratio=1)
+scatter!(I, Unes, bipartite=true, nodesize=degree(Unes))
+```
+
+
+## Network subsets
 
 One important feature of the package is that the layout can contain *more* nodes
 than the network. For example, we can use this to our advantage, to represent
@@ -106,14 +109,19 @@ plot!(I, N[core3], lc=:red)
 scatter!(I, N[core3], mc=:red)
 ```
 
-### Heatmaps
+## Heatmap
 
 ```@example default
 Umod = web_of_life("M_PA_003")
-heatmap(Umod)
+heatmap(Umod, c=:YlGnBu)
 ```
 
-### Unravelled layout
+```@example default
+Umod = convert(BipartiteNetwork, web_of_life("M_PA_003"))
+heatmap(convert(UnipartiteNetwork, Umod))
+```
+
+## Unravelled layout
 
 ```@example default
 N = nz_stream_foodweb()[10]
