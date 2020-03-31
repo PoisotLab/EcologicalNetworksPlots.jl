@@ -4,7 +4,8 @@ using Documenter, EcologicalNetworksPlots
 
 const pages = [
     "Index" => "index.md",
-    "Examples" => "examples.md"
+    "Examples" => "examples.md",
+    "Reference" => "library.md"
 ]
 
 makedocs(

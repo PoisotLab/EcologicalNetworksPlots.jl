@@ -1,39 +1,16 @@
-Plotting functions are part of the `EcologicalNetworksPlot`, which requires
-`Plots` to work. `EcologicalNetworksPlot` can be installed from the central
-*Julia* package repository.
+The `EcologicalNetworksPlots` package extends `EcologicalNetworks` to provide
+plotting functionalities, by allowing network objects to be used with `Plots`.
+This documentation has a complete reference of the functions and types, as well
+as a gallery of examples.
 
-## Initial layouts
+Plotting a network can be done in two ways. First, as a `heatmap`, in which case
+no arguments are necessary. Second, as the usual nodes and links visualization.
 
-```@docs
-initial
-```
+The second option requires to set a layout, of which there are multiple types
+according to the type of network, the type of layout, and the information to
+emphasize. Applying a layout consists of a call to `initial`, followed by one or
+more calls to `position!`. The *nodes* in the network are represented using
+`scatter`, and the *links* using `plot`.
 
-```@docs
-RandomInitialLayout
-BipartiteInitialLayout
-FoodwebInitialLayout
-CircularInitialLayout
-UnravelledInitialLayout
-```
-
-## Layouts
-
-### Force-directed layout
-
-```@docs
-ForceDirectedLayout
-```
-
-### Static layouts
-
-```@docs
-CircularLayout
-NestedBipartiteLayout
-UnravelledLayout
-```
-
-## Apply layout to network
-
-```@docs
-position!
-```
+Probabilistic networks have link *probability* denoted as transparency, and
+quantitative network have link *strength* represented as width.
