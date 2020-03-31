@@ -55,7 +55,7 @@ end
             if bipartite
                 m_shape = Symbol[]
                 for (i, s) in enumerate(species(network))
-                    this_mshape = s ∈ species(network; dims=1) ? :circle : :square
+                    this_mshape = s ∈ species(network; dims=1) ? :dtriangle : :circle
                     push!(m_shape, this_mshape)
                 end
                 marker := m_shape
