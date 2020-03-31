@@ -1,5 +1,21 @@
 """
     ForceDirectedLayout
+
+The fields are, in order:
+
+- `move_x`, to specificy if the nodes are allowed to move horizontally
+- `move_y`, to specificy if the nodes are allowed to move vertically
+- `k`, the spring coefficient, set to `0.2` by default in most cases
+- `center`, to specify if the nodes are pulled towards the center
+- `height`, the height of the space, set to `1.0` by default
+
+The spring coefficient is used to decide how strongly nodes will *attract* or
+*repel* one another, as a function of their distance Δ. Specifically, the
+default is that connected nodes will attract one another proportionally to Δ²/k,
+and all nodes will repel one another proportionally to k²/Δ.
+
+If `center=true`, the nodes are *all* attracted to the center at a strength
+proportional to 75% of the attraction they would have from a connected node.
 """
 struct ForceDirectedLayout
     move_x::Bool
@@ -10,12 +26,15 @@ struct ForceDirectedLayout
 end
 
 """
-    ForceDirectedLayout()
+    ForceDirectedLayout(;k::Bool=0.2, center::Bool=true)
 
 Creates a default force directed layout where nodes move in both directions, are
-attracted to the center, with a spring coefficient of 0.2.
+attracted to the center, with a spring coefficient of 0.2. The spring
+coefficient can be changed with the `k` argument, and the attachment to the
+center can be changed with the `center` keyword. Note that if the network as
+multiple disconnected components, `center=false` can lead to strange results.
 """
-ForceDirectedLayout() = ForceDirectedLayout(true, true, 0.2, true, 1.0)
+ForceDirectedLayout(;k::Bool=0.2, center::Bool=true) = ForceDirectedLayout(true, true, k, center, 1.0)
 
 ForceDirectedLayout(k::Float64) = ForceDirectedLayout(true, true, k, true, 1.0)
 ForceDirectedLayout(mx::Bool, my::Bool) = ForceDirectedLayout(mx, my, 0.2, true, 1.0)
@@ -69,10 +88,10 @@ end
 Update the position of a node
 """
 function update!(LA::T, n::NodePosition) where {T <: ForceDirectedLayout}
-  Δ = sqrt(n.vx^2.0+n.vy^2.0)
-  Δ = Δ == 0.0 ? 0.0001 : Δ
-  n.x += n.vx/Δ*min(Δ, 0.01)
-  n.y += n.vy/Δ*min(Δ, 0.01)
+  #Δ = sqrt(n.vx^2.0+n.vy^2.0)
+  #Δ = Δ == 0.0 ? 0.0001 : Δ
+  n.x += n.vx#/Δ*min(Δ, 0.01)
+  n.y += n.vy#/Δ*min(Δ, 0.01)
   stop!(n)
 end
 
@@ -105,7 +124,7 @@ function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where
   if LA.center
     plotcenter = NodePosition(0.0, 0.0, 0.0, 0.0)
     for s in species(N)
-      attract!(LA, L[s], plotcenter, (x) -> 0.8*fa(x))
+      attract!(LA, L[s], plotcenter, (x) -> 0.75*fa(x))
     end
   end
 
