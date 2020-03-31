@@ -108,7 +108,6 @@ scatter!(I, N[core3], mc=:red)
 
 ### Heatmaps
 
-
 ```@example default
 Umod = web_of_life("M_PA_003")
 heatmap(Umod)
