@@ -17,7 +17,7 @@ end
 
 UnravelledLayout() = UnravelledLayout(fractional_trophic_level, degree)
 
-function position!(LA::UnravelledLayout, L::Dict{K,NodePosition}, N::T) where {T <: AbstractBipartiteNetwork} where {K}
+function position!(LA::LT, L::Dict{K,NodePosition}, N::T) where {LT <: UnravelledLayout, T <: AbstractEcologicalNetwork} where {K}
   X = LA.x(N)
   Y = LA.y(N)
   for (i, s) in enumerate(species(N))
