@@ -36,3 +36,21 @@ plot(I, Umod, aspectratio=1, framestyle=:grid, legend=false)
 savefig(joinpath(figpath, "bip_circular_plot_2.png"))
 scatter!(I, Umod, bipartite=true, framestyle=:box, legend=true)
 savefig(joinpath(figpath, "bip_circular_full_2.png"))
+
+Unes = web_of_life("M_SD_033")
+I = initial(BipartiteInitialLayout, Unes)
+position!(NestedBipartiteLayout(0.4), I, Unes)
+plot(I, Unes, aspectratio=1)
+scatter!(I, Unes, bipartite=true, nodefill=degree(Unes))
+
+Fweb = simplify(nz_stream_foodweb()[5])
+I = initial(FoodwebInitialLayout, Fweb)
+for step in 1:300
+  position!(ForceDirectedLayout(true, false, 2.5), I, Fweb)
+end
+tl = trophic_level(Fweb)
+for s in species(Fweb)
+  I[s].y = tl[s]
+end
+plot(I, Fweb)
+scatter!(I, Fweb)
