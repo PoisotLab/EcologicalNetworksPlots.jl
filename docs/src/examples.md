@@ -112,3 +112,13 @@ scatter!(I, N[core3], mc=:red)
 Umod = web_of_life("M_PA_003")
 heatmap(Umod)
 ```
+
+### Unravelled layout
+
+```@example default
+N = nz_stream_foodweb()[10]
+I = initial(UnravelledInitialLayout, N)
+position!(UnravelledLayout(degree_in, degree_out), I, N)
+plot(I, N, lab="", frametype=:box)
+scatter!(I, N, nodefill=degree(N), legend=true, frametype=:box)
+```
