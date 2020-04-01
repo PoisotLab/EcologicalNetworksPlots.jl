@@ -127,8 +127,11 @@ heatmap(convert(UnipartiteNetwork, Umod))
 ## Unravelled layout
 
 The unravelled layout is essentially a scatterplot of network properties with
-interactions drawn as well. By default, it will compare the omnivory index and
-the trophic level:
+interactions drawn as well. This is inspired by [the work of Giulio Valentina
+Dalla Riva on this visualisation][gvdr]. By default, it will compare the
+omnivory index and the trophic level:
+
+[gvdr]: https://github.com/gvdr/unravel
 
 ```@example default
 N = nz_stream_foodweb()[10]
