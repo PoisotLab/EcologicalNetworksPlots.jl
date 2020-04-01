@@ -150,7 +150,7 @@ I = initial(UnravelledInitialLayout, N)
 function random_omnivory(N::T) where {T <: UnipartiteNetwork}
   o = omnivory(N)
   for s in species(N)
-    o[s] += (rand()-0.5)*0.08
+    o[s] += (rand()-0.5)*0.1
   end
   return o
 end
