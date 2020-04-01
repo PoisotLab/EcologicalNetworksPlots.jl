@@ -159,5 +159,5 @@ UL = UnravelledLayout(x=random_omnivory, y=trophic_level)
 position!(UL, I, N)
 
 plot(I, N, lab="", framestyle=:box)
-scatter!(I, N, nodefill=degree(N), colorbar=true, framestyle=:box, c=:viridis)
+scatter!(I, N, nodefill=degree(N), colorbar=true, framestyle=:box, mc=:viridis)
 ```
