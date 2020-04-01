@@ -16,7 +16,13 @@ struct UnravelledLayout{TX<:Function,TY<:Function}
 end
 
 UnravelledLayout() = UnravelledLayout(omnivory, fractional_trophic_level)
+UnravelledLayout(;x=omnivory, y=fractional_trophic_level) = UnravelledLayout(x, y)
 
+"""
+    position!(LA::LT, L::Dict{K,NodePosition}, N::T) where {LT <: UnravelledLayout, T <: AbstractEcologicalNetwork} where {K}
+
+Position species according to the function defined in the `UnravelledLayout`.
+"""
 function position!(LA::LT, L::Dict{K,NodePosition}, N::T) where {LT <: UnravelledLayout, T <: AbstractEcologicalNetwork} where {K}
   X = LA.x(N)
   Y = LA.y(N)
@@ -54,6 +60,11 @@ By default, a `NestedBipartiteLayout` is aligned, centered, and with a spread of
 NestedBipartiteLayout() = NestedBipartiteLayout(true, true, 1.0)
 NestedBipartiteLayout(spread::Float64) = NestedBipartiteLayout(true, true, spread)
 
+"""
+    position!(LA::NestedBipartiteLayout, L::Dict{K,NodePosition}, N::T) where {T <: AbstractBipartiteNetwork} where {K}
+
+Rank species according to their degree.
+"""
 function position!(LA::NestedBipartiteLayout, L::Dict{K,NodePosition}, N::T) where {T <: AbstractBipartiteNetwork} where {K}
     r_top = ordinalrank(collect(values(degree(N; dims=1))); rev=true).-1
     r_bot = ordinalrank(collect(values(degree(N; dims=2))); rev=true).-1
