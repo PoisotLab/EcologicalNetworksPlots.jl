@@ -88,10 +88,10 @@ end
 Update the position of a node
 """
 function update!(LA::T, n::NodePosition) where {T <: ForceDirectedLayout}
-  #Δ = sqrt(n.vx^2.0+n.vy^2.0)
-  #Δ = Δ == 0.0 ? 0.0001 : Δ
-  n.x += n.vx#/Δ*min(Δ, 0.01)
-  n.y += n.vy#/Δ*min(Δ, 0.01)
+  Δ = sqrt(n.vx^2.0+n.vy^2.0)
+  Δ = Δ == 0.0 ? 0.0001 : Δ
+  n.x += n.vx/Δ*min(Δ, 0.01)
+  n.y += n.vy/Δ*min(Δ, 0.01)
   stop!(n)
 end
 
