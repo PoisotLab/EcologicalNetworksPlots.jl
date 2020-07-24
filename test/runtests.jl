@@ -8,6 +8,7 @@ Random.seed!(42);
 
 # Prepare the output
 figpath = joinpath(pwd(), "gallery")
+ispath(figpath) && rm(figpath)
 ispath(figpath) || mkdir(figpath)
 
 Umod = web_of_life("M_PA_003")
@@ -21,6 +22,7 @@ for al in [true, false], re in [true, false]
     scatter!(I, Unes, bipartite=true)
     savefig(joinpath(figpath, "bip_nest_al_$(al)_re_$(re).png"))
 end
+@test isfile(joinpath(figpath, "bip_nest_al_$(al)_re_$(re).png"))
 
 @info "Bipartite -- circular"
 I = initial(CircularInitialLayout, Unes)
@@ -29,6 +31,7 @@ plot(I, Unes, aspectratio=1, framestyle=:grid, legend=true)
 savefig(joinpath(figpath, "bip_circular_plot.png"))
 scatter!(I, Unes, bipartite=true)
 savefig(joinpath(figpath, "bip_circular_full.png"))
+@test isfile(joinpath(figpath, "bip_circular_full.png"))
 
 I = initial(CircularInitialLayout, Umod)
 position!(CircularLayout(), I, Umod)
@@ -36,6 +39,7 @@ plot(I, Umod, aspectratio=1, framestyle=:grid, legend=false)
 savefig(joinpath(figpath, "bip_circular_plot_2.png"))
 scatter!(I, Umod, bipartite=true, framestyle=:box, legend=true)
 savefig(joinpath(figpath, "bip_circular_full_2.png"))
+@test isfile(joinpath(figpath, "bip_circular_full_2.png"))
 
 Unes = web_of_life("M_SD_033")
 I = initial(BipartiteInitialLayout, Unes)
