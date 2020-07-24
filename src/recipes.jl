@@ -49,7 +49,7 @@ end
 
             if nodefill !== nothing
                 nfi_range = (minimum(values(nodefill)), maximum(values(nodefill)))
-                markerz := [EcologicalNetworksPlots.scale_value(nodefill[s], nfi_range, (0,1)) for s in species(network)]
+                marker_z := [EcologicalNetworksPlots.scale_value(nodefill[s], nfi_range, (0,1)) for s in species(network)]
             end
 
             if bipartite
@@ -62,7 +62,7 @@ end
             end
 
             seriestype := :scatter
-            color --> :white
+            seriescolor --> :white
             X, Y
         end
     end
