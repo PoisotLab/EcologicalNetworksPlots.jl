@@ -32,7 +32,7 @@ end
                     linewidth --> EcologicalNetworksPlots.scale_value(interaction.strength, int_range, (0.5, 3.5))
                 end
                 if typeof(network) <: ProbabilisticNetwork
-                    alpha --> interaction.probability
+                    seriesalpha --> interaction.probability
                 end
                 x, y
             end
