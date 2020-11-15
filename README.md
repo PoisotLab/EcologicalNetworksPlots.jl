@@ -8,4 +8,6 @@ heatmaps, as well as layouts based on node properties. Note that `Plots.jl`
 
 **Documentation:** [Stable](https://ecojulia.github.io/EcologicalNetworksPlots.jl/stable/) `//` [Latest](https://ecojulia.github.io/EcologicalNetworksPlots.jl/latest/)
 
+![CI](https://github.com/EcoJulia/EcologicalNetworksPlots.jl/workflows/CI/badge.svg?branch=master)
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3347212.svg)](https://doi.org/10.5281/zenodo.3347212)
