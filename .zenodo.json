@@ -1,0 +1,28 @@
+{
+   "title": "Plots.jl extension for ecological networks",
+   "description": "This packages provides a Way to visualize ecological networks in Julia.",
+   "grants": [
+      {}
+   ],
+   "related_identifiers": [
+      {
+         "relation": "isSupplementTo",
+         "identifier": "10.1111/ecog.04310"
+      }
+   ],
+   "upload_type": "software",
+   "creators": [
+      {
+         "affiliation": "Université de Montréal",
+         "name": "Poisot, Timothée",
+         "orcid": "0000-0002-0735-5184"
+      },
+      {
+        "affiliation": "University of Copenhagen ",
+        "name": "Borregaard, Michael",
+        "orcid": "0000-0002-8146-8435"
+      }
+   ],
+   "access_right": "open",
+   "license": "mit-license"
+}
