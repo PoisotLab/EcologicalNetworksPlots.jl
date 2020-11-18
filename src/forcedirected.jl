@@ -34,7 +34,7 @@ coefficient can be changed with the `k` argument, and the attachment to the
 center can be changed with the `center` keyword. Note that if the network as
 multiple disconnected components, `center=false` can lead to strange results.
 """
-ForceDirectedLayout(;k::Bool=0.2, center::Bool=true) = ForceDirectedLayout(true, true, k, center, 1.0)
+ForceDirectedLayout(;k::Float64=0.2, center::Bool=true) = ForceDirectedLayout(true, true, k, center, 1.0)
 
 ForceDirectedLayout(k::Float64) = ForceDirectedLayout(true, true, k, true, 1.0)
 ForceDirectedLayout(mx::Bool, my::Bool) = ForceDirectedLayout(mx, my, 0.2, true, 1.0)
