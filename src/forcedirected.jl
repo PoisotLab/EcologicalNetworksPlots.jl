@@ -128,7 +128,8 @@ function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where
     end
   end
 
-  for (i,s) in enumerate(species(N))
+  for s in species(N)
     update!(LA, L[s])
   end
+
 end
