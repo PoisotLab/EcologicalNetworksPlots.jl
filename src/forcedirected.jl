@@ -4,7 +4,7 @@
 The fields are, in order:
 
 - `move`, a tuple to specify whether moves on the x and y axes are allowed
-- `k`, the spring coefficient, set to `0.2` by default in most cases
+- `k`, a tuple giving the strength of attraction and repulsion
 - `gravity`, the strength of attraction towards the center, set to `0.0` as a default
 
 The spring coefficient is used to decide how strongly nodes will *attract* or
@@ -14,7 +14,7 @@ and all nodes will repel one another proportionally to k²/Δ.
 """
 struct ForceDirectedLayout
     move::Tuple{Bool,Bool}
-    k::Float64
+    k::Tuple{Float64,Float64}
     gravity::Float64
 end
 
@@ -27,8 +27,9 @@ coefficient can be changed with the `k` argument, and the attachment to the
 center can be changed with the `center` keyword. Note that if the network as
 multiple disconnected components, `center=false` can lead to strange results.
 """
-ForceDirectedLayout(;k::Float64=0.2, gravity::Float64=0.75) = ForceDirectedLayout((true,true), k, gravity)
-ForceDirectedLayout(k::Float64) = ForceDirectedLayout(k=k)
+ForceDirectedLayout(;k::Float64=0.2, gravity::Float64=0.75) = ForceDirectedLayout((true,true), (k,k), gravity)
+ForceDirectedLayout(;ka::Float64=0.2, kr::Float64=0.2, gravity::Float64=0.75) = ForceDirectedLayout((true,true), (ka,kr), gravity)
+ForceDirectedLayout(k::Float64) = ForceDirectedLayout(k=(k,k))
 
 """
 Stops the movement of a node position.
@@ -93,8 +94,8 @@ take some time to converge, it may be useful to stop every 500 iterations to
 have a look at the results.
 """
 function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork} where {K}
-  fa(x) = (x*x)/LA.k # Default attraction function
-  fr(x) = (LA.k*LA.k)/x # Default repulsion function
+  fa(x) = (x^2.0)/LA.ka # Default attraction function
+  fr(x) = (LA.kr^2.0)/x # Default repulsion function
   for (i, s1) in enumerate(species(N))
     n1 = L[s1]
     stop!(n1)
