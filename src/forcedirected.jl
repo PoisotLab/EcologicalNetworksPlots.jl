@@ -3,30 +3,23 @@
 
 The fields are, in order:
 
-- `move_x`, to specificy if the nodes are allowed to move horizontally
-- `move_y`, to specificy if the nodes are allowed to move vertically
+- `move`, a tuple to specify whether moves on the x and y axes are allowed
 - `k`, the spring coefficient, set to `0.2` by default in most cases
-- `center`, to specify if the nodes are pulled towards the center
-- `height`, the height of the space, set to `1.0` by default
+- `gravity`, the strength of attraction towards the center, set to `0.0` as a default
 
 The spring coefficient is used to decide how strongly nodes will *attract* or
 *repel* one another, as a function of their distance Δ. Specifically, the
 default is that connected nodes will attract one another proportionally to Δ²/k,
 and all nodes will repel one another proportionally to k²/Δ.
-
-If `center=true`, the nodes are *all* attracted to the center at a strength
-proportional to 75% of the attraction they would have from a connected node.
 """
 struct ForceDirectedLayout
-    move_x::Bool
-    move_y::Bool
+    move::Tuple{Bool,Bool}
     k::Float64
-    center::Bool
-    height::Float64
+    gravity::Float64
 end
 
 """
-    ForceDirectedLayout(;k::Bool=0.2, center::Bool=true)
+    ForceDirectedLayout(;k::Float64=0.2, gravity::Float64=0.75)
 
 Creates a default force directed layout where nodes move in both directions, are
 attracted to the center, with a spring coefficient of 0.2. The spring
@@ -34,11 +27,8 @@ coefficient can be changed with the `k` argument, and the attachment to the
 center can be changed with the `center` keyword. Note that if the network as
 multiple disconnected components, `center=false` can lead to strange results.
 """
-ForceDirectedLayout(;k::Float64=0.2, center::Bool=true) = ForceDirectedLayout(true, true, k, center, 1.0)
-
-ForceDirectedLayout(k::Float64) = ForceDirectedLayout(true, true, k, true, 1.0)
-ForceDirectedLayout(mx::Bool, my::Bool) = ForceDirectedLayout(mx, my, 0.2, true, 1.0)
-ForceDirectedLayout(mx::Bool, my::Bool, k::Float64) = ForceDirectedLayout(mx, my, k, true, 1.0)
+ForceDirectedLayout(;k::Float64=0.2, gravity::Float64=0.75) = ForceDirectedLayout((true,true), k, gravity)
+ForceDirectedLayout(k::Float64) = ForceDirectedLayout(k=k)
 
 """
 Stops the movement of a node position.
@@ -56,11 +46,11 @@ function repel!(LA::T, n1::NodePosition, n2::NodePosition, fr) where {T <: Force
   δy = n1.y - n2.y
   Δ = sqrt(δx^2.0+δy^2.0)
   Δ = Δ == 0.0 ? 0.0001 : Δ
-  if LA.move_x
+  if LA.move[1]
     n1.vx = n1.vx + δx/Δ*fr(Δ)
     n2.vx = n2.vx - δx/Δ*fr(Δ)
   end
-  if LA.move_y # Do we need to move y here?
+  if LA.move[2] # Do we need to move y here?
     n1.vy = n1.vy + δy/Δ*fr(Δ)
     n2.vy = n2.vy - δy/Δ*fr(Δ)
   end
@@ -74,11 +64,11 @@ function attract!(LA::T, n1::NodePosition, n2::NodePosition, fa) where {T <: For
   δy = n1.y - n2.y
   Δ = sqrt(δx^2.0+δy^2.0)
   Δ = Δ == 0.0 ? 0.0001 : Δ
-  if LA.move_x
+  if LA.move[1]
     n1.vx = n1.vx - δx/Δ*fa(Δ)
     n2.vx = n2.vx + δx/Δ*fa(Δ)
   end
-  if LA.move_y
+  if LA.move[2]
     n1.vy = n1.vy - δy/Δ*fa(Δ)
     n2.vy = n2.vy + δy/Δ*fa(Δ)
   end
@@ -87,7 +77,7 @@ end
 """
 Update the position of a node
 """
-function update!(LA::T, n::NodePosition) where {T <: ForceDirectedLayout}
+function update!(n::NodePosition) where {T <: ForceDirectedLayout}
   Δ = sqrt(n.vx^2.0+n.vy^2.0)
   Δ = Δ == 0.0 ? 0.0001 : Δ
   n.x += n.vx/Δ*min(Δ, 0.01)
@@ -121,15 +111,15 @@ function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where
     attract!(LA, n1, n2, fa)
   end
 
-  if LA.center
+  if LA.gravity > 0.0
     plotcenter = NodePosition(0.0, 0.0, 0.0, 0.0)
     for s in species(N)
-      attract!(LA, L[s], plotcenter, (x) -> 0.75*fa(x))
+      attract!(LA, L[s], plotcenter, (x) -> LA.gravity*fa(x))
     end
   end
 
   for s in species(N)
-    update!(LA, L[s])
+    update!(L[s])
   end
 
 end
