@@ -15,6 +15,6 @@ makedocs(
     )
 
 deploydocs(
-    repo = "github.com/PoisotLab/EcologicalNetworksPlots.jl.git",
+    repo = "github.com/EcoJulia/EcologicalNetworksPlots.jl.git",
     push_preview = true
 )
