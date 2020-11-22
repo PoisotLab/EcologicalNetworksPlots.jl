@@ -106,8 +106,7 @@ function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where
     end
     
     for int in interactions(N)
-        n1, n2 = L[int.from], L[int.to]
-        attract!(LA, n1, n2, fa)
+        attract!(LA, L[int.from], L[int.to], fa)
     end
     
     if LA.gravity > 0.0
