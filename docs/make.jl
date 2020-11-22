@@ -6,9 +6,11 @@ const pages = [
     "Index" => "index.md",
     "Layouts" => [
         "Introduction" => "layouts/initial.md",
-        "Circular" => "layouts/circular.md"
-    ],
-    "Reference" => "library.md"
+        "Circular" => "layouts/circular.md",
+        "Bipartite" => "layouts/bipartite.md",
+        "Force-directed" => "layouts/forcedirected.md"
+    ]
+    # TODO add plotting, heatmap, advanced uses
 ]
 
 makedocs(
