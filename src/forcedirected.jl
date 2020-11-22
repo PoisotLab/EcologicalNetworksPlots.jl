@@ -98,12 +98,9 @@ function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where
     fr(x) = (LA.kr^2.0)/x # Default repulsion function
     
     for (i, s1) in enumerate(species(N))
-        n1 = L[s1]
-        stop!(n1)
         for (j, s2) in enumerate(species(N))
-            n2 = L[s2]
-            if j != i
-                repel!(LA, n1, n2, fr)
+            if j > i
+                repel!(LA, L[s1], L[s2], fr)
             end
         end
     end
