@@ -1,9 +1,4 @@
-## Prepare and apply a layout
 
-```@docs
-initial
-position!
-```
 
 ## Layouts
 
@@ -17,10 +12,7 @@ ForceDirectedLayout
 
 ### Circular
 
-```@docs
-CircularInitialLayout
-CircularLayout
-```
+
 
 ### Nested (bipartite only)
 

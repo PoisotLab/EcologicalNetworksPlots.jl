@@ -4,7 +4,10 @@ using Documenter, EcologicalNetworksPlots
 
 const pages = [
     "Index" => "index.md",
-    "Examples" => "examples.md",
+    "Layouts" => [
+        "Introduction" => "layouts/initial.md",
+        "Circular" => "layouts/circular.md"
+    ],
     "Reference" => "library.md"
 ]
 
