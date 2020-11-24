@@ -4,13 +4,13 @@
 The fields are, in order:
 
 - `move`, a tuple to specify whether moves on the x and y axes are allowed
-- `k`, a tuple giving the strength of attraction and repulsion
+- `k`, a tuple (kₐ,kᵣ) giving the strength of attraction and repulsion
 - `gravity`, the strength of attraction towards the center, set to `0.0` as a default
 
 The spring coefficient is used to decide how strongly nodes will *attract* or
 *repel* one another, as a function of their distance Δ. Specifically, the
-default is that connected nodes will attract one another proportionally to Δ²/k,
-and all nodes will repel one another proportionally to k²/Δ.
+default is that connected nodes will attract one another proportionally to Δ²/kₐ,
+and all nodes will repel one another proportionally to kᵣ²/Δ.
 """
 struct ForceDirectedLayout
     move::Tuple{Bool,Bool}
@@ -94,8 +94,8 @@ take some time to converge, it may be useful to stop every 500 iterations to
 have a look at the results.
 """
 function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork} where {K}
-    fa(x) = (x^2.0)/LA.ka # Default attraction function
-    fr(x) = (LA.kr^2.0)/x # Default repulsion function
+    fa(x) = (x^2.0)/LA.k[1] # Default attraction function
+    fr(x) = (LA.k[2]^2.0)/x # Default repulsion function
     
     for (i, s1) in enumerate(species(N))
         for (j, s2) in enumerate(species(N))
