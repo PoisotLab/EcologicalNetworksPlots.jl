@@ -14,6 +14,12 @@ UnravelledLayout
 
 ### Example
 
+```@setup default
+using EcologicalNetworks
+using EcologicalNetworksPlots
+using Plots
+```
+
 ```@example default
 N = nz_stream_foodweb()[10]
 I = initial(UnravelledInitialLayout, N)

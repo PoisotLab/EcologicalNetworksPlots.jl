@@ -8,7 +8,8 @@ const pages = [
         "Introduction" => "layouts/initial.md",
         "Circular" => "layouts/circular.md",
         "Bipartite" => "layouts/bipartite.md",
-        "Force-directed" => "layouts/forcedirected.md"
+        "Force-directed" => "layouts/forcedirected.md",
+        "Unravel" => "layouts/unravelled.md"
     ]
     # TODO add plotting, heatmap, advanced uses
 ]
