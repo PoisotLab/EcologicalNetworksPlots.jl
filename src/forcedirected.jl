@@ -97,7 +97,10 @@ function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where
     fa(x) = (x^2.0)/LA.k[1] # Default attraction function
     fr(x) = (LA.k[2]^2.0)/x # Default repulsion function
     
+    plotcenter = NodePosition(0.0, 0.0, 0.0, 0.0)
+
     for (i, s1) in enumerate(species(N))
+        attract!(LA, L[s1], plotcenter, (x) -> LA.gravity*fa(x))
         for (j, s2) in enumerate(species(N))
             if j > i
                 repel!(LA, L[s1], L[s2], fr)
@@ -108,14 +111,7 @@ function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where
     for int in interactions(N)
         attract!(LA, L[int.from], L[int.to], fa)
     end
-    
-    if LA.gravity > 0.0
-        plotcenter = NodePosition(0.0, 0.0, 0.0, 0.0)
-        for s in species(N)
-            attract!(LA, L[s], plotcenter, (x) -> LA.gravity*fa(x))
-        end
-    end
-    
+
     for s in species(N)
         update!(L[s])
     end
