@@ -41,7 +41,7 @@ modules = unique(values(P))
 col = Colors.distinguishable_colors(length(modules))
 for (i,m) in enumerate(modules)
   sp = map(first, filter(x -> isequal(m)(x.second), collect(P)))
-  t = N[species(N; dims=1)∩sp,species(N; dims=1)∩sp]
+  t = N[species(N; dims=1)∩sp,species(N; dims=2)∩sp]
   scatter!(pl, I, t, msw=0.0, mc=col[i])
   plot!(pl, I, t, lc=col[i])
 end
