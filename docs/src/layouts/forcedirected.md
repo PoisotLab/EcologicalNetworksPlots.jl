@@ -82,32 +82,13 @@ plot(I, N, aspectratio=1)
 scatter!(I, N, bipartite=true)
 ```
 
-Force Atlas 2 gives usually very good results:
+Force Atlas 2 gives usually very good results, and is in particular really good
+at showing the modules and long paths in a network.
 
 ```@example default
 I = initial(RandomInitialLayout, N)
 for step in 1:2000
   position!(ForceAtlas2(1.2; gravity=0.2), I, N)
-end
-plot(I, N, aspectratio=1)
-scatter!(I, N, bipartite=true)
-```
-
-Changing the scaling of the network (with the same gravity) can change our ability to see modules:
-
-```@example default
-I = initial(RandomInitialLayout, N)
-for step in 1:2000
-  position!(ForceAtlas2(0.2; gravity=0.2), I, N)
-end
-plot(I, N, aspectratio=1)
-scatter!(I, N, bipartite=true)
-```
-
-```@example default
-I = initial(RandomInitialLayout, N)
-for step in 1:2000
-  position!(ForceAtlas2(3.2; gravity=0.2), I, N)
 end
 plot(I, N, aspectratio=1)
 scatter!(I, N, bipartite=true)
