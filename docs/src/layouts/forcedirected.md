@@ -94,8 +94,10 @@ scatter!(I, N, bipartite=true)
 ```@example default
 Fweb = simplify(nz_stream_foodweb()[5])
 I = initial(FoodwebInitialLayout, Fweb)
+L = ForceDirectedLayout(0.15, 0.35; gravity=0.05)
+L.move = (true, false) # ForceDirectedLayouts are mutable
 for step in 1:4000
-  position!(ForceDirectedLayout((true, false), (0.15, 0.35), 0.05), I, Fweb)
+  position!(L, I, Fweb)
 end
 plot(I, Fweb)
 scatter!(I, Fweb)
