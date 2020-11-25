@@ -19,17 +19,11 @@ struct ForceDirectedLayout
 end
 
 """
-    ForceDirectedLayout(;k::Float64=0.2, gravity::Float64=0.75)
+    ForceDirectedLayout(ka::Float64, kr::Float64; gravity::Float64=0.75)
 
-Creates a default force directed layout where nodes move in both directions, are
-attracted to the center, with a spring coefficient of 0.2. The spring
-coefficient can be changed with the `k` argument, and the attachment to the
-center can be changed with the `center` keyword. Note that if the network as
-multiple disconnected components, `center=false` can lead to strange results.
+TODO
 """
-ForceDirectedLayout(;k::Float64=0.2, gravity::Float64=0.75) = ForceDirectedLayout((true,true), (k,k), gravity)
-ForceDirectedLayout(;ka::Float64=0.2, kr::Float64=0.2, gravity::Float64=0.75) = ForceDirectedLayout((true,true), (ka,kr), gravity)
-ForceDirectedLayout(k::Float64) = ForceDirectedLayout(k=(k,k))
+ForceDirectedLayout(ka::Float64, kr::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true,true), (ka,kr), gravity)
 
 """
 Stops the movement of a node position.
