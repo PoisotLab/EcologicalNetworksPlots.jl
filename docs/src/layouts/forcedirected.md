@@ -96,14 +96,26 @@ scatter!(I, N, bipartite=true)
 
 ## Food web example
 
+One convenient way to plot food webs is to prevent them from moving on the *y*
+axis, so that every species remains at its trophic level. This can be done by
+changing the `move` field (as `ForceDirectedLayout` is a mutable type). Note
+that in this example, we *update* the layout after plotting, by replacing the
+fractional trophic level by the actual trophic level (and we color the nodes by
+their omnivory, which is covered more in-depth in the next section of this
+documentation).
+
 ```@example default
 Fweb = simplify(nz_stream_foodweb()[5])
 I = initial(FoodwebInitialLayout, Fweb)
-L = ForceDirectedLayout(0.15, 0.35; gravity=0.05)
-L.move = (true, false) # ForceDirectedLayouts are mutable
-for step in 1:4000
+L = ForceAtlas2(0.15; gravity=0.01)
+L.move = (true, false)
+for step in 1:2000
   position!(L, I, Fweb)
 end
+tl = trophic_level(Fweb)
+for s in species(Fweb)
+  I[s].y = tl[s]
+end
 plot(I, Fweb)
-scatter!(I, Fweb)
+scatter!(I, Fweb, nodefill=omnivory(Fweb), c=:YlGn)
 ```
