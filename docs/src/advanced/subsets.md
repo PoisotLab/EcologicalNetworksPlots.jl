@@ -29,6 +29,7 @@ scatter!(I, N[core3], mc=:red)
 We can also use this ability to show the modular structure of a network:
 
 ```@example default
+N = convert(BinaryNetwork, Umod)
 I = initial(RandomInitialLayout, N)
 for step in 1:2000
   position!(ForceAtlas2(1.2; gravity=0.2), I, N)
