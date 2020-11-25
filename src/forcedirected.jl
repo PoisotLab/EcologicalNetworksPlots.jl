@@ -12,7 +12,7 @@ The spring coefficient is used to decide how strongly nodes will *attract* or
 default is that connected nodes will attract one another proportionally to Δ²/kₐ,
 and all nodes will repel one another proportionally to kᵣ²/Δ.
 """
-struct ForceDirectedLayout
+mutable struct ForceDirectedLayout
     move::Tuple{Bool,Bool}
     k::Tuple{Float64,Float64}
     gravity::Float64
