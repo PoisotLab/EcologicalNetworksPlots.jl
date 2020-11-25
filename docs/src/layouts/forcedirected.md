@@ -56,7 +56,7 @@ on some more):
 ```@example default
 I = initial(RandomInitialLayout, N)
 for step in 1:2000
-  position!(ForceDirectedLayout(3.0, 0.5; gravity=0.4), I, N)
+  position!(ForceDirectedLayout(0.3, 0.75; gravity=0.4), I, N)
 end
 plot(I, N, aspectratio=1)
 scatter!(I, N, bipartite=true)
