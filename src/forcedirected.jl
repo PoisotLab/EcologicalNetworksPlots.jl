@@ -39,12 +39,20 @@ TODO
 ForceDirectedLayout(ka::Float64, kr::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true,true), (ka,kr), (2.0, -1.0, -1.0, 2.0), gravity)
 
 """
-TODO
+    FruchtermanRheingold(k::Float64; gravity::Float64=0.75)
+
+The default `ForceDirectedLayout` uses the Fruchterman-Rheingold parameters -
+this function is simply here to make the code more explicity, and to use a
+"strict" version where kᵣ=kₐ. 
 """
 FruchtermanRheingold(k::Float64; gravity::Float64=0.75) = ForceDirectedLayout(k, k; gravity=gravity)
 
 """
-TODO
+    ForceAtlas2(k::Float64; gravity::Float64=0.75)
+
+In the Force Atlas 2 layout, the attraction is proportional to the distance, and
+the repulsion to the inverse of the distance. Note that kₐ in this layout is set
+to 1, so kᵣ is the *relative* repulsion.
 """
 ForceAtlas2(k::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true, true), (1.0, k), (1.0, 0.0, -1.0, 1.0), gravity)
 
