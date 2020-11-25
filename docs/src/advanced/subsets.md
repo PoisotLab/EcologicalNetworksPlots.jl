@@ -1,5 +1,3 @@
-## Networks subsets
-
 ```@setup default
 using EcologicalNetworks
 using EcologicalNetworksPlots
