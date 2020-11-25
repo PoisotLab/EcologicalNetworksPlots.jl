@@ -120,6 +120,8 @@ have a look at the results.
 """
 function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork} where {K}
     
+    d = degree(N)
+
     # Exponents and forces - the attraction and repulsion functions are
     # (Δᵃ)×(kₐᵇ) and (Δᶜ)×(kᵣᵈ)
     a,b,c,d = LA.exponents
@@ -133,7 +135,7 @@ function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where
         attract!(LA, L[s1], plotcenter, (x) -> LA.gravity*fa(x))
         for (j, s2) in enumerate(species(N))
             if j > i
-                repel!(LA, L[s1], L[s2], fr)
+                repel!(LA, L[s1], L[s2], (x) -> (d[s1]+1)*(d[s2]+1)*fr(x))
             end
         end
     end
