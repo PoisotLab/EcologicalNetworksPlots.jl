@@ -41,7 +41,7 @@ ForceDirectedLayout(ka::Float64, kr::Float64; gravity::Float64=0.75) = ForceDire
 """
 TODO
 """
-FruchtermanRheingold(k::Float64; gravity::Float64=0.75) = ForceDirectedLayout(ka=k, kr=a; gravity=gravity)
+FruchtermanRheingold(k::Float64; gravity::Float64=0.75) = ForceDirectedLayout(k, k; gravity=gravity)
 
 """
 TODO
