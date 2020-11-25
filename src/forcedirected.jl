@@ -113,8 +113,8 @@ have a look at the results.
 function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork} where {K}
     a,b,c,d = LA.exponents
     ka, kr = LA.k
-    fa(x) = (x^a)*(LA.ka^b) # Default attraction function
-    fr(x) = (x^b)*(LA.kr^d) # Default repulsion function
+    fa(x) = (x^a)*(ka^b) # Default attraction function
+    fr(x) = (x^b)*(kr^d) # Default repulsion function
     
     plotcenter = NodePosition(0.0, 0.0, 0.0, 0.0)
 
