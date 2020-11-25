@@ -33,18 +33,9 @@ I = initial(RandomInitialLayout, N)
 for step in 1:2000
   position!(ForceAtlas2(1.2; gravity=0.2), I, N)
 end
-pl = plot(I, N, aspectratio=1)
 
 # Modularity
 _, P = brim(lp(N)...)
-modules = unique(values(P))
-col = Colors.distinguishable_colors(length(modules))
-for (i,m) in enumerate(modules)
-  sp = map(first, filter(x -> isequal(m)(x.second), collect(P)))
-  t = N[species(N; dims=1)∩sp,species(N; dims=2)∩sp]
-  scatter!(pl, I, t, msw=0.0, mc=col[i])
-  plot!(pl, I, t, lc=col[i])
-end
-
-pl
+plot(I, N, aspectratio=1)
+scatter!(I, N, msw=0.0, nodefill=P)
 ```
