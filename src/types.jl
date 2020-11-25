@@ -13,7 +13,13 @@ mutable struct NodePosition
     r::Number
 end
 
-NodePosition() = NodePosition(rand(), rand(), 0.0, 0.0, 0.0)
+function NodePosition()
+    n1, n2 = (rand(2).*2.0).-1.0
+    while ((n1^2.0)+(n2^2.0))≥1.0
+        n1, n2 = (rand(2).*2.0).-1.0
+    end
+    NodePosition(n1, n2, 0.0, 0.0, 0.0)
+end
 NodePosition(x::Float64, y::Float64) = NodePosition(x, y, 0.0, 0.0, 0.0)
 NodePosition(x::Float64, y::Float64, vx::Float64, vy::Float64) = NodePosition(x, y, vx, vy, 0.0)
 
@@ -46,7 +52,7 @@ struct FoodwebInitialLayout end
     RandomInitialLayout
 
 This type is used to generate an initial layout, where the nodes are
-placed at random.
+placed at random within the unit circle.
 """
 struct RandomInitialLayout end
 
