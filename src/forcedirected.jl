@@ -119,10 +119,13 @@ take some time to converge, it may be useful to stop every 500 iterations to
 have a look at the results.
 """
 function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork} where {K}
+    
+    # Exponents and forces - the attraction and repulsion functions are
+    # (Δᵃ)×(kₐᵇ) and (Δᶜ)×(kᵣᵈ)
     a,b,c,d = LA.exponents
     ka, kr = LA.k
-    fa(x) = (x^a)*(ka^b) # Default attraction function
-    fr(x) = (x^c)*(kr^d) # Default repulsion function
+    fa(x) = (x^a)*(ka^b)
+    fr(x) = (x^c)*(kr^d)
     
     plotcenter = NodePosition(0.0, 0.0, 0.0, 0.0)
 
@@ -136,7 +139,8 @@ function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where
     end
     
     for int in interactions(N)
-        attract!(LA, L[int.from], L[int.to], fa)
+        # We can do Bool^δ and it returns the Bool, so that's tight
+        attract!(LA, L[int.from], L[int.to], (x) -> N[int.from, int.to]^0.2*fa(x))
     end
 
     for s in species(N)
