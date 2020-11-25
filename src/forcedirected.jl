@@ -13,8 +13,8 @@ The fields are, in order:
 The various coefficients are used to decide how strongly nodes will *attract* or
 *repel* one another, as a function of their distance Δ. Specifically, the
 default is that connected nodes will attract one another proportionally to
-(kₐᵃ)*(Δᵇ), with a=-1 and b=2, and all nodes repel one another proportionally to
-(kᵣᶜ)*(Δᵈ) with c=2 and d=1.
+(kₐᵃ)×(Δᵇ), with a=-1 and b=2, and all nodes repel one another proportionally to
+(kᵣᶜ)×(Δᵈ) with c=2 and d=1.
 
 The parameterization for the Fruchterman-Rheingold layout is the default one,
 particularly if kₐ=kᵣ. The Force Atlas 2 parameters are kₐ=1 (or a=0), kᵣ set to
@@ -114,7 +114,7 @@ function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where
     a,b,c,d = LA.exponents
     ka, kr = LA.k
     fa(x) = (x^a)*(ka^b) # Default attraction function
-    fr(x) = (x^b)*(kr^d) # Default repulsion function
+    fr(x) = (x^c)*(kr^d) # Default repulsion function
     
     plotcenter = NodePosition(0.0, 0.0, 0.0, 0.0)
 
