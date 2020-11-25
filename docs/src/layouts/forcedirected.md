@@ -1,4 +1,4 @@
-## Force-directed layout
+## Layouts
 
 ```@docs
 FoodwebInitialLayout
@@ -13,7 +13,7 @@ using EcologicalNetworksPlots
 using Plots
 ```
 
-### Bipartite example
+## Bipartite example
 
 In this example, we have a quantitative bipartite network, and we will set no
 gravity (nodes can move as far away as they want from the center). Note that our
@@ -50,7 +50,7 @@ plot(I, N, aspectratio=1)
 scatter!(I, N, bipartite=true)
 ```
 
-### Food web example
+## Food web example
 
 ```@example default
 Fweb = simplify(nz_stream_foodweb()[5])

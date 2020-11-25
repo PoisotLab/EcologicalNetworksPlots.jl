@@ -1,6 +1,4 @@
-## Circular layout
-
-### Layouts
+## Layouts
 
 ```@docs
 CircularInitialLayout
@@ -13,7 +11,7 @@ using EcologicalNetworksPlots
 using Plots
 ```
 
-### Example
+## Example
 
 ```@example default
 Unes = web_of_life("M_SD_033")

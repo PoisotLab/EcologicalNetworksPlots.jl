@@ -1,18 +1,16 @@
-## Unravelled layout
-
 The unravelled layout is essentially a scatterplot of network properties with
 interactions drawn as well. This is inspired by [the work of Giulio V. Dalla
 Riva on this visualisation](https://github.com/gvdr/unravel). By default, it
 will compare the omnivory index and the trophic level:
 
-### Layouts
+## Layouts
 
 ```@docs
 UnravelledInitialLayout
 UnravelledLayout
 ```
 
-### Example
+## Example
 
 ```@setup default
 using EcologicalNetworks
