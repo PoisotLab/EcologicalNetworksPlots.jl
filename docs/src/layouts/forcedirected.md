@@ -71,6 +71,8 @@ FruchtermanRheingold
 ForceAtlas2
 ```
 
+The Fruchterman-Rheingold method is the default:
+
 ```@example default
 I = initial(RandomInitialLayout, N)
 for step in 1:2000
@@ -80,10 +82,32 @@ plot(I, N, aspectratio=1)
 scatter!(I, N, bipartite=true)
 ```
 
+Force Atlas 2 gives usually very good results:
+
 ```@example default
 I = initial(RandomInitialLayout, N)
 for step in 1:2000
   position!(ForceAtlas2(1.2; gravity=0.2), I, N)
+end
+plot(I, N, aspectratio=1)
+scatter!(I, N, bipartite=true)
+```
+
+Changing the scaling of the network (with the same gravity) can change our ability to see modules:
+
+```@example default
+I = initial(RandomInitialLayout, N)
+for step in 1:2000
+  position!(ForceAtlas2(0.2; gravity=0.2), I, N)
+end
+plot(I, N, aspectratio=1)
+scatter!(I, N, bipartite=true)
+```
+
+```@example default
+I = initial(RandomInitialLayout, N)
+for step in 1:2000
+  position!(ForceAtlas2(3.2; gravity=0.2), I, N)
 end
 plot(I, N, aspectratio=1)
 scatter!(I, N, bipartite=true)
