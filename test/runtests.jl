@@ -51,7 +51,7 @@ scatter!(I, Unes, bipartite=true, nodefill=degree(Unes))
 Fweb = simplify(nz_stream_foodweb()[5])
 I = initial(FoodwebInitialLayout, Fweb)
 for step in 1:300
-  position!(ForceDirectedLayout((true, false), 2.5, 0.7), I, Fweb)
+  position!(ForceDirectedLayout((true, false), (2.5, 1.5), 0.7), I, Fweb)
 end
 tl = trophic_level(Fweb)
 for s in species(Fweb)
