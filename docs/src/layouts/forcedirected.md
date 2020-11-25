@@ -119,7 +119,7 @@ documentation).
 ```@example default
 Fweb = simplify(nz_stream_foodweb()[5])
 I = initial(FoodwebInitialLayout, Fweb)
-L = ForceAtlas2(0.15; gravity=0.01)
+L = SpringElectric(1.2; gravity=0.05)
 L.move = (true, false)
 for step in 1:2000
   position!(L, I, Fweb)
