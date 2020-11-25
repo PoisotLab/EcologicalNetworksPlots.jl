@@ -1,11 +1,17 @@
 ## Node color
 
+```@setup default
+using EcologicalNetworks
+using EcologicalNetworksPlots
+using Plots
+```
+
 ```@example default
 Unes = web_of_life("M_SD_033")
 I = initial(BipartiteInitialLayout, Unes)
 position!(NestedBipartiteLayout(0.4), I, Unes)
 plot(I, Unes, aspectratio=1)
-scatter!(I, Unes, bipartite=true, nodefill=degree(Unes))
+scatter!(I, Unes, bipartite=true, nodefill=degree(Unes), c=:cividis)
 ```
 
 ## Node size
@@ -19,5 +25,15 @@ Unes = web_of_life("M_SD_033")
 I = initial(BipartiteInitialLayout, Unes)
 position!(NestedBipartiteLayout(0.4), I, Unes)
 plot(I, Unes, aspectratio=1)
-scatter!(I, Unes, bipartite=true, nodesize=degree(Unes), series_annotations = string.(1:richness(Unes)))
+scatter!(I, Unes, bipartite=true, nodesize=degree(Unes))
+```
+
+## Node annotations
+
+```@example default
+Unes = web_of_life("M_SD_033")
+I = initial(BipartiteInitialLayout, Unes)
+position!(NestedBipartiteLayout(0.4), I, Unes)
+plot(I, Unes, aspectratio=1)
+scatter!(I, Unes, bipartite=true, series_annotations = string.(1:richness(Unes)))
 ```

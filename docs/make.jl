@@ -10,6 +10,10 @@ const pages = [
         "Bipartite" => "layouts/bipartite.md",
         "Force-directed" => "layouts/forcedirected.md",
         "Unravel" => "layouts/unravelled.md"
+    ],
+    "Advanced topics" => [
+        "Nodes attributes" => "advanced/attributes.md",
+        "Networks subsets" => "advanced/subsets.md",
     ]
     # TODO add plotting, heatmap, advanced uses
 ]

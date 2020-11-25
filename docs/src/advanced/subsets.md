@@ -1,4 +1,4 @@
-## Network subsets
+## Networks subsets
 
 ```@setup default
 using EcologicalNetworks
