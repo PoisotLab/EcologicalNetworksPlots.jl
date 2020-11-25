@@ -38,5 +38,5 @@ end
 # Modularity
 _, P = brim(lp(N)...)
 plot(I, N, aspectratio=1)
-scatter!(I, N, msw=0.0, nodefill=P)
+scatter!(I, N, msw=0.0, nodefill=P, c=:isolum)
 ```
