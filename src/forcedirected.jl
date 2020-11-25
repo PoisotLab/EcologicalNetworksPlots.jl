@@ -5,16 +5,29 @@ The fields are, in order:
 
 - `move`, a tuple to specify whether moves on the x and y axes are allowed
 - `k`, a tuple (kₐ,kᵣ) giving the strength of attraction and repulsion
-- `gravity`, the strength of attraction towards the center, set to `0.0` as a default
+- `exponents`, a tuple (a,b,c,d) giving the exponents for the attraction and
+  repulsion functions
+- `gravity`, the strength of attraction towards the center, set to `0.0` as a
+  default
 
-The spring coefficient is used to decide how strongly nodes will *attract* or
+The various coefficients are used to decide how strongly nodes will *attract* or
 *repel* one another, as a function of their distance Δ. Specifically, the
-default is that connected nodes will attract one another proportionally to Δ²/kₐ,
-and all nodes will repel one another proportionally to kᵣ²/Δ.
+default is that connected nodes will attract one another proportionally to
+(kₐᵃ)*(Δᵇ), with a=-1 and b=2, and all nodes repel one another proportionally to
+(kᵣᶜ)*(Δᵈ) with c=2 and d=1.
+
+The parameterization for the Fruchterman-Rheingold layout is the default one,
+particularly if kₐ=kᵣ. The Force Atlas 2 parameters are kₐ=1 (or a=0), kᵣ set to
+any value, b=1, c=1, d=-2. Note that in all cases, the gravity is a multiplying
+constant of the resulting attraction force, so it will also be sensitive to
+these choices. The `FruchtermanRheingold` and `ForceAtlas2` functions will
+return a `ForceDirectedLayout` -- as this object is mutable, you can replace the
+exponents at any time.
 """
 mutable struct ForceDirectedLayout
     move::Tuple{Bool,Bool}
     k::Tuple{Float64,Float64}
+    exponents::Tuple{Float64,Float64,Float64,Float64}
     gravity::Float64
 end
 
@@ -23,7 +36,17 @@ end
 
 TODO
 """
-ForceDirectedLayout(ka::Float64, kr::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true,true), (ka,kr), gravity)
+ForceDirectedLayout(ka::Float64, kr::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true,true), (ka,kr), (-1.0, 2.0, 2.0, 1.0), gravity)
+
+"""
+TODO
+"""
+FruchtermanRheingold(k::Float64; gravity::Float64=0.75) = ForceDirectedLayout(ka=k, kr=a; gravity=gravity)
+
+"""
+TODO
+"""
+ForceAtlas2(k::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true, true), (1.0, k), (0.0, 1.0, 1.0, -2.0), gravity)
 
 """
 Stops the movement of a node position.
@@ -45,7 +68,7 @@ function repel!(LA::T, n1::NodePosition, n2::NodePosition, fr) where {T <: Force
         n1.vx = n1.vx + δx/Δ*fr(Δ)
         n2.vx = n2.vx - δx/Δ*fr(Δ)
     end
-    if LA.move[2] # Do we need to move y here?
+    if LA.move[2]
         n1.vy = n1.vy + δy/Δ*fr(Δ)
         n2.vy = n2.vy - δy/Δ*fr(Δ)
     end
@@ -88,8 +111,10 @@ take some time to converge, it may be useful to stop every 500 iterations to
 have a look at the results.
 """
 function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork} where {K}
-    fa(x) = (x^2.0)/LA.k[1] # Default attraction function
-    fr(x) = (LA.k[2]^2.0)/x # Default repulsion function
+    a,b,c,d = LA.exponents
+    ka, kr = LA.k
+    fa(x) = (x^a)*(LA.ka^b) # Default attraction function
+    fr(x) = (x^b)*(LA.kr^d) # Default repulsion function
     
     plotcenter = NodePosition(0.0, 0.0, 0.0, 0.0)
 

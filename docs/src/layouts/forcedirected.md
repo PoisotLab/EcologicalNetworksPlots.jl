@@ -6,7 +6,6 @@ RandomInitialLayout
 ForceDirectedLayout
 ```
 
-
 ```@setup default
 using EcologicalNetworks
 using EcologicalNetworksPlots
@@ -57,6 +56,34 @@ on some more):
 I = initial(RandomInitialLayout, N)
 for step in 1:2000
   position!(ForceDirectedLayout(0.3, 0.75; gravity=0.4), I, N)
+end
+plot(I, N, aspectratio=1)
+scatter!(I, N, bipartite=true)
+```
+
+## Standard layouts
+
+The force-directed code uses a series of *exponents* in addition to the values,
+to change the conformation of the resulting diagram.
+
+```@docs
+FruchtermanRheingold
+ForceAtlas2
+```
+
+```@example default
+I = initial(RandomInitialLayout, N)
+for step in 1:2000
+  position!(FruchtermanRheingold(0.3; gravity=0.2), I, N)
+end
+plot(I, N, aspectratio=1)
+scatter!(I, N, bipartite=true)
+```
+
+```@example default
+I = initial(RandomInitialLayout, N)
+for step in 1:2000
+  position!(ForceAtlas2(1.2; gravity=0.2), I, N)
 end
 plot(I, N, aspectratio=1)
 scatter!(I, N, bipartite=true)
