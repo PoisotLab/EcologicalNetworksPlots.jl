@@ -4,6 +4,8 @@ using EcologicalNetworksPlots
 using Plots
 ```
 
+## 3-core plot
+
 One important feature of the package is that the layout can contain *more* nodes
 than the network. For example, we can use this to our advantage, to represent
 species with a degree larger than 3 in red:
@@ -20,4 +22,29 @@ N = convert(AbstractUnipartiteNetwork, convert(BinaryNetwork, Umod))
 core3 = collect(keys(filter(p -> p.second == 3, degree(N))))
 plot!(I, N[core3], lc=:red)
 scatter!(I, N[core3], mc=:red)
+```
+
+## Modularity
+
+We can also use this ability to show the modular structure of a network:
+
+```@example default
+I = initial(RandomInitialLayout, N)
+for step in 1:2000
+  position!(ForceAtlas2(1.2; gravity=0.2), I, N)
+end
+pl = plot(I, N, aspectratio=1)
+
+# Modularity
+_, P = brim(lp(N)...)
+modules = unique(values(P))
+col = Colors.distinguishable_colors(length(modules))
+for (i,m) in enumerate(modules)
+  sp = map(first, filter(x -> isequal(m)(x.second), collect(P)))
+  t = N[species(N; dims=1)∩sp,species(N; dims=1)∩sp]
+  scatter!(pl, I, t, msw=0.0, mc=col[i])
+  plot!(pl, I, t, lc=col[i])
+end
+
+pl
 ```
