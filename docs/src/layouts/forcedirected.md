@@ -56,7 +56,7 @@ on some more):
 ```@example default
 I = initial(RandomInitialLayout, N)
 for step in 1:2000
-  position!(ForceDirectedLayout(0.6, 0.15; gravity=0.4), I, N)
+  position!(ForceDirectedLayout(2.0, 0.2; gravity=0.4), I, N)
 end
 plot(I, N, aspectratio=1)
 scatter!(I, N, bipartite=true)
@@ -68,7 +68,7 @@ scatter!(I, N, bipartite=true)
 Fweb = simplify(nz_stream_foodweb()[5])
 I = initial(FoodwebInitialLayout, Fweb)
 for step in 1:4000
-  position!(ForceDirectedLayout((true, false), 2.5), I, Fweb)
+  position!(ForceDirectedLayout((true, false), (0.25, 0.25), 0.4), I, Fweb)
 end
 plot(I, Fweb)
 scatter!(I, Fweb)
