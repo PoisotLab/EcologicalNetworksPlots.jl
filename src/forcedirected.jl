@@ -65,12 +65,12 @@ function repel!(LA::T, n1::NodePosition, n2::NodePosition, fr) where {T <: Force
     Δ = sqrt(δx^2.0+δy^2.0)
     Δ = Δ == 0.0 ? 0.0001 : Δ
     if LA.move[1]
-        n1.vx = n1.vx + δx/Δ*fr(Δ)
-        n2.vx = n2.vx - δx/Δ*fr(Δ)
+        n1.vx += δx/Δ*fr(Δ)
+        n2.vx -= δx/Δ*fr(Δ)
     end
     if LA.move[2]
-        n1.vy = n1.vy + δy/Δ*fr(Δ)
-        n2.vy = n2.vy - δy/Δ*fr(Δ)
+        n1.vy += δy/Δ*fr(Δ)
+        n2.vy -= δy/Δ*fr(Δ)
     end
 end
 
@@ -83,12 +83,12 @@ function attract!(LA::T, n1::NodePosition, n2::NodePosition, fa) where {T <: For
     Δ = sqrt(δx^2.0+δy^2.0)
     Δ = Δ == 0.0 ? 0.0001 : Δ
     if LA.move[1]
-        n1.vx = n1.vx - δx/Δ*fa(Δ)
-        n2.vx = n2.vx + δx/Δ*fa(Δ)
+        n1.vx -= δx/Δ*fa(Δ)
+        n2.vx += δx/Δ*fa(Δ)
     end
     if LA.move[2]
-        n1.vy = n1.vy - δy/Δ*fa(Δ)
-        n2.vy = n2.vy + δy/Δ*fa(Δ)
+        n1.vy -= δy/Δ*fa(Δ)
+        n2.vy += δy/Δ*fa(Δ)
     end
 end
 
