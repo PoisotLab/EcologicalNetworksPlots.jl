@@ -57,6 +57,14 @@ to 1, so kᵣ is the *relative* repulsion.
 ForceAtlas2(k::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true, true), (1.0, k), (1.0, 0.0, -1.0, 1.0), gravity)
 
 """
+    SpringElectric(k::Float64; gravity::Float64=0.75)
+
+In the spring electric layout, attraction is proportional to distance, and
+repulsion to the inverse of the distance squared.
+"""
+SpringElectric(k::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true,true), (k, k), (1.0, 1.0, -2.0, 1.0), gravity)
+
+"""
 Stops the movement of a node position.
 """
 function stop!(n::NodePosition)
@@ -120,7 +128,7 @@ have a look at the results.
 """
 function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork} where {K}
     
-    d = degree(N)
+    degdistr = degree(N)
 
     # Exponents and forces - the attraction and repulsion functions are
     # (Δᵃ)×(kₐᵇ) and (Δᶜ)×(kᵣᵈ)
@@ -135,7 +143,7 @@ function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where
         attract!(LA, L[s1], plotcenter, (x) -> LA.gravity*fa(x))
         for (j, s2) in enumerate(species(N))
             if j > i
-                repel!(LA, L[s1], L[s2], (x) -> (d[s1]+1)*(d[s2]+1)*fr(x))
+                repel!(LA, L[s1], L[s2], (x) -> (degdistr[s1]+1)*(degdistr[s2]+1)*fr(x))
             end
         end
     end

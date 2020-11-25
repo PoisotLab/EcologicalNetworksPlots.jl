@@ -23,7 +23,7 @@ export initial
 # Force-directed layout
 include(joinpath(".", "forcedirected.jl"))
 export ForceDirectedLayout
-export FruchtermanRheingold, ForceAtlas2
+export FruchtermanRheingold, ForceAtlas2, SpringElectric
 
 # Static layouts
 include(joinpath(".", "static.jl"))
