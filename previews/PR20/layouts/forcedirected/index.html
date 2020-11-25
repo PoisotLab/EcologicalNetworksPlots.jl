@@ -1,204 +1,204 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Force-directed · EcologicalNetworksPlots</title><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="EcologicalNetworksPlots logo"/></a><div class="docs-package-name"><span class="docs-autofit">EcologicalNetworksPlots</span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Index</a></li><li><span class="tocitem">Layouts</span><ul><li><a class="tocitem" href="../initial/">Introduction</a></li><li><a class="tocitem" href="../circular/">Circular</a></li><li><a class="tocitem" href="../bipartite/">Bipartite</a></li><li class="is-active"><a class="tocitem" href>Force-directed</a><ul class="internal"><li><a class="tocitem" href="#Layouts"><span>Layouts</span></a></li><li><a class="tocitem" href="#Bipartite-example"><span>Bipartite example</span></a></li><li><a class="tocitem" href="#Standard-layouts"><span>Standard layouts</span></a></li><li><a class="tocitem" href="#Food-web-example"><span>Food web example</span></a></li></ul></li><li><a class="tocitem" href="../unravelled/">Unravel</a></li></ul></li><li><span class="tocitem">Advanced topics</span><ul><li><a class="tocitem" href="../../advanced/attributes/">Nodes attributes</a></li><li><a class="tocitem" href="../../advanced/subsets/">Networks subsets</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Layouts</a></li><li class="is-active"><a href>Force-directed</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Force-directed</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/EcoJulia/EcologicalNetworksPlots.jl/blob/master/docs/src/layouts/forcedirected.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h2 id="Layouts"><a class="docs-heading-anchor" href="#Layouts">Layouts</a><a id="Layouts-1"></a><a class="docs-heading-anchor-permalink" href="#Layouts" title="Permalink"></a></h2><article class="docstring"><header><a class="docstring-binding" id="EcologicalNetworksPlots.FoodwebInitialLayout" href="#EcologicalNetworksPlots.FoodwebInitialLayout"><code>EcologicalNetworksPlots.FoodwebInitialLayout</code></a> — <span class="docstring-category">Type</span></header><section><div><pre><code class="language-julia">FoodwebInitialLayout</code></pre><p>This type is used to generate an initial layout, where the nodes are placed on their trophic levels, but their horizontal position is random.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/EcoJulia/EcologicalNetworksPlots.jl/blob/db03f8b9e4460b9ff00725b63377cfd28a79c44f/src/types.jl#L42-L47">source</a></section></article><article class="docstring"><header><a class="docstring-binding" id="EcologicalNetworksPlots.RandomInitialLayout" href="#EcologicalNetworksPlots.RandomInitialLayout"><code>EcologicalNetworksPlots.RandomInitialLayout</code></a> — <span class="docstring-category">Type</span></header><section><div><pre><code class="language-julia">RandomInitialLayout</code></pre><p>This type is used to generate an initial layout, where the nodes are placed at random within the unit circle.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/EcoJulia/EcologicalNetworksPlots.jl/blob/db03f8b9e4460b9ff00725b63377cfd28a79c44f/src/types.jl#L51-L56">source</a></section></article><article class="docstring"><header><a class="docstring-binding" id="EcologicalNetworksPlots.ForceDirectedLayout" href="#EcologicalNetworksPlots.ForceDirectedLayout"><code>EcologicalNetworksPlots.ForceDirectedLayout</code></a> — <span class="docstring-category">Type</span></header><section><div><pre><code class="language-julia">ForceDirectedLayout</code></pre><p>The fields are, in order:</p><ul><li><code>move</code>, a tuple to specify whether moves on the x and y axes are allowed</li><li><code>k</code>, a tuple (kₐ,kᵣ) giving the strength of attraction and repulsion</li><li><code>exponents</code>, a tuple (a,b,c,d) giving the exponents for the attraction and repulsion functions</li><li><code>gravity</code>, the strength of attraction towards the center, set to <code>0.0</code> as a default</li></ul><p>The various coefficients are used to decide how strongly nodes will <em>attract</em> or <em>repel</em> one another, as a function of their distance Δ. Specifically, the default is that connected nodes will attract one another proportionally to (Δᵃ)×(kₐᵇ), with a=2 and b=-1, and all nodes repel one another proportionally to (Δᶜ)×(kᵣᵈ) with c=-1 and d=2.</p><p>The parameterization for the Fruchterman-Rheingold layout is the default one, particularly if kₐ=kᵣ. The Force Atlas 2 parameters are kₐ=1 (or b=0), kᵣ set to any value, a=1, c=-1, d=1. Note that in all cases, the gravity is a multiplying constant of the resulting attraction force, so it will also be sensitive to these choices. The <code>FruchtermanRheingold</code> and <code>ForceAtlas2</code> functions will return a <code>ForceDirectedLayout</code> – as this object is mutable, you can replace the exponents at any time.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/EcoJulia/EcologicalNetworksPlots.jl/blob/db03f8b9e4460b9ff00725b63377cfd28a79c44f/src/forcedirected.jl#L1-L26">source</a></section></article><h2 id="Bipartite-example"><a class="docs-heading-anchor" href="#Bipartite-example">Bipartite example</a><a id="Bipartite-example-1"></a><a class="docs-heading-anchor-permalink" href="#Bipartite-example" title="Permalink"></a></h2><p>In this example, we have a quantitative bipartite network, and we will set no gravity (nodes can move as far away as they want from the center). Note that our initial layout is a <code>RandomInitialLayout</code>, but we can use <em>any</em> layout we see fit when starting.</p><pre><code class="language-julia">N = web_of_life(&quot;M_PA_003&quot;)
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Force-directed · EcologicalNetworksPlots</title><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="EcologicalNetworksPlots logo"/></a><div class="docs-package-name"><span class="docs-autofit">EcologicalNetworksPlots</span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Index</a></li><li><span class="tocitem">Layouts</span><ul><li><a class="tocitem" href="../initial/">Introduction</a></li><li><a class="tocitem" href="../circular/">Circular</a></li><li><a class="tocitem" href="../bipartite/">Bipartite</a></li><li class="is-active"><a class="tocitem" href>Force-directed</a><ul class="internal"><li><a class="tocitem" href="#Layouts"><span>Layouts</span></a></li><li><a class="tocitem" href="#Bipartite-example"><span>Bipartite example</span></a></li><li><a class="tocitem" href="#Standard-layouts"><span>Standard layouts</span></a></li><li><a class="tocitem" href="#Food-web-example"><span>Food web example</span></a></li></ul></li><li><a class="tocitem" href="../unravelled/">Unravel</a></li></ul></li><li><span class="tocitem">Advanced topics</span><ul><li><a class="tocitem" href="../../advanced/attributes/">Nodes attributes</a></li><li><a class="tocitem" href="../../advanced/subsets/">Networks subsets</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Layouts</a></li><li class="is-active"><a href>Force-directed</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Force-directed</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/EcoJulia/EcologicalNetworksPlots.jl/blob/master/docs/src/layouts/forcedirected.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h2 id="Layouts"><a class="docs-heading-anchor" href="#Layouts">Layouts</a><a id="Layouts-1"></a><a class="docs-heading-anchor-permalink" href="#Layouts" title="Permalink"></a></h2><article class="docstring"><header><a class="docstring-binding" id="EcologicalNetworksPlots.FoodwebInitialLayout" href="#EcologicalNetworksPlots.FoodwebInitialLayout"><code>EcologicalNetworksPlots.FoodwebInitialLayout</code></a> — <span class="docstring-category">Type</span></header><section><div><pre><code class="language-julia">FoodwebInitialLayout</code></pre><p>This type is used to generate an initial layout, where the nodes are placed on their trophic levels, but their horizontal position is random.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/EcoJulia/EcologicalNetworksPlots.jl/blob/0d8e8e112c77ca749b4eb2651a64a8ee056bfdca/src/types.jl#L42-L47">source</a></section></article><article class="docstring"><header><a class="docstring-binding" id="EcologicalNetworksPlots.RandomInitialLayout" href="#EcologicalNetworksPlots.RandomInitialLayout"><code>EcologicalNetworksPlots.RandomInitialLayout</code></a> — <span class="docstring-category">Type</span></header><section><div><pre><code class="language-julia">RandomInitialLayout</code></pre><p>This type is used to generate an initial layout, where the nodes are placed at random within the unit circle.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/EcoJulia/EcologicalNetworksPlots.jl/blob/0d8e8e112c77ca749b4eb2651a64a8ee056bfdca/src/types.jl#L51-L56">source</a></section></article><article class="docstring"><header><a class="docstring-binding" id="EcologicalNetworksPlots.ForceDirectedLayout" href="#EcologicalNetworksPlots.ForceDirectedLayout"><code>EcologicalNetworksPlots.ForceDirectedLayout</code></a> — <span class="docstring-category">Type</span></header><section><div><pre><code class="language-julia">ForceDirectedLayout</code></pre><p>The fields are, in order:</p><ul><li><code>move</code>, a tuple to specify whether moves on the x and y axes are allowed</li><li><code>k</code>, a tuple (kₐ,kᵣ) giving the strength of attraction and repulsion</li><li><code>exponents</code>, a tuple (a,b,c,d) giving the exponents for the attraction and repulsion functions</li><li><code>gravity</code>, the strength of attraction towards the center, set to <code>0.0</code> as a default</li></ul><p>The various coefficients are used to decide how strongly nodes will <em>attract</em> or <em>repel</em> one another, as a function of their distance Δ. Specifically, the default is that connected nodes will attract one another proportionally to (Δᵃ)×(kₐᵇ), with a=2 and b=-1, and all nodes repel one another proportionally to (Δᶜ)×(kᵣᵈ) with c=-1 and d=2.</p><p>The parameterization for the Fruchterman-Rheingold layout is the default one, particularly if kₐ=kᵣ. The Force Atlas 2 parameters are kₐ=1 (or b=0), kᵣ set to any value, a=1, c=-1, d=1. Note that in all cases, the gravity is a multiplying constant of the resulting attraction force, so it will also be sensitive to these choices. The <code>FruchtermanRheingold</code> and <code>ForceAtlas2</code> functions will return a <code>ForceDirectedLayout</code> – as this object is mutable, you can replace the exponents at any time.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/EcoJulia/EcologicalNetworksPlots.jl/blob/0d8e8e112c77ca749b4eb2651a64a8ee056bfdca/src/forcedirected.jl#L1-L26">source</a></section></article><h2 id="Bipartite-example"><a class="docs-heading-anchor" href="#Bipartite-example">Bipartite example</a><a id="Bipartite-example-1"></a><a class="docs-heading-anchor-permalink" href="#Bipartite-example" title="Permalink"></a></h2><p>In this example, we have a quantitative bipartite network, and we will set no gravity (nodes can move as far away as they want from the center). Note that our initial layout is a <code>RandomInitialLayout</code>, but we can use <em>any</em> layout we see fit when starting.</p><pre><code class="language-julia">N = web_of_life(&quot;M_PA_003&quot;)
 I = initial(RandomInitialLayout, N)
 plot(I, N, aspectratio=1)
 scatter!(I, N, bipartite=true)</code></pre><?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="400" viewBox="0 0 2400 1600">
 <defs>
-  <clipPath id="clip450">
+  <clipPath id="clip780">
     <rect x="0" y="0" width="2400" height="1600"/>
   </clipPath>
 </defs>
-<path clip-path="url(#clip450)" d="
+<path clip-path="url(#clip780)" d="
 M0 1600 L2400 1600 L2400 0 L0 0  Z
   " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
 <defs>
-  <clipPath id="clip451">
+  <clipPath id="clip781">
     <rect x="480" y="0" width="1681" height="1600"/>
   </clipPath>
 </defs>
-<path clip-path="url(#clip450)" d="
+<path clip-path="url(#clip780)" d="
 M86.9921 1521.01 L2352.76 1521.01 L2352.76 47.2441 L86.9921 47.2441  Z
   " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
 <defs>
-  <clipPath id="clip452">
+  <clipPath id="clip782">
     <rect x="86" y="47" width="2267" height="1475"/>
   </clipPath>
 </defs>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:14; stroke-opacity:1; fill:none" points="
-  682.262,984.288 1152.43,789.308 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:14; stroke-opacity:1; fill:none" points="
+  823.966,659.011 1752.37,1061.79 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:5.52174; stroke-opacity:1; fill:none" points="
-  1152.43,789.308 1571.56,1400.1 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:5.52174; stroke-opacity:1; fill:none" points="
+  747.783,349.53 823.966,659.011 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
-  1152.43,789.308 1542.25,731.471 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
+  823.966,659.011 1068.51,88.9544 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:11; stroke-opacity:1; fill:none" points="
-  1152.2,519.291 1701.24,583.315 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:11; stroke-opacity:1; fill:none" points="
+  1442.99,1196.95 1843.59,347.878 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:5.3913; stroke-opacity:1; fill:none" points="
-  621.879,516.613 1152.2,519.291 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:5.3913; stroke-opacity:1; fill:none" points="
+  702.845,526.495 1843.59,347.878 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.26087; stroke-opacity:1; fill:none" points="
-  713.757,1154.99 1152.2,519.291 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.26087; stroke-opacity:1; fill:none" points="
+  1225.6,318.735 1843.59,347.878 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.13043; stroke-opacity:1; fill:none" points="
-  682.262,984.288 1357.87,1099.42 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.13043; stroke-opacity:1; fill:none" points="
+  1752.37,1061.79 1755.96,1042.76 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:5; stroke-opacity:1; fill:none" points="
-  1357.87,1099.42 1853.02,786.139 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:5; stroke-opacity:1; fill:none" points="
+  1294.95,1451.74 1755.96,1042.76 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:3.30435; stroke-opacity:1; fill:none" points="
-  1357.87,1099.42 1542.25,731.471 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:3.30435; stroke-opacity:1; fill:none" points="
+  1068.51,88.9544 1755.96,1042.76 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:4.21739; stroke-opacity:1; fill:none" points="
-  827.889,596.579 1041.38,1195.26 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:4.21739; stroke-opacity:1; fill:none" points="
+  1090.54,248.846 1568.55,1429.47 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:3.95652; stroke-opacity:1; fill:none" points="
-  1041.38,1195.26 1604.72,1479.3 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:3.95652; stroke-opacity:1; fill:none" points="
+  587.587,682.501 1090.54,248.846 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:4.86957; stroke-opacity:1; fill:none" points="
-  1050.09,1320.16 1156.04,517.786 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:4.86957; stroke-opacity:1; fill:none" points="
+  1597.68,802.128 1646.64,1183.54 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:3.95652; stroke-opacity:1; fill:none" points="
-  827.889,596.579 1641.76,1035.97 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:3.95652; stroke-opacity:1; fill:none" points="
+  973.367,1135.57 1568.55,1429.47 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.78261; stroke-opacity:1; fill:none" points="
-  1604.72,1479.3 1641.76,1035.97 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.78261; stroke-opacity:1; fill:none" points="
+  587.587,682.501 973.367,1135.57 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.78261; stroke-opacity:1; fill:none" points="
-  682.262,984.288 1558.81,908.406 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.78261; stroke-opacity:1; fill:none" points="
+  1060.47,348.72 1752.37,1061.79 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
-  1558.81,908.406 1701.24,583.315 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
+  1060.47,348.72 1442.99,1196.95 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
-  1558.81,908.406 1571.56,1400.1 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
+  747.783,349.53 1060.47,348.72 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.78261; stroke-opacity:1; fill:none" points="
-  1542.25,731.471 1558.81,908.406 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.78261; stroke-opacity:1; fill:none" points="
+  1060.47,348.72 1068.51,88.9544 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:3.30435; stroke-opacity:1; fill:none" points="
-  1443.51,397.232 1492.08,158.309 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:3.30435; stroke-opacity:1; fill:none" points="
+  799.989,965.295 1807.92,1215.59 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.13043; stroke-opacity:1; fill:none" points="
-  1154.65,423.913 1492.08,158.309 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.13043; stroke-opacity:1; fill:none" points="
+  799.989,965.295 1128.79,466.816 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.26087; stroke-opacity:1; fill:none" points="
-  910.868,1332.19 1154.65,423.913 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.26087; stroke-opacity:1; fill:none" points="
+  721.43,711.876 1128.79,466.816 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
-  845.172,760.211 1154.65,423.913 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
+  763.823,877.142 1128.79,466.816 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
-  826.085,1439.5 1154.65,423.913 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
+  1128.79,466.816 1160.58,648.113 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.26087; stroke-opacity:1; fill:none" points="
-  1300.9,1349.98 1571.56,1400.1 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.26087; stroke-opacity:1; fill:none" points="
+  747.783,349.53 970.807,1466.86 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.26087; stroke-opacity:1; fill:none" points="
-  1300.9,1349.98 1542.25,731.471 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.26087; stroke-opacity:1; fill:none" points="
+  970.807,1466.86 1068.51,88.9544 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.52174; stroke-opacity:1; fill:none" points="
-  689.675,1456.49 1701.24,583.315 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.52174; stroke-opacity:1; fill:none" points="
+  893.375,1331.02 1442.99,1196.95 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.26087; stroke-opacity:1; fill:none" points="
-  805.702,427.986 1853.02,786.139 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.26087; stroke-opacity:1; fill:none" points="
+  1294.95,1451.74 1397.74,1347.58 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.13043; stroke-opacity:1; fill:none" points="
-  805.702,427.986 1542.25,731.471 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.13043; stroke-opacity:1; fill:none" points="
+  1068.51,88.9544 1397.74,1347.58 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.13043; stroke-opacity:1; fill:none" points="
-  1401.62,1464.48 1853.02,786.139 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.13043; stroke-opacity:1; fill:none" points="
+  1294.95,1451.74 1402.77,297.658 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.13043; stroke-opacity:1; fill:none" points="
-  621.879,516.613 1401.62,1464.48 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.13043; stroke-opacity:1; fill:none" points="
+  702.845,526.495 1402.77,297.658 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.26087; stroke-opacity:1; fill:none" points="
-  814.905,1201.13 1701.24,583.315 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.26087; stroke-opacity:1; fill:none" points="
+  1442.99,1196.95 1920.81,896.72 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
-  621.879,516.613 814.905,1201.13 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
+  702.845,526.495 1920.81,896.72 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
-  586.728,1288.84 827.889,596.579 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
+  1256.14,1010.24 1568.55,1429.47 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.13043; stroke-opacity:1; fill:none" points="
-  586.728,1288.84 1604.72,1479.3 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.13043; stroke-opacity:1; fill:none" points="
+  587.587,682.501 1256.14,1010.24 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.26087; stroke-opacity:1; fill:none" points="
-  1338.6,927.556 1853.02,786.139 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.26087; stroke-opacity:1; fill:none" points="
+  1113.76,514.01 1294.95,1451.74 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.26087; stroke-opacity:1; fill:none" points="
-  732.53,238.767 1014.18,371.31 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.26087; stroke-opacity:1; fill:none" points="
+  518.94,572.211 617.074,1052.26 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.13043; stroke-opacity:1; fill:none" points="
-  681.713,928.658 1853.02,786.139 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.13043; stroke-opacity:1; fill:none" points="
+  763.394,1120.35 1294.95,1451.74 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
-  621.879,516.613 681.713,928.658 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
+  702.845,526.495 763.394,1120.35 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2.13043; stroke-opacity:1; fill:none" points="
-  827.889,596.579 1109.74,468.319 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2.13043; stroke-opacity:1; fill:none" points="
+  901.46,1479.3 1568.55,1429.47 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
-  827.889,596.579 1371.32,527.749 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
+  1017.82,355.729 1568.55,1429.47 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
-  1371.32,527.749 1853.02,786.139 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
+  1017.82,355.729 1294.95,1451.74 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
-  1322.09,264.828 1492.08,158.309 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
+  799.989,965.295 1149.52,1208.05 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
-  1263.21,1301.04 1853.02,786.139 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
+  636.767,439.183 1294.95,1451.74 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
-  623.634,525.409 1542.25,731.471 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
+  993.394,795.025 1068.51,88.9544 
   "/>
-<polyline clip-path="url(#clip452)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
-  827.889,596.579 1279.26,88.9544 
+<polyline clip-path="url(#clip782)" style="stroke:#a9a9a9; stroke-width:2; stroke-opacity:1; fill:none" points="
+  1568.55,1429.47 1759.22,618.852 
   "/>
-<path clip-path="url(#clip452)" d="M698.262 968.288 L666.262 968.288 L682.262 1000.29 L698.262 968.288 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<path clip-path="url(#clip452)" d="M1717.24 567.315 L1685.24 567.315 L1701.24 599.315 L1717.24 567.315 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<path clip-path="url(#clip452)" d="M843.889 580.579 L811.889 580.579 L827.889 612.579 L843.889 580.579 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<path clip-path="url(#clip452)" d="M1869.02 770.139 L1837.02 770.139 L1853.02 802.139 L1869.02 770.139 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<path clip-path="url(#clip452)" d="M1587.56 1384.1 L1555.56 1384.1 L1571.56 1416.1 L1587.56 1384.1 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<path clip-path="url(#clip452)" d="M637.879 500.613 L605.879 500.613 L621.879 532.613 L637.879 500.613 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<path clip-path="url(#clip452)" d="M1620.72 1463.3 L1588.72 1463.3 L1604.72 1495.3 L1620.72 1463.3 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<path clip-path="url(#clip452)" d="M1558.25 715.471 L1526.25 715.471 L1542.25 747.471 L1558.25 715.471 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<path clip-path="url(#clip452)" d="M1172.04 501.786 L1140.04 501.786 L1156.04 533.786 L1172.04 501.786 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<path clip-path="url(#clip452)" d="M1508.08 142.309 L1476.08 142.309 L1492.08 174.309 L1508.08 142.309 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<path clip-path="url(#clip452)" d="M1030.18 355.31 L998.178 355.31 L1014.18 387.31 L1030.18 355.31 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<path clip-path="url(#clip452)" d="M926.868 1316.19 L894.868 1316.19 L910.868 1348.19 L926.868 1316.19 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<path clip-path="url(#clip452)" d="M729.757 1138.99 L697.757 1138.99 L713.757 1170.99 L729.757 1138.99 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<path clip-path="url(#clip452)" d="M861.172 744.211 L829.172 744.211 L845.172 776.211 L861.172 744.211 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<path clip-path="url(#clip452)" d="M842.085 1423.5 L810.085 1423.5 L826.085 1455.5 L842.085 1423.5 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="1152.43" cy="789.308" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="1152.2" cy="519.291" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="1357.87" cy="1099.42" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="1041.38" cy="1195.26" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="1050.09" cy="1320.16" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="1641.76" cy="1035.97" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="1558.81" cy="908.406" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="1443.51" cy="397.232" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="1154.65" cy="423.913" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="1300.9" cy="1349.98" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="689.675" cy="1456.49" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="805.702" cy="427.986" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="1401.62" cy="1464.48" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="814.905" cy="1201.13" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="586.728" cy="1288.84" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="1338.6" cy="927.556" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="732.53" cy="238.767" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="681.713" cy="928.658" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="1109.74" cy="468.319" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="1371.32" cy="527.749" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="1322.09" cy="264.828" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="1263.21" cy="1301.04" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="623.634" cy="525.409" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
-<circle clip-path="url(#clip452)" cx="1279.26" cy="88.9544" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<path clip-path="url(#clip782)" d="M1768.37 1045.79 L1736.37 1045.79 L1752.37 1077.79 L1768.37 1045.79 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<path clip-path="url(#clip782)" d="M1458.99 1180.95 L1426.99 1180.95 L1442.99 1212.95 L1458.99 1180.95 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<path clip-path="url(#clip782)" d="M1584.55 1413.47 L1552.55 1413.47 L1568.55 1445.47 L1584.55 1413.47 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<path clip-path="url(#clip782)" d="M1310.95 1435.74 L1278.95 1435.74 L1294.95 1467.74 L1310.95 1435.74 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<path clip-path="url(#clip782)" d="M763.783 333.53 L731.783 333.53 L747.783 365.53 L763.783 333.53 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<path clip-path="url(#clip782)" d="M718.845 510.495 L686.845 510.495 L702.845 542.495 L718.845 510.495 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<path clip-path="url(#clip782)" d="M603.587 666.501 L571.587 666.501 L587.587 698.501 L603.587 666.501 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<path clip-path="url(#clip782)" d="M1084.51 72.9544 L1052.51 72.9544 L1068.51 104.954 L1084.51 72.9544 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<path clip-path="url(#clip782)" d="M1662.64 1167.54 L1630.64 1167.54 L1646.64 1199.54 L1662.64 1167.54 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<path clip-path="url(#clip782)" d="M815.989 949.295 L783.989 949.295 L799.989 981.295 L815.989 949.295 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<path clip-path="url(#clip782)" d="M534.94 556.211 L502.94 556.211 L518.94 588.211 L534.94 556.211 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<path clip-path="url(#clip782)" d="M737.43 695.876 L705.43 695.876 L721.43 727.876 L737.43 695.876 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<path clip-path="url(#clip782)" d="M1241.6 302.735 L1209.6 302.735 L1225.6 334.735 L1241.6 302.735 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<path clip-path="url(#clip782)" d="M779.823 861.142 L747.823 861.142 L763.823 893.142 L779.823 861.142 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<path clip-path="url(#clip782)" d="M1176.58 632.113 L1144.58 632.113 L1160.58 664.113 L1176.58 632.113 Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="823.966" cy="659.011" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="1843.59" cy="347.878" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="1755.96" cy="1042.76" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="1090.54" cy="248.846" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="1597.68" cy="802.128" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="973.367" cy="1135.57" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="1060.47" cy="348.72" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="1807.92" cy="1215.59" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="1128.79" cy="466.816" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="970.807" cy="1466.86" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="893.375" cy="1331.02" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="1397.74" cy="1347.58" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="1402.77" cy="297.658" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="1920.81" cy="896.72" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="1256.14" cy="1010.24" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="1113.76" cy="514.01" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="617.074" cy="1052.26" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="763.394" cy="1120.35" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="901.46" cy="1479.3" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="1017.82" cy="355.729" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="1149.52" cy="1208.05" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="636.767" cy="439.183" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="993.394" cy="795.025" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
+<circle clip-path="url(#clip782)" cx="1759.22" cy="618.852" r="14" fill="#ffffff" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.2"/>
 </svg>
 <p>The next step is to actually position the nodes relative to one another. Because this network has disconnected components, and we have no gravity, we expect that they will be quite far from one another:</p><pre><code class="language-">for step in 1:2000
   position!(ForceDirectedLayout(0.3, 0.3; gravity=0.0), I, N)
@@ -214,7 +214,7 @@ for step in 1:2000
   position!(ForceDirectedLayout(0.3, 0.75; gravity=0.4), I, N)
 end
 plot(I, N, aspectratio=1)
-scatter!(I, N, bipartite=true)</code></pre><h2 id="Standard-layouts"><a class="docs-heading-anchor" href="#Standard-layouts">Standard layouts</a><a id="Standard-layouts-1"></a><a class="docs-heading-anchor-permalink" href="#Standard-layouts" title="Permalink"></a></h2><p>The force-directed code uses a series of <em>exponents</em> in addition to the values, to change the conformation of the resulting diagram.</p><article class="docstring"><header><a class="docstring-binding" id="EcologicalNetworksPlots.FruchtermanRheingold" href="#EcologicalNetworksPlots.FruchtermanRheingold"><code>EcologicalNetworksPlots.FruchtermanRheingold</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia">FruchtermanRheingold(k::Float64; gravity::Float64=0.75)</code></pre><p>The default <code>ForceDirectedLayout</code> uses the Fruchterman-Rheingold parameters - this function is simply here to make the code more explicity, and to use a &quot;strict&quot; version where kᵣ=kₐ. </p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/EcoJulia/EcologicalNetworksPlots.jl/blob/db03f8b9e4460b9ff00725b63377cfd28a79c44f/src/forcedirected.jl#L41-L47">source</a></section></article><article class="docstring"><header><a class="docstring-binding" id="EcologicalNetworksPlots.ForceAtlas2" href="#EcologicalNetworksPlots.ForceAtlas2"><code>EcologicalNetworksPlots.ForceAtlas2</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia">ForceAtlas2(k::Float64; gravity::Float64=0.75)</code></pre><p>In the Force Atlas 2 layout, the attraction is proportional to the distance, and the repulsion to the inverse of the distance. Note that kₐ in this layout is set to 1, so kᵣ is the <em>relative</em> repulsion.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/EcoJulia/EcologicalNetworksPlots.jl/blob/db03f8b9e4460b9ff00725b63377cfd28a79c44f/src/forcedirected.jl#L50-L56">source</a></section></article><p>The Fruchterman-Rheingold method is the default:</p><pre><code class="language-">I = initial(RandomInitialLayout, N)
+scatter!(I, N, bipartite=true)</code></pre><h2 id="Standard-layouts"><a class="docs-heading-anchor" href="#Standard-layouts">Standard layouts</a><a id="Standard-layouts-1"></a><a class="docs-heading-anchor-permalink" href="#Standard-layouts" title="Permalink"></a></h2><p>The force-directed code uses a series of <em>exponents</em> in addition to the values, to change the conformation of the resulting diagram.</p><article class="docstring"><header><a class="docstring-binding" id="EcologicalNetworksPlots.FruchtermanRheingold" href="#EcologicalNetworksPlots.FruchtermanRheingold"><code>EcologicalNetworksPlots.FruchtermanRheingold</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia">FruchtermanRheingold(k::Float64; gravity::Float64=0.75)</code></pre><p>The default <code>ForceDirectedLayout</code> uses the Fruchterman-Rheingold parameters - this function is simply here to make the code more explicity, and to use a &quot;strict&quot; version where kᵣ=kₐ. </p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/EcoJulia/EcologicalNetworksPlots.jl/blob/0d8e8e112c77ca749b4eb2651a64a8ee056bfdca/src/forcedirected.jl#L41-L47">source</a></section></article><article class="docstring"><header><a class="docstring-binding" id="EcologicalNetworksPlots.ForceAtlas2" href="#EcologicalNetworksPlots.ForceAtlas2"><code>EcologicalNetworksPlots.ForceAtlas2</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia">ForceAtlas2(k::Float64; gravity::Float64=0.75)</code></pre><p>In the Force Atlas 2 layout, the attraction is proportional to the distance, and the repulsion to the inverse of the distance. Note that kₐ in this layout is set to 1, so kᵣ is the <em>relative</em> repulsion.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/EcoJulia/EcologicalNetworksPlots.jl/blob/0d8e8e112c77ca749b4eb2651a64a8ee056bfdca/src/forcedirected.jl#L50-L56">source</a></section></article><p>The Fruchterman-Rheingold method is the default:</p><pre><code class="language-">I = initial(RandomInitialLayout, N)
 for step in 1:2000
   position!(FruchtermanRheingold(0.3; gravity=0.2), I, N)
 end
@@ -224,12 +224,16 @@ for step in 1:2000
   position!(ForceAtlas2(1.2; gravity=0.2), I, N)
 end
 plot(I, N, aspectratio=1)
-scatter!(I, N, bipartite=true)</code></pre><h2 id="Food-web-example"><a class="docs-heading-anchor" href="#Food-web-example">Food web example</a><a id="Food-web-example-1"></a><a class="docs-heading-anchor-permalink" href="#Food-web-example" title="Permalink"></a></h2><pre><code class="language-">Fweb = simplify(nz_stream_foodweb()[5])
+scatter!(I, N, bipartite=true)</code></pre><h2 id="Food-web-example"><a class="docs-heading-anchor" href="#Food-web-example">Food web example</a><a id="Food-web-example-1"></a><a class="docs-heading-anchor-permalink" href="#Food-web-example" title="Permalink"></a></h2><p>One convenient way to plot food webs is to prevent them from moving on the <em>y</em> axis, so that every species remains at its trophic level. This can be done by changing the <code>move</code> field (as <code>ForceDirectedLayout</code> is a mutable type). Note that in this example, we <em>update</em> the layout after plotting, by replacing the fractional trophic level by the actual trophic level (and we color the nodes by their omnivory, which is covered more in-depth in the next section of this documentation).</p><pre><code class="language-">Fweb = simplify(nz_stream_foodweb()[5])
 I = initial(FoodwebInitialLayout, Fweb)
-L = ForceDirectedLayout(0.15, 0.35; gravity=0.05)
-L.move = (true, false) # ForceDirectedLayouts are mutable
-for step in 1:4000
+L = ForceAtlas2(0.15; gravity=0.01)
+L.move = (true, false)
+for step in 1:2000
   position!(L, I, Fweb)
 end
+tl = trophic_level(Fweb)
+for s in species(Fweb)
+  I[s].y = tl[s]
+end
 plot(I, Fweb)
-scatter!(I, Fweb)</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../bipartite/">« Bipartite</a><a class="docs-footer-nextpage" href="../unravelled/">Unravel »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Wednesday 25 November 2020 23:39">Wednesday 25 November 2020</span>. Using Julia version 1.5.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+scatter!(I, Fweb, nodefill=omnivory(Fweb), c=:YlGn)</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../bipartite/">« Bipartite</a><a class="docs-footer-nextpage" href="../unravelled/">Unravel »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Wednesday 25 November 2020 23:48">Wednesday 25 November 2020</span>. Using Julia version 1.5.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
