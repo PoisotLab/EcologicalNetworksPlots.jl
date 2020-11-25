@@ -68,7 +68,7 @@ scatter!(I, N, bipartite=true)
 Fweb = simplify(nz_stream_foodweb()[5])
 I = initial(FoodwebInitialLayout, Fweb)
 for step in 1:4000
-  position!(ForceDirectedLayout((true, false), (0.25, 0.25), 0.4), I, Fweb)
+  position!(ForceDirectedLayout((true, false), (0.45, 0.15), 0.0), I, Fweb)
 end
 plot(I, Fweb)
 scatter!(I, Fweb)
