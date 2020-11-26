@@ -29,7 +29,7 @@ scatter!(I, N[core3], mc=:red)
 We can also use this ability to show the modular structure of a network:
 
 ```@example default
-N = web_of_life("A_HP_029")
+N = web_of_life("M_PA_003")
 I = initial(RandomInitialLayout, N)
 for step in 1:2000
   position!(SpringElectric(1.2; gravity=0.75), I, N)
