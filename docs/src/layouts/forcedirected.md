@@ -20,7 +20,7 @@ initial layout is a `RandomInitialLayout`, but we can use *any* layout we see
 fit when starting.
 
 ```@example default
-N = web_of_life("M_SD_034")
+N = web_of_life("A_HP_006")
 I = initial(RandomInitialLayout, N)
 plot(I, N, aspectratio=1)
 scatter!(I, N, bipartite=true)
@@ -180,7 +180,7 @@ their degree, which is covered more in-depth in the next section of this
 documentation).
 
 ```@example default
-Fweb = simplify(pajek()[:Everglades])
+Fweb = simplify(nz_stream_foodweb()[1])
 I = initial(FoodwebInitialLayout, Fweb)
 L = SpringElectric(1.2; gravity=0.05)
 L.move = (true, false)
