@@ -109,14 +109,15 @@ function attract!(LA::T, n1::NodePosition, n2::NodePosition, fa) where {T <: For
     δx = n1.x - n2.x
     δy = n1.y - n2.y
     Δ = sqrt(δx^2.0+δy^2.0)
-    Δ = Δ == 0.0 ? 0.0001 : Δ
-    if LA.move[1]
-        n1.vx -= δx/Δ*fa(Δ)
-        n2.vx += δx/Δ*fa(Δ)
-    end
-    if LA.move[2]
-        n1.vy -= δy/Δ*fa(Δ)
-        n2.vy += δy/Δ*fa(Δ)
+    if !iszero(Δ)
+        if LA.move[1]
+            n1.vx -= δx/Δ*fa(Δ)
+            n2.vx += δx/Δ*fa(Δ)
+        end
+        if LA.move[2]
+            n1.vy -= δy/Δ*fa(Δ)
+            n2.vy += δy/Δ*fa(Δ)
+        end
     end
 end
 
