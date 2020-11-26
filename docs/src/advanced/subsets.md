@@ -32,7 +32,7 @@ We can also use this ability to show the modular structure of a network:
 N = convert(BinaryNetwork, Umod)
 I = initial(RandomInitialLayout, N)
 for step in 1:2000
-  position!(ForceAtlas2(0.8; gravity=0.2), I, N)
+  position!(SpringElectric(1.2; gravity=0.75), I, N)
 end
 
 # Modularity
