@@ -1,11 +1,18 @@
 """
     initial(::Type{RandomInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork}
 
-Random disposition of nodes in the unit square. This is a good starting
-point for any force-directed layout.
+Random disposition of nodes in a circle. This is a good starting point for any
+force-directed layout. The circle is scaled so that its radius is twice the
+square root of the network richness, which helps most layouts converge faster.
 """
 function initial(::Type{RandomInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork}
-  return Dict([s => NodePosition() for s in species(N)])
+  L = Dict([s => NodePosition() for s in species(N)])
+  _adj = 2sqrt(richness(N))
+  for s in species(N)
+    L[s].x *= _adj
+    L[s].y *= _adj
+  end
+  return L
 end
 
 """
@@ -26,16 +33,16 @@ end
     initial(::Type{FoodwebInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
 
 Random disposition of nodes on trophic levels for food webs. Note that the
-*fractional* trophic level is used, but the layout can be modified afterwards
-to use the continuous levels.
+continuous trophic level is used, but the layout can be modified afterwards to
+use another measure of trophic rank.
 """
 function initial(::Type{FoodwebInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
-  level = NodePosition[]
-  tl = fractional_trophic_level(N)
-  for (i, s) in enumerate(species(N))
-    push!(level, NodePosition(rand(), float(tl[s]), 0.0, 0.0))
+  L = initial(RandomInitialLayout, N)
+  tl = trophic_level(N)
+  for s in species(N)
+    L[s].y = tl[s]
   end
-  return Dict(zip(species(N), level))
+  return L
 end
 
 """

@@ -29,14 +29,14 @@ scatter!(I, N[core3], mc=:red)
 We can also use this ability to show the modular structure of a network:
 
 ```@example default
-N = convert(BinaryNetwork, Umod)
+N = web_of_life("M_PA_003")
 I = initial(RandomInitialLayout, N)
 for step in 1:2000
   position!(SpringElectric(1.2; gravity=0.75), I, N)
 end
 
 # Modularity
-_, P = brim(lp(N)...)
+B, P = brim(lp(convert(BinaryNetwork, N))...)
 plot(I, N, aspectratio=1)
 scatter!(I, N, msw=0.0, nodefill=P, c=:Set2)
 ```

@@ -109,14 +109,15 @@ function attract!(LA::T, n1::NodePosition, n2::NodePosition, fa) where {T <: For
     δx = n1.x - n2.x
     δy = n1.y - n2.y
     Δ = sqrt(δx^2.0+δy^2.0)
-    Δ = Δ == 0.0 ? 0.0001 : Δ
-    if LA.move[1]
-        n1.vx -= δx/Δ*fa(Δ)
-        n2.vx += δx/Δ*fa(Δ)
-    end
-    if LA.move[2]
-        n1.vy -= δy/Δ*fa(Δ)
-        n2.vy += δy/Δ*fa(Δ)
+    if !iszero(Δ)
+        if LA.move[1]
+            n1.vx -= δx/Δ*fa(Δ)
+            n2.vx += δx/Δ*fa(Δ)
+        end
+        if LA.move[2]
+            n1.vy -= δy/Δ*fa(Δ)
+            n2.vy += δy/Δ*fa(Δ)
+        end
     end
 end
 
@@ -125,9 +126,10 @@ Update the position of a node
 """
 function update!(n::NodePosition)
     Δ = sqrt(n.vx^2.0+n.vy^2.0)
-    Δ = Δ == 0.0 ? 0.0001 : Δ
-    n.x += n.vx/Δ*min(Δ, 0.01)
-    n.y += n.vy/Δ*min(Δ, 0.01)
+    if !iszero(Δ)
+        n.x += n.vx/Δ*min(Δ, 0.01)
+        n.y += n.vy/Δ*min(Δ, 0.01)
+    end
     stop!(n)
 end
 
@@ -138,6 +140,13 @@ One iteration of the force-directed layout routine. Because these algorithms can
 take some time to converge, it may be useful to stop every 500 iterations to
 have a look at the results. Note that to avoid oscillations, the maximum
 displacement at any given time is set to 0.01 units.
+
+These layouts tend to have O(N³) complexity, where N is the number of nodes in
+the network. This is because repulsion required to do (N×(N-1))/2 visits on
+pairs of nodes, and an optimal layout usually requires s×N steps to converge.
+With the maximal displacement set to 0.01, we have found that k ≈ 100 gives
+acceptable results. This will depend on the complexity of the network, and its
+connectance, as well as the degree and edge strengths distributions.
 """
 function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork} where {K}
     
