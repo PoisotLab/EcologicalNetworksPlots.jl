@@ -190,7 +190,7 @@ axis, so that every species remains at its trophic level. This can be done by
 changing the `move` field (as `ForceDirectedLayout` is a mutable type).
 
 ```@example default
-N = simplify(nz_stream_foodweb()[1])
+N = simplify(nz_stream_foodweb()[5])
 I = initial(FoodwebInitialLayout, N)
 L = SpringElectric(1.2; gravity=0.05)
 L.move = (true, false)
