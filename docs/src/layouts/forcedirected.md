@@ -31,7 +31,7 @@ this network has disconnected components, and we have no gravity, we expect that
 they will be quite far from one another:
 
 ```@example default
-for step in 1:2000
+for step in 1:5000
   position!(ForceDirectedLayout(0.3, 0.3; gravity=0.0), I, N)
 end
 plot(I, N, aspectratio=1)
@@ -42,7 +42,7 @@ We can turn gravity on just a little bit:
 
 ```@example default
 I = initial(RandomInitialLayout, N)
-for step in 1:2000
+for step in 1:5000
   position!(ForceDirectedLayout(0.3, 0.3; gravity=0.2), I, N)
 end
 plot(I, N, aspectratio=1)
@@ -54,7 +54,7 @@ on some more):
 
 ```@example default
 I = initial(RandomInitialLayout, N)
-for step in 1:2000
+for step in 1:5000
   position!(ForceDirectedLayout(0.3, 0.75; gravity=0.4), I, N)
 end
 plot(I, N, aspectratio=1)
@@ -76,7 +76,7 @@ The Fruchterman-Rheingold method is the default:
 
 ```@example default
 I = initial(RandomInitialLayout, N)
-for step in 1:2000
+for step in 1:5000
   position!(FruchtermanRheingold(0.3; gravity=0.2), I, N)
 end
 plot(I, N, aspectratio=1)
@@ -88,7 +88,7 @@ at showing the modules and long paths in a network.
 
 ```@example default
 I = initial(RandomInitialLayout, N)
-for step in 1:2000
+for step in 1:5000
   position!(ForceAtlas2(0.8; gravity=0.2), I, N)
 end
 plot(I, N, aspectratio=1)
@@ -101,7 +101,7 @@ visualisation:
 
 ```@example default
 I = initial(RandomInitialLayout, N)
-for step in 1:2000
+for step in 1:5000
   position!(SpringElectric(1.2; gravity=0.2), I, N)
 end
 plot(I, N, aspectratio=1)
@@ -120,7 +120,7 @@ All nodes repel at the same force, no impact of edge weight:
 I = initial(RandomInitialLayout, N)
 L = SpringElectric(1.2; gravity=0.2)
 L.degree = false
-for step in 1:2000
+for step in 1:5000
   position!(L, I, N)
 end
 plot(I, N, aspectratio=1)
@@ -134,7 +134,7 @@ I = initial(RandomInitialLayout, N)
 L = SpringElectric(1.2; gravity=0.2)
 L.degree = false
 L.δ = 0.1
-for step in 1:2000
+for step in 1:5000
   position!(L, I, N)
 end
 plot(I, N, aspectratio=1)
@@ -148,7 +148,7 @@ I = initial(RandomInitialLayout, N)
 L = SpringElectric(1.2; gravity=0.2)
 L.degree = false
 L.δ = 2.0
-for step in 1:2000
+for step in 1:5000
   position!(L, I, N)
 end
 plot(I, N, aspectratio=1)
@@ -162,7 +162,7 @@ I = initial(RandomInitialLayout, N)
 L = SpringElectric(1.2; gravity=0.2)
 L.degree = true
 L.δ = 2.0
-for step in 1:2000
+for step in 1:5000
   position!(L, I, N)
 end
 plot(I, N, aspectratio=1)
@@ -176,7 +176,7 @@ I = initial(RandomInitialLayout, N)
 L = SpringElectric(1.2; gravity=0.2)
 L.degree = true
 L.δ = 0.2
-for step in 1:2000
+for step in 1:5000
   position!(L, I, N)
 end
 plot(I, N, aspectratio=1)
@@ -198,7 +198,7 @@ Fweb = simplify(nz_stream_foodweb()[1])
 I = initial(FoodwebInitialLayout, Fweb)
 L = SpringElectric(1.2; gravity=0.05)
 L.move = (true, false)
-for step in 1:2000
+for step in 1:5000
   position!(L, I, Fweb)
 end
 tl = trophic_level(Fweb)
