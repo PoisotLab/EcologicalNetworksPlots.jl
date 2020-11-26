@@ -136,7 +136,8 @@ end
 
 One iteration of the force-directed layout routine. Because these algorithms can
 take some time to converge, it may be useful to stop every 500 iterations to
-have a look at the results.
+have a look at the results. Note that to avoid oscillations, the maximum
+displacement at any given time is set to 0.01 units.
 """
 function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork} where {K}
     
