@@ -20,7 +20,7 @@ initial layout is a `RandomInitialLayout`, but we can use *any* layout we see
 fit when starting.
 
 ```@example default
-N = web_of_life("A_HP_006")
+N = web_of_life("M_PA_003")
 I = initial(RandomInitialLayout, N)
 plot(I, N, aspectratio=1)
 scatter!(I, N, bipartite=true)
@@ -162,6 +162,20 @@ I = initial(RandomInitialLayout, N)
 L = SpringElectric(1.2; gravity=0.2)
 L.degree = true
 L.δ = 2.0
+for step in 1:2000
+  position!(L, I, N)
+end
+plot(I, N, aspectratio=1)
+scatter!(I, N, bipartite=true)
+```
+
+Nodes repel according to their degree, some impact of edge weight:
+
+```@example default
+I = initial(RandomInitialLayout, N)
+L = SpringElectric(1.2; gravity=0.2)
+L.degree = true
+L.δ = 0.2
 for step in 1:2000
   position!(L, I, N)
 end
