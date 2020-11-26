@@ -12,7 +12,7 @@ using EcologicalNetworksPlots
 using Plots
 ```
 
-## Bipartite example
+## A basic example
 
 In this example, we have a quantitative bipartite network, and we will set no
 gravity (nodes can move as far away as they want from the center). Note that our
@@ -108,7 +108,68 @@ plot(I, N, aspectratio=1)
 scatter!(I, N, bipartite=true)
 ```
 
-## Food web example
+## Degree and edge-based forces
+
+By default, *all edges* have the same attraction, and nodes repel one another
+according to the product of their degree. In this section, we will explore the
+differences these choices can have.
+
+All nodes repel at the same force, no impact of edge weight:
+
+```@example default
+I = initial(RandomInitialLayout, N)
+L = SpringElectric(1.2; gravity=0.2)
+L.degree = false
+for step in 1:2000
+  position!(L, I, N)
+end
+plot(I, N, aspectratio=1)
+scatter!(I, N, bipartite=true)
+```
+
+All nodes repel at the same force, weak impact of edge weight:
+
+```@example default
+I = initial(RandomInitialLayout, N)
+L = SpringElectric(1.2; gravity=0.2)
+L.degree = false
+L.δ = 0.1
+for step in 1:2000
+  position!(L, I, N)
+end
+plot(I, N, aspectratio=1)
+scatter!(I, N, bipartite=true)
+```
+
+All nodes repel at the same force, strong impact of edge weight:
+
+```@example default
+I = initial(RandomInitialLayout, N)
+L = SpringElectric(1.2; gravity=0.2)
+L.degree = false
+L.δ = 2.0
+for step in 1:2000
+  position!(L, I, N)
+end
+plot(I, N, aspectratio=1)
+scatter!(I, N, bipartite=true)
+```
+
+Nodes repel according to their degree, strong impact of edge weight:
+
+```@example default
+I = initial(RandomInitialLayout, N)
+L = SpringElectric(1.2; gravity=0.2)
+L.degree = true
+L.δ = 2.0
+for step in 1:2000
+  position!(L, I, N)
+end
+plot(I, N, aspectratio=1)
+scatter!(I, N, bipartite=true)
+```
+
+## Food webs
 
 One convenient way to plot food webs is to prevent them from moving on the *y*
 axis, so that every species remains at its trophic level. This can be done by

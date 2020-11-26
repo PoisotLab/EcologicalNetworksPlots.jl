@@ -9,6 +9,11 @@ The fields are, in order:
   repulsion functions
 - `gravity`, the strength of attraction towards the center, set to `0.0` as a
   default
+- `δ`, a floating point constant regulating the attractive force of interaction
+  strength -- when set to its default value of 0.0, all edges have the same
+  attraction
+- `degree`, a boolean to specificy whether the nodes repel one another according
+  to their degree
 
 The various coefficients are used to decide how strongly nodes will *attract* or
 *repel* one another, as a function of their distance Δ. Specifically, the
@@ -23,12 +28,19 @@ constant of the resulting attraction force, so it will also be sensitive to
 these choices. The `FruchtermanRheingold` and `ForceAtlas2` functions will
 return a `ForceDirectedLayout` -- as this object is mutable, you can replace the
 exponents at any time.
+
+The δ parameter is particularly important for probabilistic networks, as these
+tend to have *all* their interactions set to non-zero values. As such, setting a
+value of δ=1 means that the interactions only attract as much as they are
+probable.
 """
 mutable struct ForceDirectedLayout
     move::Tuple{Bool,Bool}
     k::Tuple{Float64,Float64}
     exponents::Tuple{Float64,Float64,Float64,Float64}
     gravity::Float64
+    δ::Float64
+    degree::Bool
 end
 
 """
@@ -36,7 +48,7 @@ end
 
 TODO
 """
-ForceDirectedLayout(ka::Float64, kr::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true,true), (ka,kr), (2.0, -1.0, -1.0, 2.0), gravity)
+ForceDirectedLayout(ka::Float64, kr::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true,true), (ka,kr), (2.0, -1.0, -1.0, 2.0), gravity, 0.0, true)
 
 """
     FruchtermanRheingold(k::Float64; gravity::Float64=0.75)
@@ -54,7 +66,7 @@ In the Force Atlas 2 layout, the attraction is proportional to the distance, and
 the repulsion to the inverse of the distance. Note that kₐ in this layout is set
 to 1, so kᵣ is the *relative* repulsion.
 """
-ForceAtlas2(k::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true, true), (1.0, k), (1.0, 0.0, -1.0, 1.0), gravity)
+ForceAtlas2(k::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true, true), (1.0, k), (1.0, 0.0, -1.0, 1.0), gravity, 0.0, true)
 
 """
     SpringElectric(k::Float64; gravity::Float64=0.75)
@@ -62,7 +74,7 @@ ForceAtlas2(k::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true, true
 In the spring electric layout, attraction is proportional to distance, and
 repulsion to the inverse of the distance squared.
 """
-SpringElectric(k::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true,true), (k, k), (1.0, 1.0, -2.0, 1.0), gravity)
+SpringElectric(k::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true,true), (k, k), (1.0, 1.0, -2.0, 1.0), gravity, 0.0, true)
 
 """
 Stops the movement of a node position.
@@ -143,14 +155,18 @@ function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where
         attract!(LA, L[s1], plotcenter, (x) -> LA.gravity*fa(x))
         for (j, s2) in enumerate(species(N))
             if j > i
-                repel!(LA, L[s1], L[s2], (x) -> (degdistr[s1]+1)*(degdistr[s2]+1)*fr(x))
+                if LA.degree
+                    repel!(LA, L[s1], L[s2], (x) -> (degdistr[s1]+1)*(degdistr[s2]+1)*fr(x))
+                else
+                    repel!(LA, L[s1], L[s2], fr)
+                end
             end
         end
     end
     
     for int in interactions(N)
         # We can do Bool^δ and it returns the Bool, so that's tight
-        attract!(LA, L[int.from], L[int.to], (x) -> N[int.from, int.to]^0.2*fa(x))
+        attract!(LA, L[int.from], L[int.to], (x) -> N[int.from, int.to]^LA.δ*fa(x))
     end
 
     for s in species(N)
