@@ -20,7 +20,7 @@ initial layout is a `RandomInitialLayout`, but we can use *any* layout we see
 fit when starting.
 
 ```@example default
-N = web_of_life("M_PA_003")
+N = web_of_life("M_SD_034")
 I = initial(RandomInitialLayout, N)
 plot(I, N, aspectratio=1)
 scatter!(I, N, bipartite=true)
@@ -83,7 +83,7 @@ plot(I, N, aspectratio=1)
 scatter!(I, N, bipartite=true)
 ```
 
-Force Atlas 2 gives usually very good results, and is in particular really good
+Force Atlas 2 usually gives very good results, and is in particular really good
 at showing the modules and long paths in a network.
 
 ```@example default
@@ -95,7 +95,9 @@ plot(I, N, aspectratio=1)
 scatter!(I, N, bipartite=true)
 ```
 
-For the sake of exhaustivity, we have included the spring electric layout:
+For the sake of exhaustivity, we have included the spring electric layout. This
+can give good results too, and is worth investigating as a possible
+visualisation:
 
 ```@example default
 I = initial(RandomInitialLayout, N)
@@ -113,11 +115,11 @@ axis, so that every species remains at its trophic level. This can be done by
 changing the `move` field (as `ForceDirectedLayout` is a mutable type). Note
 that in this example, we *update* the layout after plotting, by replacing the
 fractional trophic level by the actual trophic level (and we color the nodes by
-their omnivory, which is covered more in-depth in the next section of this
+their degree, which is covered more in-depth in the next section of this
 documentation).
 
 ```@example default
-Fweb = simplify(nz_stream_foodweb()[5])
+Fweb = simplify(pajek()[:Everglades])
 I = initial(FoodwebInitialLayout, Fweb)
 L = SpringElectric(1.2; gravity=0.05)
 L.move = (true, false)
@@ -129,5 +131,5 @@ for s in species(Fweb)
   I[s].y = tl[s]
 end
 plot(I, Fweb)
-scatter!(I, Fweb, nodefill=omnivory(Fweb), c=:YlGn)
+scatter!(I, Fweb, nodefill=degree(Fweb), c=:YlGn)
 ```
