@@ -125,9 +125,10 @@ Update the position of a node
 """
 function update!(n::NodePosition)
     Δ = sqrt(n.vx^2.0+n.vy^2.0)
-    Δ = Δ == 0.0 ? 0.0001 : Δ
-    n.x += n.vx/Δ*min(Δ, 0.01)
-    n.y += n.vy/Δ*min(Δ, 0.01)
+    if !iszero(Δ)
+        n.x += n.vx/Δ*min(Δ, 0.01)
+        n.y += n.vy/Δ*min(Δ, 0.01)
+    end
     stop!(n)
 end
 
