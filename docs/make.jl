@@ -13,7 +13,7 @@ const pages = [
     ],
     "Advanced topics" => [
         "Nodes attributes" => "advanced/attributes.md",
-        "Networks subsets" => "advanced/subsets.md",
+        "Networks subsets" => "advanced/subsets.md"
     ]
     # TODO add plotting, heatmap, advanced uses
 ]
