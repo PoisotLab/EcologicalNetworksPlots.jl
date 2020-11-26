@@ -33,16 +33,16 @@ end
     initial(::Type{FoodwebInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
 
 Random disposition of nodes on trophic levels for food webs. Note that the
-*fractional* trophic level is used, but the layout can be modified afterwards
-to use the continuous levels.
+continuous trophic level is used, but the layout can be modified afterwards to
+use another measure of trophic rank.
 """
 function initial(::Type{FoodwebInitialLayout}, N::T) where {T <: EcologicalNetworks.AbstractUnipartiteNetwork}
-  level = NodePosition[]
-  tl = fractional_trophic_level(N)
-  for (i, s) in enumerate(species(N))
-    push!(level, NodePosition(rand(), float(tl[s]), 0.0, 0.0))
+  L = initial(RandomInitialLayout, N)
+  tl = trophic_level(N)
+  for s in species(N)
+    L[s].y = tl[s]
   end
-  return Dict(zip(species(N), level))
+  return L
 end
 
 """
