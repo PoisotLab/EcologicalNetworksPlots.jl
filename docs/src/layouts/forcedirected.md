@@ -89,7 +89,7 @@ at showing the modules and long paths in a network.
 ```@example default
 I = initial(RandomInitialLayout, N)
 for step in 1:2000
-  position!(ForceAtlas2(1.2; gravity=0.2), I, N)
+  position!(ForceAtlas2(0.8; gravity=0.2), I, N)
 end
 plot(I, N, aspectratio=1)
 scatter!(I, N, bipartite=true)
