@@ -1,4 +1,4 @@
-function scale_value(k::T1, from::NTuple{2,T2}, to::NTuple{2,T3}) where {T1 <: Number, T2 <: Number, T3 <: Number}
+function _scale_value(k::T1, from::NTuple{2,T2}, to::NTuple{2,T3}) where {T1 <: Number, T2 <: Number, T3 <: Number}
     m, M = from
     l, U = to
     inter = (k-m)/(M-m)
@@ -24,12 +24,12 @@ function distribute_layout!(L, X::NTuple{2,T}, Y::NTuple{2,T}) where {T <: Numbe
     range_x = (minimum(x), maximum(x))
     range_y = (minimum(y), maximum(y))
     for k in keys(L)
-        L[k].x = EcologicalNetworksPlots.scale_value(L[k].x, range_x, X)
-        L[k].y = EcologicalNetworksPlots.scale_value(L[k].y, range_y, Y)
+        L[k].x = EcologicalNetworksPlots._scale_value(L[k].x, range_x, X)
+        L[k].y = EcologicalNetworksPlots._scale_value(L[k].y, range_y, Y)
     end
 end
 
-function spread_levels!(L; ratio::Float64=1.0)
+function _spread_levels!(L; ratio::Float64=1.0)
     for s in keys(L)
         L[s].y *= ratio
     end

@@ -59,3 +59,7 @@ for s in species(Fweb)
 end
 plot(I, Fweb)
 scatter!(I, Fweb)
+
+heatmap(Unes)
+savefig(joinpath(figpath, "heatmap.png"))
+@test isfile(joinpath(figpath, "heatmap.png"))
