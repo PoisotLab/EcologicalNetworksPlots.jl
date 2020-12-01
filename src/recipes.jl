@@ -22,7 +22,11 @@ end
     legend --> false
 
     if typeof(network) <: QuantitativeNetwork
-        int_range = (minimum(filter(x -> x > 0.0, network.A)), maximum(network.A))
+        if hasfield(T, :A)
+            int_range = (minimum(filter(x -> x > 0.0, network.A)), maximum(network.A))
+        else
+            int_range = extrema(network.edges.nzval)
+        end
     end
 
     if get(plotattributes, :seriestype, :plot) == :plot

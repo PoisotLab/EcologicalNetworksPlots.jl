@@ -4,6 +4,7 @@ using EcologicalNetworks
 using RecipesBase
 using StatsBase
 using Statistics
+using SparseArrays
 
 # Various layout manipulation functions
 include(joinpath(".", "utilities.jl"))
