@@ -1,7 +1,11 @@
 @recipe function f(network::T) where {T <: AbstractEcologicalNetwork}
-   if plotattributes[:seriestype] == :heatmap
-      network.A
-   end
+    if plotattributes[:seriestype] == :heatmap
+        if hasfield(T, :A)
+            network.A
+        else
+            network.edges
+        end
+    end
 end
 
 @recipe function f(layout::Dict{K,NodePosition}, network::T;
@@ -29,7 +33,7 @@ end
                 seriestype := :line
                 linecolor --> :darkgrey
                 if typeof(network) <: QuantitativeNetwork
-                    linewidth --> EcologicalNetworksPlots.scale_value(interaction.strength, int_range, (0.5, 3.5))
+                    linewidth --> EcologicalNetworksPlots._scale_value(interaction.strength, int_range, (0.5, 3.5))
                 end
                 if typeof(network) <: ProbabilisticNetwork
                     seriesalpha --> interaction.probability
@@ -44,12 +48,12 @@ end
 
             if nodesize !== nothing
                 nsi_range = (minimum(values(nodesize)), maximum(values(nodesize)))
-                markersize := [EcologicalNetworksPlots.scale_value(nodesize[s], nsi_range, (2,8)) for s in species(network)]
+                markersize := [EcologicalNetworksPlots._scale_value(nodesize[s], nsi_range, (2,8)) for s in species(network)]
             end
 
             if nodefill !== nothing
                 nfi_range = (minimum(values(nodefill)), maximum(values(nodefill)))
-                marker_z := [EcologicalNetworksPlots.scale_value(nodefill[s], nfi_range, (0,1)) for s in species(network)]
+                marker_z := [EcologicalNetworksPlots._scale_value(nodefill[s], nfi_range, (0,1)) for s in species(network)]
             end
 
             if bipartite
