@@ -1,10 +1,6 @@
 @recipe function f(network::T) where {T <: AbstractEcologicalNetwork}
     if plotattributes[:seriestype] == :heatmap
-        if hasfield(T, :A)
-            network.A
-        else
-            network.edges
-        end
+        Array(network.edges)
     end
 end
 

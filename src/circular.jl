@@ -41,7 +41,7 @@ function position!(LA::CircularLayout, L::Dict{K,NodePosition}, N::T) where {T <
     for (i, n1) in enumerate(species(N))
         θ = L[n1].r*2π/S
         sx, sy = cos(θ), sin(θ)
-        nei = Set{last(eltype(N))}[]
+        nei = Set{eltype(species(N))}[]
         if n1 ∈ species(N; dims=2)
             nei = union(nei, N[:,n1])
         end
