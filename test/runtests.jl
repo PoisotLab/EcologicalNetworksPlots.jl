@@ -60,6 +60,8 @@ end
 plot(I, Fweb)
 scatter!(I, Fweb)
 
+@info "Heatmap"
 heatmap(Unes)
 savefig(joinpath(figpath, "heatmap.png"))
 @test isfile(joinpath(figpath, "heatmap.png"))
+

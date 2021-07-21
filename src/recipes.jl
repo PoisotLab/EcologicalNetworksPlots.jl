@@ -1,17 +1,16 @@
-@recipe function f(network::T) where {T <: AbstractEcologicalNetwork}
+@recipe function f(network::T) where {T<:AbstractEcologicalNetwork}
     if plotattributes[:seriestype] == :heatmap
-        if hasfield(T, :A)
-            network.A
-        else
-            network.edges
-        end
+        adjacency(network)
     end
 end
 
-@recipe function f(layout::Dict{K,NodePosition}, network::T;
+@recipe function f(
+    layout::Dict{K,NodePosition},
+    network::T;
     nodesize=nothing,
     nodefill=nothing,
-    bipartite=false) where {T <: AbstractEcologicalNetwork} where {K}
+    bipartite=false,
+) where {T<:AbstractEcologicalNetwork} where {K}
 
     # Node positions
     X = [layout[s].x for s in species(network)]
@@ -22,11 +21,7 @@ end
     legend --> false
 
     if typeof(network) <: QuantitativeNetwork
-        if hasfield(T, :A)
-            int_range = (minimum(filter(x -> x > 0.0, network.A)), maximum(network.A))
-        else
-            int_range = extrema(network.edges.nzval)
-        end
+        int_range = extrema(network.edges.nzval)
     end
 
     if get(plotattributes, :seriestype, :plot) == :plot
@@ -37,7 +32,9 @@ end
                 seriestype := :line
                 linecolor --> :darkgrey
                 if typeof(network) <: QuantitativeNetwork
-                    linewidth --> EcologicalNetworksPlots._scale_value(interaction.strength, int_range, (0.5, 3.5))
+                    linewidth --> EcologicalNetworksPlots._scale_value(
+                        interaction.strength, int_range, (0.5, 3.5)
+                    )
                 end
                 if typeof(network) <: ProbabilisticNetwork
                     seriesalpha --> interaction.probability
@@ -49,15 +46,20 @@ end
 
     if get(plotattributes, :seriestype, :plot) == :scatter
         @series begin
-
             if nodesize !== nothing
                 nsi_range = (minimum(values(nodesize)), maximum(values(nodesize)))
-                markersize := [EcologicalNetworksPlots._scale_value(nodesize[s], nsi_range, (2,8)) for s in species(network)]
+                markersize := [
+                    EcologicalNetworksPlots._scale_value(nodesize[s], nsi_range, (2, 8)) for
+                    s in species(network)
+                ]
             end
 
             if nodefill !== nothing
                 nfi_range = (minimum(values(nodefill)), maximum(values(nodefill)))
-                marker_z := [EcologicalNetworksPlots._scale_value(nodefill[s], nfi_range, (0,1)) for s in species(network)]
+                marker_z := [
+                    EcologicalNetworksPlots._scale_value(nodefill[s], nfi_range, (0, 1)) for
+                    s in species(network)
+                ]
             end
 
             if bipartite
@@ -74,5 +76,4 @@ end
             X, Y
         end
     end
-
 end
