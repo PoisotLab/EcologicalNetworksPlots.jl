@@ -1,6 +1,6 @@
-The EcologicalNetwork.jl package is licensed under the MIT "Expat" License:
+The EcologicalNetworkPlots.jl package is licensed under the MIT "Expat" License:
 
-> Copyright (c) 2017: The Poisot Lab - Université de Montréal
+> Copyright (c) 2021: The Poisot Lab - Université de Montréal
 >
 > Permission is hereby granted, free of charge, to any person obtaining
 > a copy of this software and associated documentation files (the
