@@ -90,8 +90,7 @@ Repel two nodes
 function repel!(LA::T, n1::NodePosition, n2::NodePosition, fr) where {T <: ForceDirectedLayout}
     δx = n1.x - n2.x
     δy = n1.y - n2.y
-    Δ = sqrt(δx^2.0+δy^2.0)
-    Δ = Δ == 0.0 ? 0.0001 : Δ
+    Δ = max(1e-4, sqrt(δx^2.0+δy^2.0))
     if LA.move[1]
         n1.vx += δx/Δ*fr(Δ)
         n2.vx -= δx/Δ*fr(Δ)
