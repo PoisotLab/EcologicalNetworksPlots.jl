@@ -5,30 +5,13 @@ Represents the position and velocity of a node during force directed layouts. Th
 fields are `x` and `y` for position, and `vx` and `vy` for their relative
 velocity.
 """
-mutable struct NodePosition
-    x::Float64
-    y::Float64
-    vx::Float64
-    vy::Float64
-    r::Number
-end
-
-function NodePosition()
-    n1, n2 = (rand(2).*2.0).-1.0
-    while ((n1^2.0)+(n2^2.0))≥1.0
-        n1, n2 = (rand(2).*2.0).-1.0
-    end
-    NodePosition(n1, n2, 0.0, 0.0, 0.0)
-end
-NodePosition(x::Float64, y::Float64) = NodePosition(x, y, 0.0, 0.0, 0.0)
-NodePosition(x::Float64, y::Float64, vx::Float64, vy::Float64) = NodePosition(x, y, vx, vy, 0.0)
-
-function NodePosition(r::T) where {T <: Number}
-    return NodePosition(0.0, 0.0, 0.0, 0.0, r)
-end
-
-function NodePosition(x::Float64, y::Float64, r::T) where {T <: Number}
-    return NodePosition(x, y, 0.0, 0.0, r)
+Base.@kwdef mutable struct NodePosition
+    x::Float64 = 0.0
+    y::Float64 = 0.0
+    vx::Float64 = 0.0
+    vy::Float64 = 0.0
+    r::Number = 0.0
+    k::Number = 0.0
 end
 
 """
