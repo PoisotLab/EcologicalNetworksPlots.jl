@@ -48,7 +48,7 @@ end
 
 TODO
 """
-ForceDirectedLayout(ka::Float64, kr::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true,true), (ka,kr), (2.0, -1.0, -1.0, 2.0), gravity, 0.0, true)
+ForceDirectedLayout(ka::Float64, kr::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true, true), (ka, kr), (2.0, -1.0, -1.0, 2.0), gravity, 0.0, true)
 
 """
     FruchtermanRheingold(k::Float64; gravity::Float64=0.75)
@@ -74,7 +74,7 @@ ForceAtlas2(k::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true, true
 In the spring electric layout, attraction is proportional to distance, and
 repulsion to the inverse of the distance squared.
 """
-SpringElectric(k::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true,true), (k, k), (1.0, 1.0, -2.0, 1.0), gravity, 0.0, true)
+SpringElectric(k::Float64; gravity::Float64=0.75) = ForceDirectedLayout((true, true), (k, k), (1.0, 1.0, -2.0, 1.0), gravity, 0.0, true)
 
 """
 Stops the movement of a node position.
@@ -87,35 +87,44 @@ end
 """
 Repel two nodes
 """
-function repel!(LA::T, n1::NodePosition, n2::NodePosition, fr) where {T <: ForceDirectedLayout}
+function repel!(LA::T, n1::NodePosition, n2::NodePosition, fr) where {T<:ForceDirectedLayout}
+    # Distance between the points
     δx = n1.x - n2.x
     δy = n1.y - n2.y
-    Δ = max(1e-4, sqrt(δx^2.0+δy^2.0))
+    Δ = max(1e-4, sqrt(δx^2.0 + δy^2.0))
+    # Effect of degree
+    degree_effect = (n1.degree+1) * (n2.degree+1)
+    # Calculate the movement
+    movement = (degree_effect * fr(Δ)) / Δ
+    movement_on_x = δx * movement
+    movement_on_y = δy * movement
+    # Apply the movement
     if LA.move[1]
-        n1.vx += δx/Δ*fr(Δ)
-        n2.vx -= δx/Δ*fr(Δ)
+        n1.vx += movement_on_x
+        n2.vx -= movement_on_x
     end
     if LA.move[2]
-        n1.vy += δy/Δ*fr(Δ)
-        n2.vy -= δy/Δ*fr(Δ)
+        n1.vy += movement_on_y
+        n2.vy -= movement_on_y
     end
 end
 
 """
 Attract two connected nodes
 """
-function attract!(LA::T, n1::NodePosition, n2::NodePosition, fa) where {T <: ForceDirectedLayout}
+function attract!(LA::T, n1::NodePosition, n2::NodePosition, w, fa) where {T<:ForceDirectedLayout}
     δx = n1.x - n2.x
     δy = n1.y - n2.y
-    Δ = sqrt(δx^2.0+δy^2.0)
+    Δ = sqrt(δx^2.0 + δy^2.0)
     if !iszero(Δ)
+        μ = (w^LA.δ * fa(Δ)) / Δ
         if LA.move[1]
-            n1.vx -= δx/Δ*fa(Δ)
-            n2.vx += δx/Δ*fa(Δ)
+            n1.vx -= δx * μ
+            n2.vx += δx * μ
         end
         if LA.move[2]
-            n1.vy -= δy/Δ*fa(Δ)
-            n2.vy += δy/Δ*fa(Δ)
+            n1.vy -= δy * μ
+            n2.vy += δy * μ
         end
     end
 end
@@ -124,10 +133,10 @@ end
 Update the position of a node
 """
 function update!(n::NodePosition)
-    Δ = sqrt(n.vx^2.0+n.vy^2.0)
+    Δ = sqrt(n.vx^2.0 + n.vy^2.0)
     if !iszero(Δ)
-        n.x += n.vx/Δ*min(Δ, 0.01)
-        n.y += n.vy/Δ*min(Δ, 0.01)
+        n.x += n.vx / Δ * min(Δ, 0.01)
+        n.y += n.vy / Δ * min(Δ, 0.01)
     end
     stop!(n)
 end
@@ -147,39 +156,32 @@ With the maximal displacement set to 0.01, we have found that k ≈ 100 gives
 acceptable results. This will depend on the complexity of the network, and its
 connectance, as well as the degree and edge strengths distributions.
 """
-function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where {T <: EcologicalNetworks.AbstractEcologicalNetwork} where {K}
-    
-    degdistr = degree(N)
+function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where {T<:EcologicalNetworks.AbstractEcologicalNetwork} where {K}
 
     # Exponents and forces - the attraction and repulsion functions are
     # (Δᵃ)×(kₐᵇ) and (Δᶜ)×(kᵣᵈ)
-    a,b,c,d = LA.exponents
+    a, b, c, d = LA.exponents
     ka, kr = LA.k
-    fa(x) = (x^a)*(ka^b)
-    fr(x) = (x^c)*(kr^d)
-    
-    plotcenter = NodePosition(0.0, 0.0, 0.0, 0.0)
+    fa(x) = (x^a) * (ka^b)
+    fr(x) = (x^c) * (kr^d)
+
+    plotcenter = NodePosition(x=0.0, y=0.0)
 
     for (i, s1) in enumerate(species(N))
-        attract!(LA, L[s1], plotcenter, (x) -> LA.gravity*fa(x))
+        attract!(LA, L[s1], plotcenter, LA.gravity, fa)
         for (j, s2) in enumerate(species(N))
             if j > i
-                if LA.degree
-                    repel!(LA, L[s1], L[s2], (x) -> (degdistr[s1]+1)*(degdistr[s2]+1)*fr(x))
-                else
-                    repel!(LA, L[s1], L[s2], fr)
-                end
+                repel!(LA, L[s1], L[s2], fr)
             end
         end
     end
-    
-    for int in interactions(N)
-        # We can do Bool^δ and it returns the Bool, so that's tight
-        attract!(LA, L[int.from], L[int.to], (x) -> N[int.from, int.to]^LA.δ*fa(x))
+
+    for int in N
+        attract!(LA, L[int.from], L[int.to], N[int.from, int.to], fa)
     end
 
     for s in species(N)
         update!(L[s])
     end
-    
+
 end

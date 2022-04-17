@@ -11,7 +11,7 @@ Base.@kwdef mutable struct NodePosition
     vx::Float64 = 0.0
     vy::Float64 = 0.0
     r::Number = 0.0
-    k::Number = 0.0
+    degree::Number = 0.0
 end
 
 """
