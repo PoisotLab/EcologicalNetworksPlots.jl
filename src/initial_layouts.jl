@@ -23,9 +23,10 @@ Random disposition of nodes on two levels for bipartite networks.
 """
 function initial(::Type{BipartiteInitialLayout}, N::T) where {T<:EcologicalNetworks.AbstractBipartiteNetwork}
     level = NodePosition[]
-    for (i, s) in enumerate(species(N))
+    k = degree(N)
+    for s in species(N)
         this_level = s ∈ species(N; dims=1) ? 1.0 : 0.0
-        push!(level, NodePosition(rand(), this_level, 0.0, 0.0))
+        push!(level, NodePosition(x=rand(), y=this_level, degree=k[s]))
     end
     return Dict(zip(species(N), level))
 end
@@ -54,11 +55,12 @@ circle-based layouts.
 """
 function initial(::Type{CircularInitialLayout}, N::T) where {T<:EcologicalNetworks.AbstractEcologicalNetwork}
     level = NodePosition[]
+    k = degree(N)
     n = richness(N)
     for (i, s) in enumerate(species(N))
         θ = 2i * π / n
         x, y = cos(θ), sin(θ)
-        push!(level, NodePosition(x, y, i))
+        push!(level, NodePosition(x=x, y=y, r=i, degree=k[s]))
     end
     return Dict(zip(species(N), level))
 end
