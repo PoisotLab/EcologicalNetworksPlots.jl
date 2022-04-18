@@ -1,4 +1,16 @@
 """
+    _force(dist, coeff, expdist, expcoeff)
+
+Return the force for two objects at a distance d with a movemement coefficient c
+and exponents a and b, so that 𝒻 = dᵃ×cᵇ. This works for both attraction and
+repulsion, and the different families of FD layouts are determined by the values
+of a and b.
+"""
+function _force(dist, coeff, expdist, expcoeff)
+    return (dist^expdist)*(coeff^expcoeff)
+end
+
+"""
     ForceDirectedLayout
 
 The fields are, in order:
@@ -87,15 +99,17 @@ end
 """
 Repel two nodes
 """
-function repel!(LA::T, n1::NodePosition, n2::NodePosition, fr) where {T<:ForceDirectedLayout}
+function repel!(LA::T, n1::NodePosition, n2::NodePosition) where {T<:ForceDirectedLayout}
     # Distance between the points
     δx = n1.x - n2.x
     δy = n1.y - n2.y
     Δ = max(1e-4, sqrt(δx^2.0 + δy^2.0))
     # Effect of degree
     degree_effect = (n1.degree+1) * (n2.degree+1)
+    # Raw movement
+    𝒻 = EcologicalNetworksPlots._force(Δ, LA.k[2], LA.exponents[3:4]...)
     # Calculate the movement
-    movement = (degree_effect * fr(Δ)) / Δ
+    movement = (degree_effect * 𝒻) / Δ
     movement_on_x = δx * movement
     movement_on_y = δy * movement
     # Apply the movement
@@ -112,12 +126,14 @@ end
 """
 Attract two connected nodes
 """
-function attract!(LA::T, n1::NodePosition, n2::NodePosition, w, fa) where {T<:ForceDirectedLayout}
+function attract!(LA::T, n1::NodePosition, n2::NodePosition, w) where {T<:ForceDirectedLayout}
     δx = n1.x - n2.x
     δy = n1.y - n2.y
     Δ = sqrt(δx^2.0 + δy^2.0)
+    # Raw movement
+    𝒻 = EcologicalNetworksPlots._force(Δ, LA.k[1], LA.exponents[1:2]...)
     if !iszero(Δ)
-        μ = (w^LA.δ * fa(Δ)) / Δ
+        μ = (w^LA.δ * 𝒻) / Δ
         if LA.move[1]
             n1.vx -= δx * μ
             n2.vx += δx * μ
@@ -158,26 +174,20 @@ connectance, as well as the degree and edge strengths distributions.
 """
 function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where {T<:EcologicalNetworks.AbstractEcologicalNetwork} where {K}
 
-    # Exponents and forces - the attraction and repulsion functions are
-    # (Δᵃ)×(kₐᵇ) and (Δᶜ)×(kᵣᵈ)
-    a, b, c, d = LA.exponents
-    ka, kr = LA.k
-    fa(x) = (x^a) * (ka^b)
-    fr(x) = (x^c) * (kr^d)
-
+    # Center point
     plotcenter = NodePosition(x=0.0, y=0.0)
 
     for (i, s1) in enumerate(species(N))
-        attract!(LA, L[s1], plotcenter, LA.gravity, fa)
+        attract!(LA, L[s1], plotcenter, LA.gravity)
         for (j, s2) in enumerate(species(N))
             if j > i
-                repel!(LA, L[s1], L[s2], fr)
+                repel!(LA, L[s1], L[s2])
             end
         end
     end
 
     for int in N
-        attract!(LA, L[int.from], L[int.to], N[int.from, int.to], fa)
+        attract!(LA, L[int.from], L[int.to], N[int.from, int.to])
     end
 
     for s in species(N)
