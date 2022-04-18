@@ -15,7 +15,7 @@ Opt = ForceAtlas2(1.0; gravity=1.0)
 Opt.δ = 0.2
 Opt.degree = true
 
-steps = 5000
+steps = 50
 p = ProgressMeter.Progress(steps; showspeed=true)
 for step in 1:steps
     position!(Opt, I, N)
