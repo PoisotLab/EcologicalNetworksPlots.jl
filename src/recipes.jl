@@ -10,6 +10,11 @@ end
     nodesize=nothing,
     nodefill=nothing,
     bipartite=false,
+    nodesizerange=(2.0,8.0),
+    linewidthrange=(0.5,3.5),
+    linewidthtransform=identity,
+    nodesizetransform=identity,
+    nodefilltransform=identity,
 ) where {T<:AbstractEcologicalNetwork} where {K}
 
     # Node positions
@@ -32,9 +37,9 @@ end
                 seriestype := :line
                 linecolor --> :darkgrey
                 if typeof(network) <: QuantitativeNetwork
-                    linewidth --> EcologicalNetworksPlots._scale_value(
-                        interaction.strength, int_range, (0.5, 3.5)
-                    )
+                    linewidth --> linewidthtransform(EcologicalNetworksPlots._scale_value(
+                        interaction.strength, int_range, linewidthrange
+                    ))
                 end
                 if typeof(network) <: ProbabilisticNetwork
                     seriesalpha --> interaction.probability
@@ -49,17 +54,13 @@ end
             if nodesize !== nothing
                 nsi_range = (minimum(values(nodesize)), maximum(values(nodesize)))
                 markersize := [
-                    EcologicalNetworksPlots._scale_value(nodesize[s], nsi_range, (2, 8)) for
+                    nodesizetransform(EcologicalNetworksPlots._scale_value(nodesize[s], nsi_range, nodesizerange)) for
                     s in species(network)
                 ]
             end
 
             if nodefill !== nothing
-                nfi_range = (minimum(values(nodefill)), maximum(values(nodefill)))
-                marker_z := [
-                    EcologicalNetworksPlots._scale_value(nodefill[s], nfi_range, (0, 1)) for
-                    s in species(network)
-                ]
+                marker_z := [nodefilltransform(nodefill[s]) for s in species(network)]
             end
 
             if bipartite
