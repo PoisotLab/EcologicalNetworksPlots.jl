@@ -5,6 +5,8 @@ using RecipesBase
 using StatsBase
 using Statistics
 using SparseArrays
+using Distances
+using LinearAlgebra
 
 # Various layout manipulation functions
 include(joinpath(".", "utilities.jl"))

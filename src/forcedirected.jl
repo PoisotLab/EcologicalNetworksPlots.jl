@@ -6,7 +6,7 @@ and exponents a and b, so that 𝒻 = dᵃ×cᵇ. This works for both attraction
 repulsion, and the different families of FD layouts are determined by the values
 of a and b.
 """
-function _force(dist, coeff, expdist, expcoeff)
+function _force(dist::Float64, coeff::Float64, expdist::Float64, expcoeff::Float64)::Float64
     return (dist^expdist)*(coeff^expcoeff)
 end
 
@@ -105,7 +105,7 @@ function repel!(LA::T, n1::NodePosition, n2::NodePosition) where {T<:ForceDirect
     δy = n1.y - n2.y
     Δ = max(1e-4, sqrt(δx^2.0 + δy^2.0))
     # Effect of degree
-    degree_effect = (n1.degree+1) * (n2.degree+1)
+    degree_effect = LA.degree ? max(n1.degree, 1.0) * (max(n2.degree, 1.0)) : 1.0
     # Raw movement
     𝒻 = EcologicalNetworksPlots._force(Δ, LA.k[2], LA.exponents[3:4]...)
     # Calculate the movement
@@ -151,8 +151,8 @@ Update the position of a node
 function update!(n::NodePosition)
     Δ = sqrt(n.vx^2.0 + n.vy^2.0)
     if !iszero(Δ)
-        n.x += n.vx / Δ * min(Δ, 0.01)
-        n.y += n.vy / Δ * min(Δ, 0.01)
+        n.x += n.vx / Δ * min(Δ, 0.05)
+        n.y += n.vy / Δ * min(Δ, 0.05)
     end
     stop!(n)
 end
@@ -178,7 +178,9 @@ function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where
     plotcenter = NodePosition(x=0.0, y=0.0)
 
     for (i, s1) in enumerate(species(N))
-        attract!(LA, L[s1], plotcenter, LA.gravity)
+        if LA.gravity > 0.0
+            attract!(LA, L[s1], plotcenter, LA.gravity)
+        end
         for (j, s2) in enumerate(species(N))
             if j > i
                 repel!(LA, L[s1], L[s2])
@@ -186,7 +188,7 @@ function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where
         end
     end
 
-    for int in N
+    for int in interactions(N)
         attract!(LA, L[int.from], L[int.to], N[int.from, int.to])
     end
 

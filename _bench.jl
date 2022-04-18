@@ -11,10 +11,11 @@ I = initial(RandomInitialLayout, N)
 
 # All position! routines work the same, so the specific choice of algorithm
 # should have no serious impact
-Opt = FruchtermanRheingold(0.2; gravity=0.1)
-Opt.δ = 0.5
+Opt = ForceAtlas2(1.0; gravity=1.0)
+Opt.δ = 0.2
+Opt.degree = true
 
-steps = 10_000
+steps = 5000
 p = ProgressMeter.Progress(steps; showspeed=true)
 for step in 1:steps
     position!(Opt, I, N)
@@ -22,4 +23,4 @@ for step in 1:steps
 end
 
 plot(I, N, aspectratio=1, dpi=400)
-scatter!(I, N, bipartite=true, frame=:origin)
+scatter!(I, N, bipartite=true)
