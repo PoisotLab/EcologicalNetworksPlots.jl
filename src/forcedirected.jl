@@ -126,14 +126,14 @@ end
 """
 Attract two connected nodes
 """
-function attract!(LA::T, n1::NodePosition, n2::NodePosition, w) where {T<:ForceDirectedLayout}
+function attract!(LA::T, n1::NodePosition, n2::NodePosition, w; gravity=false) where {T<:ForceDirectedLayout}
     δx = n1.x - n2.x
     δy = n1.y - n2.y
     Δ = sqrt(δx^2.0 + δy^2.0)
     # Raw movement
     𝒻 = EcologicalNetworksPlots._force(Δ, LA.k[1], LA.exponents[1:2]...)
     if !iszero(Δ)
-        μ = (w^LA.δ * 𝒻) / Δ
+        μ = gravity ? ((LA.gravity * 𝒻) / Δ) : ((w^LA.δ * 𝒻) / Δ)
         if LA.move[1]
             n1.vx -= δx * μ
             n2.vx += δx * μ
@@ -179,7 +179,7 @@ function position!(LA::ForceDirectedLayout, L::Dict{K,NodePosition}, N::T) where
 
     for (i, s1) in enumerate(species(N))
         if LA.gravity > 0.0
-            attract!(LA, L[s1], plotcenter, LA.gravity)
+            attract!(LA, L[s1], plotcenter, LA.gravity; gravity=true)
         end
         for (j, s2) in enumerate(species(N))
             if j > i
