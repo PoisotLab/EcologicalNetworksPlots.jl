@@ -11,7 +11,7 @@ I = initial(RandomInitialLayout, N)
 
 # All position! routines work the same, so the specific choice of algorithm
 # should have no serious impact
-Opt = SpringElectric(1.0; gravity=0.12)
+Opt = FruchtermanRheingold(1.0; gravity=0.1)
 Opt.δ = 0.2
 
 steps = 10000
@@ -21,5 +21,5 @@ for step in 1:steps
     next!(p)
 end
 
-plot(I, N, aspectratio=1, dpi=400, linewidthrange=(0.2, 6.0))
-scatter!(I, N, bipartite=true, nodefill=degree(N), c=:viridis, cbar=true, nodesize=degree(N), frame=:box, nodesizerange=(4.0, 9.0))
+plot(I, N, aspectratio=1, dpi=400, linewidthrange=(1.0, 6.0))
+scatter!(I, N, bipartite=true, nodefill=degree(N), c=:Blues, cbar=true, nodesize=degree(N), nodesizerange=(4.0, 9.0))
