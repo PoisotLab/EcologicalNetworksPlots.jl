@@ -12,9 +12,7 @@ end
     bipartite=false,
     nodesizerange=(2.0,8.0),
     linewidthrange=(0.5,3.5),
-    linewidthtransform=identity,
-    nodesizetransform=identity,
-    nodefilltransform=identity,
+    bipartiteshapes = (:dtriangle, :utriangle)
 ) where {T<:AbstractEcologicalNetwork} where {K}
 
     # Node positions
@@ -37,9 +35,9 @@ end
                 seriestype := :line
                 linecolor --> :darkgrey
                 if typeof(network) <: QuantitativeNetwork
-                    linewidth --> linewidthtransform(EcologicalNetworksPlots._scale_value(
+                    linewidth --> EcologicalNetworksPlots._scale_value(
                         interaction.strength, int_range, linewidthrange
-                    ))
+                    )
                 end
                 if typeof(network) <: ProbabilisticNetwork
                     seriesalpha --> interaction.probability
@@ -54,19 +52,19 @@ end
             if nodesize !== nothing
                 nsi_range = (minimum(values(nodesize)), maximum(values(nodesize)))
                 markersize := [
-                    nodesizetransform(EcologicalNetworksPlots._scale_value(nodesize[s], nsi_range, nodesizerange)) for
+                    EcologicalNetworksPlots._scale_value(nodesize[s], nsi_range, nodesizerange) for
                     s in species(network)
                 ]
             end
 
             if nodefill !== nothing
-                marker_z := [nodefilltransform(nodefill[s]) for s in species(network)]
+                marker_z := [nodefill[s] for s in species(network)]
             end
 
             if bipartite
                 m_shape = Symbol[]
                 for (i, s) in enumerate(species(network))
-                    this_mshape = s ∈ species(network; dims=1) ? :dtriangle : :circle
+                    this_mshape = s ∈ species(network; dims=1) ? bipartiteshapes[1] : bipartiteshapes[2]
                     push!(m_shape, this_mshape)
                 end
                 marker := m_shape

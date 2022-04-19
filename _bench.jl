@@ -22,4 +22,4 @@ for step in 1:steps
 end
 
 plot(I, N, aspectratio=1, dpi=400, linewidthrange=(1.0, 6.0))
-scatter!(I, N, bipartite=true, nodefill=degree(N), c=:Blues, cbar=true, nodesize=degree(N), nodesizerange=(4.0, 9.0))
+scatter!(I, N, bipartite=true, nodefill=degree(N), c=:Blues, cbar=true, nodesize=degree(N), nodesizerange=(4.0, 9.0), bipartiteshapes=(:square, :diamond))
