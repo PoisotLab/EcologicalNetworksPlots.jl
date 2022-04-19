@@ -68,6 +68,6 @@ function position!(
     for n in species(N)
         i = 2 * R[Θ[n]] * π / S
         x, y = LA.radius * cos(i), LA.radius * sin(i)
-        L[n] = NodePosition(x, y)
+        L[n] = NodePosition(x=x, y=y)
     end
 end

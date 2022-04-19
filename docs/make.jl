@@ -1,4 +1,4 @@
-push!(LOAD_PATH,"../src/")
+push!(LOAD_PATH, "../src/")
 
 using Documenter, EcologicalNetworksPlots
 
@@ -19,12 +19,12 @@ const pages = [
 ]
 
 makedocs(
-    sitename = "EcologicalNetworksPlots",
-    authors = "Timothée Poisot",
-    pages = pages
-    )
+    sitename="EcologicalNetworksPlots",
+    authors="Timothée Poisot",
+    pages=pages
+)
 
 deploydocs(
-    repo = "github.com/EcoJulia/EcologicalNetworksPlots.jl.git",
-    push_preview = true
+    repo="github.com/EcoJulia/EcologicalNetworksPlots.jl.git",
+    push_preview=true
 )

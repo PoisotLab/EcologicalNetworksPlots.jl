@@ -28,6 +28,21 @@ plot(I, Unes, aspectratio=1)
 scatter!(I, Unes, bipartite=true, nodesize=degree(Unes))
 ```
 
+Note that you can change the range of sizes for the nodes using the
+`nodesizerange` argument (a tuple), as well as the symbol for bipartite networks
+using the `bipartiteshapes` (a tuple too):
+
+```@example default
+Unes = web_of_life("M_SD_033")
+I = initial(BipartiteInitialLayout, Unes)
+position!(NestedBipartiteLayout(0.4), I, Unes)
+plot(I, Unes, aspectratio=1)
+scatter!(I, Unes, bipartite=true, nodesize=degree(Unes), nodesizerange=(1.0, 7.0), bipartiteshapes=(:square, :circle))
+```
+
+For quantitative networks, the `plot` method has a `linewidthrange` argument
+that is, similarly, a tuple with the lowest and highest widths allowed.
+
 ## Node annotations
 
 ```@example default

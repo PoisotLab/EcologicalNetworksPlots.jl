@@ -16,12 +16,12 @@ Unes = web_of_life("M_SD_033")
 
 @info "Bipartite -- nested"
 for al in [true, false], re in [true, false]
-    I = initial(BipartiteInitialLayout, Unes)
-    position!(NestedBipartiteLayout(al, re, 0.4), I, Unes)
-    plot(I, Unes, aspectratio=1)
-    scatter!(I, Unes, bipartite=true)
-    savefig(joinpath(figpath, "bip_nest_al_$(al)_re_$(re).png"))
-    @test isfile(joinpath(figpath, "bip_nest_al_$(al)_re_$(re).png"))
+  I = initial(BipartiteInitialLayout, Unes)
+  position!(NestedBipartiteLayout(al, re, 0.4), I, Unes)
+  plot(I, Unes, aspectratio=1)
+  scatter!(I, Unes, bipartite=true)
+  savefig(joinpath(figpath, "bip_nest_al_$(al)_re_$(re).png"))
+  @test isfile(joinpath(figpath, "bip_nest_al_$(al)_re_$(re).png"))
 end
 
 @info "Bipartite -- circular"
